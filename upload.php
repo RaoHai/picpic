@@ -9,13 +9,14 @@
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
  */
-
+require_once('index.php');
+session_start();
 error_reporting(E_ALL | E_STRICT);
 
 class UploadHandler
 {
     private $options;
-    
+    public $filepatchout;
     function __construct($options=null) {
         $this->options = array(
             'script_url' => $_SERVER['PHP_SELF'],
@@ -53,7 +54,6 @@ class UploadHandler
             $this->options = array_replace_recursive($this->options, $options);
         }
     }
-    
     private function get_file_object($file_name) {
         $file_path = $this->options['upload_dir'].$file_name;
         if (is_file($file_path) && $file_name[0] !== '.') {
@@ -170,8 +170,13 @@ class UploadHandler
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $file->name = trim(basename(stripslashes($name)), ".\x00..\x20");
-		$log=$file->name;
+       // $file->name = trim(basename(stripslashes($name)), ".\x00..\x20");
+		$encoded_filename = urlencode($name);
+		$encoded_filename = str_replace("+", "%20", $encoded_filename);
+		$time = date("YmdHis");
+		$file->name = $time.	trim(basename(stripslashes($encoded_filename)), ".\x00..\x20");
+		$this->filepathout=$file->name;
+		$log=$this->filepathout;
 		$fp = fopen('log.txt', 'a');
 		fwrite($fp, $log);
 		fclose($fp);
@@ -280,6 +285,7 @@ class UploadHandler
             header('Content-type: text/plain');
         }
         echo json_encode($info);
+		return $info;
     }
     
     public function delete() {
@@ -292,6 +298,8 @@ class UploadHandler
                 $file = $options['upload_dir'].$file_name;
                 if (is_file($file)) {
                     unlink($file);
+					$this->filepathout=$file_name;
+					
                 }
             }
         }
@@ -314,9 +322,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         $upload_handler->post();
+		//InsertNewImage($GroupId,$author,$img_url)
+		$imgGroupView->InsertNewImage($_SESSION['CurrentGroupId'],$_SESSION["user"],$upload_handler->filepathout);
         break;
     case 'DELETE':
         $upload_handler->delete();
+		$log=$upload_handler->filepathout;
+		$fp = fopen('log.txt', 'a');
+		fwrite($fp, $log);
+		fclose($fp);
+		$imgGroupView->RemoveImg($upload_handler->filepathout);
         break;
     case 'OPTIONS':
         break;

@@ -1,14 +1,5 @@
 @charset 'UTF-8';
-/*
- * jQuery File Upload Plugin CSS Example 5.0
- * https://github.com/blueimp/jQuery-File-Upload
- *
- * Copyright 2010, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * http://creativecommons.org/licenses/MIT/
- */
+
 
 body {
   font-family: Verdana, Arial, sans-serif;
@@ -19,4 +10,82 @@ body {
 
 a {
   color: #222;
+  text-decoration : none;
+}
+a:active {
+outline : none;
+}
+html, body {
+background : #000 url(backgroup.jpg);
+padding : 0;
+margin : 0 0 1px;
+background-attachment : scroll;
+}
+#main{
+background : #FFF;
+display: block;
+position: absolute;
+left: 50%;
+top: 40%;
+margin-left: -200px;
+margin-top: -180px;
+width: 320px;
+height: 340px;
+border : 2px solid #cfdede;
+}
+#header
+{
+	display: block;
+	position: absolute;
+	left: 15px;
+	top: -4px;
+	width:160px;
+	height:40px;
+	background : url(header.png) no-repeat;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	color:white;
+}
+
+#inner
+{
+	display:block;
+	position: absolute;
+	top: 40px;
+	left:10%;
+	width:80%;
+}
+#main input
+{
+color: #666;
+font-size: 22px;
+width: 100%;
+
+}
+#main label
+{
+	font-size:15px;
+}
+.button {
+
+display: block;
+width: 100%;
+height: 45px;
+font-size: 20px;
+text-align: center;
+line-height: 48px;
+outline: none;
+}
+.button a {
+color : white;
+display : block;
+width : 100%;
+height : 100%;
+background : transparent url(button.png) no-repeat left top;
+outline : none;
+text-indent : inherit;
+}
+.button a:hover {
+background-position : 0% -45px;
 }

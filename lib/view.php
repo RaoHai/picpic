@@ -19,11 +19,6 @@ class PublicView{
 <META HTTP-EQUIV="pragma” CONTENT="cache” />
 <META HTTP-EQUIV="Cache-Control” CONTENT="public” />
 <META HTTP-EQUIV="expires” CONTENT="Thu, 1 Sep 2011 20:00:00 GMT” />
-	<link href="fileuploader.css" rel="stylesheet" type="text/css">	
-<style>
-            body { padding: 20px 10px; color:#333; font: normal 12px sans-serif; }
-            #devcontainer { margin: 0 auto; width: 940px; }
-        </style>
   <script src="jquery-1.6.1.min.js" type="text/javascript"></script>
 		</head><body>
 EOD;
@@ -60,28 +55,7 @@ class ImgGroupView extends PublicView
 	{
 		$this->model->FindAllGroups($id);
 		$ImgGroupCount=0;
-		$result=<<<EOD
-		<script type='text/javascript'>
-		function ImgGroupChange(val){
-			if (window.XMLHttpRequest)
-			  {// code for IE7+, Firefox, Chrome, Opera, Safari
-			  xmlhttp=new XMLHttpRequest();
-			  }
-			else
-			  {// code for IE6, IE5
-			  xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
-			  }
-			
-			  xmlhttp.open("GET","Variable.php?CurrentGroupId="+val,true);
-				xmlhttp.send();
-		}
-		function UploadImgByButton(val)
-		{
-			alert(val);
-		}
-		</script>
-EOD;
-		$result.="<select name='imagegroup id='imagegroup' onchange='ImgGroupChange(this.options[this.options.selectedIndex].value)'>";
+		$result="<select name='imagegroup id='imagegroup' onchange='ImgGroupChange(this.options[this.options.selectedIndex].value)'>";
 		while($list=$this->model->getdata()) 
 		{
 			$ImgGroupCount++;

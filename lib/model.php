@@ -16,7 +16,7 @@ class modelbase
 	function InsertNewImage($GroupId,$author,$img_url)
 	{
 		$time = date("Y-m-d H:i:s");
-		//$this->dao->fetch("INSERT INTO image(GroupID,img_url,author,Date) VALUES('".$GroupId."','".$img_url."','".$author."','".$time."') ");
+		$this->dao->fetch("INSERT INTO image(GroupID,img_url,author,Date) VALUES('".$GroupId."','".$img_url."','".$author."','".$time."') ");
 		$log= "INSERT INTO image(GroupID,img_url,author,Date) VALUES('".$GroupId."','".$img_url."','".$author."','".$time."') ";
 		$fp = fopen('log.txt', 'a');
 		fwrite($fp, $log);
@@ -24,7 +24,7 @@ class modelbase
 	}
 	function RemoveImg($Img,$author)
 	{
-		//$this->dao->fetch("DELETE  FROM image where img_url='".$Img."' and  author='".$author."'");
+		$this->dao->fetch("DELETE  FROM image where img_url='".$Img."' and  author='".$author."'");
 		$log= "DELETE  FROM image where img_url='".$Img."' and  author='".$author."'";
 		$fp = fopen('log.txt', 'a');
 		fwrite($fp, $log);

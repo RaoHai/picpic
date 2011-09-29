@@ -14,22 +14,49 @@
 <html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
-<title>jQuery File Upload Example</title>
+<title>图片上传</title>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" id="theme">
 <link rel="stylesheet" href="script/jquery.fileupload-ui.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script type='text/javascript'>
+		function ImgGroupChange(val){
+			if (window.XMLHttpRequest)
+			  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {// code for IE6, IE5
+			  xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
+			  }
+			
+			  xmlhttp.open("GET","Variable.php?CurrentGroupId="+val,true);
+				xmlhttp.send();
+		}
+		function UploadImgByButton(val)
+		{
+			alert(val);
+		}
+		</script>
+		
+
 <div id="fileupload">
+
+	<form action='admin.php?action=new' method='post' >
+	<script language="javascript" src="admin.php"></script>
+			<input type='text' name='name' id='name' />
+			<input type='submit' name='ok' id='ok' class="fileinput-button" value='新建' />
+		</form>
     <form action="upload.php" method="POST" enctype="multipart/form-data">
         <div class="fileupload-buttonbar">
             <label class="fileinput-button">
-                <span>Add files...</span>
+                <span>添加图片...</span>
                 <input type="file" name="files[]" multiple>
             </label>
-            <button type="submit" class="start">Start upload</button>
-            <button type="reset" class="cancel">Cancel upload</button>
-            <button type="button" class="delete">Delete files</button>
+            <button type="submit" class="start">开始上传</button>
+            <button type="reset" class="cancel">取消上传</button>
+            <button type="button" class="delete">删除图片</button>
         </div>
     </form>
     <div class="fileupload-content">
