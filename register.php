@@ -40,20 +40,24 @@
 	else
 	$response="9";
 	
-	if($_POST['in1']!=NULL)
+	if($_POST['username']!=NULL || $_POST['word']!=NULL || $_POST['word1']!=NULL || $_POST['mail']!=NULL ||$_POST['validate']!=NULL )
+	{
+//		echo $_POST['word'].$_POST['word1'];
 		if($imgView->GetUser($_POST['username']))
 		echo   "<a href='register.html'>用户名存在</a>";
 			else
-			if($_POST['word']==$_POST['word1'] && $_POST['word']!='')
+			{
+			if($_POST['word']==$_POST['word1'] )
 			{	
-			$imgView->Registeruser($_POST['username'],$_POST['word']);
+			$imgView->Registeruser($_POST['username'],$_POST['word'],$_POST['mail']);
 			echo "<a href='login.php'>注册成功</a>";		
 			}
 				else
 				{
-				$_POST['word']==$_POST['word1']='';
-				echo  "<a href='register.html>密码不相同</a>"; 
+				echo  "<a href='register.html'>密码不相同</a>"; 
 				}
+			}
+	}
 	else
 	echo $response;
 ?>

@@ -174,7 +174,7 @@ class UploadHandler
 		$encoded_filename = urlencode($name);
 		$encoded_filename = str_replace("+", "%20", $encoded_filename);
 		$time = date("YmdHis");
-		$file->name = $time.	trim(basename(stripslashes($encoded_filename)), ".\x00..\x20");
+		$file->name = $time.trim(basename(stripslashes($encoded_filename)), ".\x00..\x20");
 		$this->filepathout=$file->name;
 		$log=$this->filepathout;
 		$fp = fopen('log.txt', 'a');

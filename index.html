@@ -70,11 +70,11 @@
         <td class="name">${name}</td>
         <td class="size">${sizef}</td>
         {{if error}}
-            <td class="error" colspan="2">Error:
-                {{if error === 'maxFileSize'}}File is too big
-                {{else error === 'minFileSize'}}File is too small
-                {{else error === 'acceptFileTypes'}}Filetype not allowed
-                {{else error === 'maxNumberOfFiles'}}Max number of files exceeded
+            <td class="error" colspan="2">错误:
+                {{if error === 'maxFileSize'}}图片太大
+                {{else error === 'minFileSize'}}图片太小
+                {{else error === 'acceptFileTypes'}}图片类型错误
+                {{else error === 'maxNumberOfFiles'}}一次上传太多了
                 {{else}}${error}
                 {{/if}}
             </td>

@@ -47,9 +47,9 @@ class ImgView extends PublicView
 		}
 		return false;
 	}
-	function Registeruser($username,$password1,$email)
+	function Registeruser($username,$password1)
 	{
-		$this->model->Registeruser($username,$password1,$email);
+		$this->model->Registeruser($username,$password1);
 		if(!$list-$this->model->getdata())
 			return false;
 		return true;
