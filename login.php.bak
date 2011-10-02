@@ -1,7 +1,7 @@
 <?php
 	require_once('index.php');
 	session_start();
-	$password=$_POST['word'];	
+	$password=$_POST['password'];	
 	$use=$imgView->GetUser($_POST['username']);
 	$key=$use['salt'];
 	$pattern = '1234567890abcdefghijklmnopqrstuvwxyz
@@ -17,5 +17,5 @@
 	if($hased!=$hased1)
 		echo "<a href='login.html'>密码错误";
 		else
-		echo $use['UserName'].'<br>'.$password;	
+		echo $use['UserName'].'<br>'.$_POST["word"];	
 ?>
