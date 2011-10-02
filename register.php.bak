@@ -1,5 +1,5 @@
 <?php
-	require_once('handler.php');
+	require_once('index.php');
 	session_start();
 	$username=$_GET['username'];
 	$password=$_GET["word"];
@@ -59,7 +59,7 @@
 			{
 			if($_POST['word']==$_POST['word1'] )
 			{	
-			$imgView->Registeruser($_POST['username'],$hased,$_POST['mail'],$key);
+			$imgView->Registeruser($_POST['username'],$hased,$_POST['mail']);
 			echo "<a href='login.php'>注册成功</a>";		
 			}
 				else

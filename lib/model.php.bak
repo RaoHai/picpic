@@ -32,9 +32,9 @@ class Imgs extends modelbase{
 	{
 		$this->dao->fetch("SELECT * FROM user");
 	}
-	function Registeruser($username,$password1,$email)
+	function Registeruser($username,$password1,$email,$key)
 	{
-		$sql="INSERT INTO user (UserName, password,email) VALUES ('".$username."', '".$password1."','".$email.")";
+		$sql="INSERT INTO user (UserName, password,email,salt) VALUES ('".$username."', '".$password1."','".$email."','".$key.")";
 		$this->dao->fetch($sql);
 	}
 }
