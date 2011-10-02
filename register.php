@@ -1,5 +1,5 @@
 <?php
-	require_once('index.php');
+	require_once('handler.php');
 	session_start();
 	$username=$_GET['username'];
 	$password=$_GET["word"];

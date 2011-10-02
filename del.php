@@ -1,5 +1,5 @@
 <?php
-	include_once('index.php');
+	require_once('handler.php');
 	session_start();
 	
 	$ImgId= $_GET['n'];

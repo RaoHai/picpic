@@ -138,13 +138,13 @@
 <title></title>
 </head>
 <body>
-	<div id="main" style="height: 450px;">
+	<div id="main" style="height: 470px;">
 	<div id="header">注册</div>
 	<div id="inner">
 	<form action='register.php' method='post' name='register' > 
-         	user:<font color='#FF0000'>*</font><span id='usermsg'></span> 
+         	用户名:<font color='#FF0000'>*</font><span id='usermsg'></span> 
          	  	<input type='text' onblur='check()' name='username'/>                
-            password:<font color='#FF0000'>*</font><span id='password'></span>
+            密码:<font color='#FF0000'>*</font><span id='password'></span>
                  <input type='password' onblur='checkpassword(this.value)' name='word'/>                 
             确认密码：<font color='#FF0000'>*</font><span id='password1'></span> 
                  <input type='password' onblur='checkpassword1(this.value)' name='word1'/>                 
@@ -153,8 +153,9 @@
 			<a class="validate"> 验证码：  <font color='#FF0000'>*</font><span id='validate1'></span>
 				<input name="validate" type="text" onblur='checkvalidate()'/>
 				    <span><img src="yanzheng.php" alt="看不清，换一张" name="iimg" align="absmiddle" id="iimg" style="cursor:pointer;" onclick="sendcode();" ></span></a>
+			<p style="color:grey">填错信息了？<a href=# onClick="document.register.reset();"/>点这里重置</a></p>
 			<p class='button'><a  href=#  onclick= "checkon();" > 注册 </a> </p>
-			<p class='button'><a  href=#  onclick= "document.register.reset();"> 重置 </a> </p>
+			
 	</form>
 	 </div>
 	 </div>

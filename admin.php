@@ -1,6 +1,6 @@
 <?php
 	/*Upload.php*/
-	require_once('index.php');
+	require_once('handler.php');
 	session_start();
 	if($_GET["action"]=='new' && $_POST['name']!="")
 	{

@@ -1,5 +1,5 @@
 <?php
-	require_once('index.php');
+	require_once('handler.php');
 	session_start();
 	$use=$imgView->GetUser($_POST['username']);
 	if(!$use)
