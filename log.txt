@@ -1,0 +1,1 @@
+20111003053150cover.pngINSERT INTO image(GroupID,img_url,author,Date) VALUES('','20111003053150cover.png','','') 20111003053150cover.png20111003053215cover.pngINSERT INTO image(GroupID,img_url,author,Date) VALUES('','20111003053215cover.png','','') 20111003053215cover.png
