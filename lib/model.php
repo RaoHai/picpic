@@ -37,6 +37,11 @@ class Imgs extends modelbase{
 		$sql="INSERT INTO user (UserName, password,email,salt) VALUES ('".$username."', '".$password1."','".$email."','".$key."')";
 		$this->dao->fetch($sql);
 	}
+	function registerprofile($usernameid)
+	{
+		$sql="INSERT INTO profile (UserId) VALUES ('".$usernameid."')";
+		$this->dao->fetch($sql);
+	}
 }
 class ImgGroup extends modelbase{
 	function ImgGroup(& $dao)

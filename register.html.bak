@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css">
+<script language="javascript" type="text/javascript">
+  var xmlHttp=null;	
+  var c1;
+  var c2;
+  var c3;
+  var c4;
+  var c5;
+	function check(){	
+	c1=1
+	str=document.forms['register'].elements['username'].value;
+	if (str.length==0)
+	 { 
+	 document.getElementById("usermsg").innerHTML="123";
+	 return
+	 }
+	xmlHttp=new XMLHttpRequest();
+	xmlHttp.onreadystatechange=stateChanged;	
+	xmlHttp.open("get","register.php?username="+str,true);
+	xmlHttp.send(null)	
+	}
+	
+	function checkpassword(str){
+	c2=1
+	if (str.length==0)
+	 { 
+	 document.getElementById("password").innerHTML=""
+	 return
+	 }
+	xmlHttp=new XMLHttpRequest()	
+	xmlHttp.onreadystatechange=stateChanged;
+	xmlHttp.open("get","register.php?word="+str,true);
+	xmlHttp.send(null)
+	}
+	
+	function checkpassword1(str){
+	c3=1
+//	str=document.forms['register'].elements['word1'].value;
+	str1=document.forms['register'].elements['word'].value;
+	if (str.length==0)
+	 { 
+	 document.getElementById("password1").innerHTML=""
+	 return
+	 }
+	xmlHttp=new XMLHttpRequest()
+	xmlHttp.onreadystatechange=stateChanged;
+	xmlHttp.open("get","register.php?word1="+str+"&word="+str1,true);
+	xmlHttp.send(null)
+	}
+	
+	function checkemail(){
+	c4=1;
+	str=document.forms['register'].elements['mail'].value;
+	if (str.length==0)
+	 { 
+	 document.getElementById("email").innerHTML=""
+	 return
+	 }
+	xmlHttp=new XMLHttpRequest()
+	xmlHttp.onreadystatechange=stateChanged;
+	xmlHttp.open("get","register.php?mail="+str,true);
+	xmlHttp.send(null)	
+	}
+	
+	function checkvalidate(){
+	c5=1;
+	str=document.forms['register'].elements['validate'].value;
+	if (str.length==0)
+	 { 
+	 document.getElementById("validate").innerHTML=""
+	 return
+	 }
+	xmlHttp=new XMLHttpRequest()
+	xmlHttp.onreadystatechange=stateChanged;
+	xmlHttp.open("get","register.php?validate="+str,true);
+	xmlHttp.send(null)
+	}
+	
+	function stateChanged() 
+	{ 
+	if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+	 { 
+	 if(xmlHttp.responseText=='0')
+		 document.getElementById("usermsg").innerHTML="<font color='#666666'>用户名存在</font>" 
+     if(xmlHttp.responseText=='1')
+	 {
+		 document.getElementById("usermsg").innerHTML="<font color='#666666'>用户名可以使用</font>"
+		 c1=0
+		 }
+		 
+	 if(xmlHttp.responseText=='2')
+		 document.getElementById("password").innerHTML="<font color='#666666'>请输入长度大于6小于20的密码</font>" 
+     if(xmlHttp.responseText=='3')
+	 {
+		 document.getElementById("password").innerHTML="<font color='#666666'></font>"
+		 c2=0
+		 }
+		 
+	 if(xmlHttp.responseText=='4')
+		 document.getElementById("password1").innerHTML="<font color='#666666'>密码不相同</font>" 
+     if(xmlHttp.responseText=='5')
+	 {
+		 document.getElementById("password1").innerHTML=""
+		 c3=0
+		 }
+	 if(xmlHttp.responseText=='6')
+	 {
+		 document.getElementById("email").innerHTML=""
+		 c4=0
+		 }
+	 if(xmlHttp.responseText=='7')
+		 document.getElementById("email").innerHTML="<font color='#666666'>请输入正确的email</font>"
+	 if(xmlHttp.responseText=='8')
+		document.getElementById("validate1").innerHTML="<font color='#666666'>请输入正确的</font>"
+	 if(xmlHttp.responseText=='9')
+	 {
+		 document.getElementById("validate1").innerHTML=""	
+		 c5=0
+		 }
+	} 
+	}
+	
+	function sendcode(){
+	var iimg=document.getElementById("iimg");
+	iimg.src="yanzheng.php"; //产生0-100000之间的随机整数
+	}
+	
+	function checkon(){
+	if(c1+c2+c3+c4+c5==0)
+		return document.register.submit();
+	}
+
+</script> 
+<title></title>
+</head>
+<body>
+	<div id="main" style="height: 470px;">
+	<div id="header">注册</div>
+	<div id="inner">
+	<form action='register.php' method='post' name='register' > 
+         	用户名:<font color='#FF0000'>*</font><span id='usermsg'></span> 
+         	  	<input type='text' onblur='check()' name='username'/>                
+            密码:<font color='#FF0000'>*</font><span id='password'></span>
+                 <input type='password' onblur='checkpassword(this.value)' name='word'/>                 
+            确认密码：<font color='#FF0000'>*</font><span id='password1'></span> 
+                 <input type='password' onblur='checkpassword1(this.value)' name='word1'/>                 
+			email:<font color='#FF0000'>*</font><span id='email'></span>
+         	  	<input type='text' onblur='checkemail()' name='mail'/>                
+			<a class="validate"> 验证码：  <font color='#FF0000'>*</font><span id='validate1'></span>
+				<input name="validate" type="text" onblur='checkvalidate()'/>
+				    <span><img src="yanzheng.php" alt="看不清，换一张" name="iimg" align="absmiddle" id="iimg" style="cursor:pointer;" onclick="sendcode();" ></span></a>
+			<p style="color:grey">填错信息了？<a href=# onClick="document.register.reset();"/>点这里重置</a></p>
+			<p class='button'><a  href=#  onclick= "checkon();" > 注册 </a> </p>
+			
+	</form>
+	 </div>
+	 </div>
+</body>
+</html>

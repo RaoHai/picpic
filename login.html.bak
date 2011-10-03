@@ -18,7 +18,9 @@
 	xmlHttp=new XMLHttpRequest();
 	xmlHttp.onreadystatechange=stateChanged;	
 	xmlHttp.open("get","login.php?username="+str+"&password="+str1,true);
-	xmlHttp.send(null)		
+	xmlHttp.send(null)	
+	if(xmlHttp.responseText=='2')
+	return document.login.submit();
 	}
 	
 	function stateChanged() 
@@ -30,7 +32,7 @@
      if(xmlHttp.responseText=='1')
 		 document.getElementById("password").innerHTML="<font color='#666666'>密码错误</font>"		 
      if(xmlHttp.responseText=='2')
-		 return document.login.submit();
+		 document.getElementById("password").innerHTML='pass'
 	 } 
 	}
 </script> 

@@ -60,6 +60,8 @@
 			if($_POST['word']==$_POST['word1'] )
 			{	
 			$imgView->Registeruser($_POST['username'],$hased,$_POST['mail'],$key);
+			$use=$imgView->GetUser($_POST['username']);
+			$imgView->registerprofile($use['UserID']);
 			echo "<a href='login.php'>注册成功</a>";		
 			}
 				else

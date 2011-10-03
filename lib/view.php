@@ -54,6 +54,13 @@ class ImgView extends PublicView
 			return false;
 		return true;
 	}
+	function registerprofile($usernameid)
+	{
+		$this->model->registerprofile($usernameid);
+		if(!$list-$this->model->getdata())
+			return false;
+		return true;
+	}
 }
 
 

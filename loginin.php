@@ -11,14 +11,11 @@ $click1=$_GET['click1'];
 	<input type=submit name='click1' value='用户'/>  
 </form>
 </div>
-
 EOD;
 if($click1=='用户')
-	echo<<<EOD
-<div>
-<form name="user" action="loginin.php" method="post">
-	<span>添加图片...</span>
-	<p>昵称：<input type="text" name='userid' ></p>
-	<p>生日：<input type="text" name='birthday'></p>
-EOD;
+	$show="
+	<div>
+	<form name='user' action='loginin.php' method='post'>
+	<p>昵称：<input type='text' name='userid' ></p>
+	<p>生日：<input type='text' name='birthday'></p>"
 ?>
