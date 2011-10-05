@@ -42,6 +42,15 @@ class Imgs extends modelbase{
 		$sql="INSERT INTO profile (UserId) VALUES ('".$usernameid."')";
 		$this->dao->fetch($sql);
 	}
+	function getprofile($userid)
+	{
+		$this->dao->fetch("SELECT * FROM profile");
+	}
+	function updateprofile($userid,$birthday)
+	{
+		$sql="UPDATE profile SET (Birthday = '11' ) WHERE (UserId = '20') ";
+		$this->dao->fetch($sql);
+	}
 }
 class ImgGroup extends modelbase{
 	function ImgGroup(& $dao)
