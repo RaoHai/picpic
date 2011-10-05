@@ -18,9 +18,7 @@
 	xmlHttp=new XMLHttpRequest();
 	xmlHttp.onreadystatechange=stateChanged;	
 	xmlHttp.open("get","login.php?username="+str+"&password="+str1,true);
-	xmlHttp.send(null)	
-	if(xmlHttp.responseText=='2')
-	return document.login.submit();
+	xmlHttp.send(null)		
 	}
 	
 	function stateChanged() 
@@ -32,8 +30,13 @@
      if(xmlHttp.responseText=='1')
 		 document.getElementById("password").innerHTML="<font color='#666666'>密码错误</font>"		 
      if(xmlHttp.responseText=='2')
-		 document.getElementById("password").innerHTML='pass'
+		 return document.login.submit();
 	 } 
+	}
+	
+	function username()
+	{
+	return document.forms['login'].elements['username'].value;
 	}
 </script> 
 <title></title>  
@@ -42,7 +45,7 @@
 <div id="main">
 <div id="header">登录</div>
 	<div id="inner">
-		<form name="login" action="loginin.php" method="post" >
+		<form name="login" action="loginin.php?username=user1" method="post" >
 		  <div>
 		  <p>
 		  <label>

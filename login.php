@@ -19,4 +19,5 @@
 		echo "1";
 		else
 		echo "2";
+	$_SESSION['user']=$_GET['username'];
 ?>

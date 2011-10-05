@@ -48,7 +48,7 @@ class Imgs extends modelbase{
 	}
 	function updateprofile($userid,$birthday)
 	{
-		$sql="UPDATE profile SET (Birthday = '11' ) WHERE (UserId = '20') ";
+		$sql="UPDATE profile SET Birthday = '".$birthday."'  WHERE UserId = '".$userid."' ";
 		$this->dao->fetch($sql);
 	}
 }
