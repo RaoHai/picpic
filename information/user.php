@@ -1,5 +1,5 @@
 <?php
-require_once('D:\xampp\htdocs\picpic\handler.php');
+require_once("../handler.php");
 session_start();
 $_SESSION=$_POST['username'];
 $birthday=$_POST['birthday'];
