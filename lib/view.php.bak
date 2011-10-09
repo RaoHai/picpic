@@ -52,7 +52,7 @@ class ImgView extends PublicView
 		$this->model->getprofile($userid);		
 		while($list=$this->model->getdata()) 
 		{
-			if($userid==$list["UserID"])
+			if($userid==$list["UserId"])
 			return $list;			
 		}
 		return false;
@@ -77,6 +77,13 @@ class ImgView extends PublicView
 		if(!$list=$this->model->getdata())
 			return false;
 		return true;
+	}
+	function showinformation()
+	{
+		echo<<<EOD
+		<p><a href=# onClick="top.location.href='user.php'"/>用户</a></p>
+		<p><a href=# onClick="top.location.href='other.php'"/>其他</a></p>
+EOD;
 	}
 }
 

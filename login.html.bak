@@ -45,7 +45,7 @@
 <div id="main">
 <div id="header">登录</div>
 	<div id="inner">
-		<form name="login" action="loginin.php?username=user1" method="post" >
+		<form name="login" action="D:/xampp/htdocs/picpic/information/user.php" method="post" >
 		  <div>
 		  <p>
 		  <label>

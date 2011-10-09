@@ -1,0 +1,4 @@
+<?php
+require_once('D:\xampp\htdocs\picpic\handler.php');
+$imgView->showinformation();
+?>

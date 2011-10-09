@@ -78,6 +78,13 @@ class ImgView extends PublicView
 			return false;
 		return true;
 	}
+	function showinformation()
+	{
+		echo<<<EOD
+		<p><a href=# onClick="top.location.href='user.php'"/>用户</a>
+		   <a href=# onClick="top.location.href='other.php'"/>其他</a></p>
+EOD;
+	}
 }
 
 
