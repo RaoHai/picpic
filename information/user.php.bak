@@ -10,8 +10,8 @@ $imgView->showinformation();
 	$show="
 	<div>
 	<form name='user' action='loginin.php' method='post'>
-	<p>ÉúÈÕ£º<input type='text' name='birthday'/></p>
-	<p><input type=submit name='click2' value='È·¶¨'/></p>
+	<p>ç”Ÿæ—¥ï¼š<input type='text' name='birthday'/></p>
+	<p><input type=submit name='click2' value='ç¡®å®š'/></p>
 	</form>
 	</div>";
 if($birthday!=NULL)
