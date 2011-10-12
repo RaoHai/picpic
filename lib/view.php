@@ -5,7 +5,6 @@ class PublicView{
 	var $output;
 	function PublicView()
 	{
-	
 	}
 	function GetHead()
 	{
@@ -28,6 +27,25 @@ class PublicView{
   <script src="jquery-1.6.1.min.js" type="text/javascript"></script>
 		</head><body>
 EOD;
+	}
+	function LoadTemplate($TemplateName)
+	{
+			$fp = fopen ("template/".$TemplateName.".rhtml","r");
+			$content = fread ($fp,filesize ("template/".$TemplateName.".rhtml"));
+			$this->output=$content;
+	}
+	function Instance($values)
+	{
+		$content=$this->output;
+		  foreach ($values as $index => $value) 
+		  {
+			$content = str_replace ("{@".$index."}", $value,$content);
+		  }
+		 $this->output=$content;
+	}
+	function RenderTemplate()
+	{
+		echo $this->output;
 	}
 }
 class ImgView extends PublicView
