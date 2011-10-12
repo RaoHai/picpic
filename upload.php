@@ -9,7 +9,7 @@
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
  */
-require_once('index.php');
+require_once('handler.php');
 session_start();
 error_reporting(E_ALL | E_STRICT);
 
@@ -45,8 +45,8 @@ class UploadHandler
                 'thumbnail' => array(
                     'upload_dir' => dirname(__FILE__).'/thumbnails/',
                     'upload_url' => dirname($_SERVER['PHP_SELF']).'/thumbnails/',
-                    'max_width' => 80,
-                    'max_height' => 80
+                    'max_width' =>130,
+                    'max_height' => 130
                 )
             )
         );

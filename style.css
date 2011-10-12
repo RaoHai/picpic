@@ -33,6 +33,16 @@ width: 320px;
 height: 340px;
 border : 2px solid #cfdede;
 }
+#index
+{
+	display: block;
+	background : #FFF;
+	width: 960px;
+	height:500px;
+	margin: 0 auto;
+	border : 2px solid #cfdede;
+	
+}
 #header
 {
 	display: block;

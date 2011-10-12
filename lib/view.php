@@ -20,6 +20,7 @@ class PublicView{
 <META HTTP-EQUIV="Cache-Control” CONTENT="public” />
 <META HTTP-EQUIV="expires” CONTENT="Thu, 1 Sep 2011 20:00:00 GMT” />
 	<link href="fileuploader.css" rel="stylesheet" type="text/css">	
+	<link rel="stylesheet" href="style.css">
 <style>
             body { padding: 20px 10px; color:#333; font: normal 12px sans-serif; }
             #devcontainer { margin: 0 auto; width: 940px; }
@@ -53,6 +54,15 @@ class ImgView extends PublicView
 		if(!$list-$this->model->getdata())
 			return false;
 		return true;
+	}
+	function ShowPopImg()
+	{
+		echo "PopImg";
+		$this->model->GetPopImg();
+		while($list=$this->model->getdata())
+		{
+			echo "<img src='thumbnails/".$list["img_url"]."'>";
+		}
 	}
 }
 
@@ -97,11 +107,13 @@ class ImgGroupView extends PublicView
 		</script>
 EOD;
 		$result.="<select name='imagegroup id='imagegroup' onchange='ImgGroupChange(this.options[this.options.selectedIndex].value)'>";
+		$_SESSION['CurrentGroupId']=0;
 		while($list=$this->model->getdata()) 
 		{
 			$ImgGroupCount++;
 			/* TODO: ImgGroup Read&Show*/
 			$result.="<option value='".$list['GroupID']."' >".$list["GroupName"]."</option>";
+			$_SESSION['CurrentGroupId']=$list['GroupID'];
 		}
 		$result.="</select>";
 		return $result;

@@ -14,7 +14,8 @@
 	else
 	{
 		$result='document.write("';
-		$result.= $imgGroupView->CheckImgGroup('2').'");';
+		$result.= $imgGroupView->CheckImgGroup($_SESSION['user']).'");';
 		echo $result;
+		
 	}
 ?>

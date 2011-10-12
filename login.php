@@ -15,7 +15,13 @@
 	echo "<a href='login.html'>用户名不存在";
 	else
 	if($hased!=$hased1)
+	{
 		echo "<a href='login.html'>密码错误";
-		else
-		echo $use['UserName'].'<br>'.$password;	
+	}
+	else
+	{
+		$_SESSION["user"]=$use["UserID"];
+		echo "hello";
+	}
+		 
 ?>
