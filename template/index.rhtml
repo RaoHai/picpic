@@ -9,12 +9,48 @@ index 模板页
 <link rel="stylesheet" href="indexstyle.css">
 <script src="jquery-1.6.1.min.js"></script>
 <script src="popup.js"></script>
+<script language="javascript" type="text/javascript">
+  var xmlHttp=null;	
+  var c1;  
+  function checkon(){
+	str=document.forms['login'].elements['username'].value;
+	str1=document.forms['login'].elements['password'].value;
+	if (str.length==0)
+	 { 
+	 document.getElementById("password").innerHTML="";
+	 return
+	 }
+	xmlHttp=new XMLHttpRequest();
+	xmlHttp.onreadystatechange=stateChanged;	
+	xmlHttp.open("get","login.php?username="+str+"&password="+str1,true);
+	xmlHttp.send(null)		
+	}
+
+	function stateChanged() 
+	{ 
+	if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+	 { 		 
+	 if(xmlHttp.responseText=='0')
+		 document.getElementById("password").innerHTML="<font color='#666666'>用户名不存在</font>" 
+     if(xmlHttp.responseText=='1')
+		 document.getElementById("password").innerHTML="<font color='#666666'>密码错误</font>"		 
+     if(xmlHttp.responseText=='2')
+		 return document.login.submit();
+	 } 
+	}
+
+	function username()
+	{
+	return document.forms['login'].elements['username'].value;
+	}
+</script> 
 </head>
 <body>
 <div id="signin_dialog">
 <!--
 登录页面
 -->
+	
 	<div id="main">
 		<div id="header1">登录</div>
 			<div id="inner">
@@ -32,10 +68,12 @@ index 模板页
 					</label>
 					</p>
 				  </div>
-				 <p style="color:grey">还没有帐号？点<a href=# onClick='top.location.href="register.html"'>这里</a>注册</p>
+				 <p id="password" style="color:grey">还没有帐号？点<a href=# onClick='top.location.href="register.html"'>这里</a>注册</p>
 				 </br>
-				 <p class='button'><a  href=#  onclick= "document.login.submit();  "> 登录 </a> </p>
+				 <p class='button'><a  href=# onclick= "checkon()"> 登录 </a> </p>
+
 				  <input type="submit" style="display:none;"/>
+				  
 				</form>
 			</div>
 		</div>
