@@ -34,6 +34,22 @@ EOD;
 			$content = fread ($fp,filesize ("template/".$TemplateName.".rhtml"));
 			$this->output=$content;
 	}
+	function GetLogin()
+	{
+		if($_SESSION["user"])
+		{
+			return <<<EOD
+				您已经登陆！<a href="/logout.php">[退出]</a>
+EOD;
+		}
+		else
+		{
+			return <<<EOD
+				<a href="login" onclick='showWin(); return false;'>[登录]</a>
+			<a href="reg">[注册]</a>
+EOD;
+		}
+	}
 	function Instance($values)
 	{
 		$content=$this->output;

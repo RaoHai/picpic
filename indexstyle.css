@@ -145,6 +145,7 @@ list-style: none;
 
 .hd-link
 {
+	height:20px;
 	margin-top:5px;
 	line-height:10px;
 	float:right;
