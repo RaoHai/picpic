@@ -1,11 +1,10 @@
 <?php
 require_once('..\handler.php');
 session_start();
-$_SESSION=$_POST['username'];
-$birthday=$_POST['birthday'];
+//$_SESSION=$_POST['username'];
+$birthday=$_POST['birthyear'].'/'.$_POST['birthmonth'].'/'.$_POST['birthyear'];
 $user=$imgView->GetUser($_SESSION['user']);
 $profile=$imgView->getprofile($user['UserID']);
-$click1=$_GET['click1'];
 $imgView->showinformation();
 	$show='
 	<script language="javascript" type="text/javascript">
@@ -28,20 +27,19 @@ $imgView->showinformation();
 		else
 		{
 	
-			if(!document.getElementById("birthday").Options[29])
+			if(document.getElementById("birthday").length==29)
 			document.getElementById("birthday").add(dayoption1,29);
-			if(!document.getElementById("birthday").Options[30])
+			if(document.getElementById("birthday").length==30)
 			document.getElementById("birthday").add(dayoption2,30);
-			if(!document.getElementById("birthday").Options[31])
+			if(document.getElementById("birthday").length==31)
 			document.getElementById("birthday").add(dayoption3,31);
 			if(document.forms["user"].elements["birthmonth"].value=="4" || document.forms["user"].elements["birthmonth"].value=="6" || document.forms["user"].elements["birthmonth"].value=="9" || document.forms["user"].elements["birthmonth"].value=="11" )
 			document.getElementById("birthday").remove(31);
-			document.getElementById("password").innerHTML="111";
 		}
 	}
 	</script>
 	<div>
-	<form name="user" action="user.php" method="post" enctype="multipart/form-data" autocomplete="off" target="frame_profile">
+	<form name="user" action="user.php" method="post">
 	<select name="birthyear" id="birthyear" tabindex="1" onchange="showbirthday();">
 		<option value="">年</option>
 		<option value="2011">2011</option>
@@ -171,11 +169,13 @@ $imgView->showinformation();
 		<option value="30">30</option>
 		<option value="31">31</option>
 		</select>
-		<span id="password"></span> 
 	<p><input type=submit name="click2" value="确定"/></p>
 	</form>
 	</div>';
 if($birthday!=NULL)
+{
 	$imgView->updateprofile($profile['UserId'],$birthday);
+	
+	}
 echo $show;
 ?>

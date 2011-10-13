@@ -1,12 +1,37 @@
 <?php
 require_once('..\handler.php');
 session_start();
-$_SESSION=$_POST['username'];
-$birthday=$_POST['birthday'];
+$year=date("Y");
+$month=date("m");
+$day=date("d");
+$birthday=$_POST['birthyear'].'/'.$_POST['birthmonth'].'/'.$_POST['birthday'];
+$address=$_POST['resideprovince'];
 $user=$imgView->GetUser($_SESSION['user']);
 $profile=$imgView->getprofile($user['UserID']);
-$click1=$_GET['click1'];
-$imgView->showinformation();
+
+$imgView->showinformation();	
+	
+	if (($_FILES["file"]["type"] == "image/gif")||($_FILES["file"]["type"] == "image/jpeg")||($_FILES["file"]["type"] == "image/pjpeg"))
+	  {
+	  if ($_FILES["file"]["error"] > 0)
+		{
+		echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
+		}
+	  else
+		{
+		if (file_exists("userphoto/".$user['UserID'].$user['UserName'].".jpg"))
+			unlink("userphoto/".$user['UserID'].$user['UserName'].".jpg");
+		move_uploaded_file($_FILES["file"]["tmp_name"],"userphoto/".$user['UserID'].$user['UserName'].".jpg");
+		}
+		echo "图片上传成功";
+	  }
+
+	$userphoto=$user['UserID'].$user['UserName'].".jpg";
+	if (!file_exists("userphoto/".$userphoto))
+	{
+		$userphoto="123.jpg";
+	}
+	
 	$show='
 	<script language="javascript" type="text/javascript">
 	function showbirthday()
@@ -36,12 +61,16 @@ $imgView->showinformation();
 			document.getElementById("birthday").add(dayoption3,31);
 			if(document.forms["user"].elements["birthmonth"].value=="4" || document.forms["user"].elements["birthmonth"].value=="6" || document.forms["user"].elements["birthmonth"].value=="9" || document.forms["user"].elements["birthmonth"].value=="11" )
 			document.getElementById("birthday").remove(31);
-			document.getElementById("password").innerHTML="111";
 		}
 	}
 	</script>
 	<div>
-	<form name="user" action="user.php" method="post" enctype="multipart/form-data" autocomplete="off" target="frame_profile">
+	<img src="../information/userphoto/'.$userphoto.'" alt="user"/>
+	</div>
+	<div>
+	<form name="user" action="user.php" method="post" enctype="multipart/form-data">
+	<label for="file">Filename:</label>
+	<input type="file" name="file" id="file" />
 	<select name="birthyear" id="birthyear" tabindex="1" onchange="showbirthday();">
 		<option value="">年</option>
 		<option value="2011">2011</option>
@@ -171,11 +200,49 @@ $imgView->showinformation();
 		<option value="30">30</option>
 		<option value="31">31</option>
 		</select>
-		<span id="password"></span> 
+		<select name="resideprovince" id="resideprovince" tabindex="1">
+		<option value="">-省份-</option>
+		<option did="1" value="北京市">北京市</option>
+		<option did="2" value="天津市">天津市</option>
+		<option did="3" value="河北省">河北省</option>
+		<option did="4" value="山西省">山西省</option>
+		<option did="5" value="内蒙古自治区">内蒙古自治区</option>
+		<option did="6" value="辽宁省">辽宁省</option>
+		<option did="7" value="吉林省">吉林省</option>
+		<option did="8" value="黑龙江省">黑龙江省</option>
+		<option did="9" value="上海市">上海市</option>
+		<option did="10" value="江苏省">江苏省</option>
+		<option did="11" value="浙江省">浙江省</option>
+		<option did="12" value="安徽省">安徽省</option>
+		<option did="13" value="福建省">福建省</option>
+		<option did="14" value="江西省">江西省</option>
+		<option did="15" value="山东省">山东省</option>		
+		<option did="16" value="河南省">河南省</option>
+		<option did="17" value="湖北省">湖北省</option>
+		<option did="18" value="湖南省">湖南省</option>
+		<option did="19" value="广东省">广东省</option>
+		<option did="20" value="广西壮族自治区">广西壮族自治区</option>
+		<option did="21" value="海南省">海南省</option>
+		<option did="22" value="重庆市">重庆市</option>
+		<option did="23" value="四川省">四川省</option>
+		<option did="24" value="贵州省">贵州省</option>
+		<option did="25" value="云南省">云南省</option>
+		<option did="26" value="西藏自治区">西藏自治区</option>
+		<option did="27" value="陕西省">陕西省</option>
+		<option did="28" value="甘肃省">甘肃省</option>
+		<option did="29" value="青海省">青海省</option>
+		<option did="30" value="宁夏回族自治区">宁夏回族自治区</option>
+		<option did="31" value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+		<option did="32" value="台湾省">台湾省</option>
+		<option did="33" value="香港特别行政区">香港特别行政区</option>
+		<option did="34" value="澳门特别行政区">澳门特别行政区</option>
+		<option did="35" value="海外">海外</option>
+		<option did="36" value="其他">其他</option>
+		</select>
 	<p><input type=submit name="click2" value="确定"/></p>
 	</form>
 	</div>';
-if($birthday!=NULL)
-	$imgView->updateprofile($profile['UserId'],$birthday);
-echo $show;
+	echo $show;
+	
+	$imgView->updateprofile($profile['UserId'],$birthday,$address);
 ?>

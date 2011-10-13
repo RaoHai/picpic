@@ -71,9 +71,9 @@ class ImgView extends PublicView
 			return false;
 		return true;
 	}
-	function updateprofile($userid,$birthday)
+	function updateprofile($userid,$birthday,$address)
 	{
-		$this->model->updateprofile($userid,$birthday);
+		$this->model->updateprofile($userid,$birthday,$address);
 		if(!$list=$this->model->getdata())
 			return false;
 		return true;
