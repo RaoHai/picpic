@@ -46,7 +46,7 @@ EOD;
 		{
 			return <<<EOD
 				<a href="login" onclick='showWin(); return false;'>[登录]</a>
-			<a href="reg">[注册]</a>
+			<a href="register.html">[注册]</a>
 EOD;
 		}
 	}
