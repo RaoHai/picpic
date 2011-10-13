@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
+<link rel="stylesheet" href="style.css">
 <script language="javascript" type="text/javascript">
   var xmlHttp=null;	
   var c1;  
@@ -19,6 +20,7 @@
 	xmlHttp.open("get","login.php?username="+str+"&password="+str1,true);
 	xmlHttp.send(null)		
 	}
+	
 	function stateChanged() 
 	{ 
 	if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
@@ -31,6 +33,7 @@
 		 return document.login.submit();
 	 } 
 	}
+	
 	function username()
 	{
 	return document.forms['login'].elements['username'].value;

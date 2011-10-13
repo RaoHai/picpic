@@ -77,7 +77,16 @@ class ImgView extends PublicView
 		while($list=$this->model->getdata()) 
 		{
 			if($user==$list["UserName"])
-//			return false;
+				return $list;			
+		}
+		return false;
+	}
+	function getprofile($userid)
+	{
+		$this->model->getprofile($userid);		
+		while($list=$this->model->getdata()) 
+		{
+			if($userid==$list["UserId"])
 			return $list;			
 		}
 		return false;
@@ -85,7 +94,14 @@ class ImgView extends PublicView
 	function Registeruser($username,$password1,$email,$key)
 	{
 		$this->model->Registeruser($username,$password1,$email,$key);
-		if(!$list-$this->model->getdata())
+		if(!$list=$this->model->getdata())
+			return false;
+		return true;
+	}
+	function registerprofile($usernameid)
+	{
+		$this->model->registerprofile($usernameid);
+		if(!$list=$this->model->getdata())
 			return false;
 		return true;
 	}
@@ -97,6 +113,20 @@ class ImgView extends PublicView
 		{
 			echo "<img src='thumbnails/".$list["img_url"]."'>";
 		}
+	}
+	function updateprofile($userid,$birthday)
+	{
+		$this->model->updateprofile($userid,$birthday);
+		if(!$list=$this->model->getdata())
+			return false;
+		return true;
+	}
+	function showinformation()
+	{
+		echo<<<EOD
+		<p><a href=# onClick="top.location.href='user.php'"/>用户</a>
+		   <a href=# onClick="top.location.href='other.php'"/>其他</a></p>
+EOD;
 	}
 }
 

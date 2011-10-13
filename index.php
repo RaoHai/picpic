@@ -13,4 +13,6 @@
 	$imgView->Instance($values);
 	$imgView->RenderTemplate();
 	echo $_GET["id"];
+	
+	
 ?>
