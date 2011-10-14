@@ -28,7 +28,7 @@
      if(xmlHttp.responseText=='1')
 		 document.getElementById("password").innerHTML="<font color='#666666'>密码错误</font>"		 
      if(xmlHttp.responseText=='2')
-		 return document.login.submit();
+		location.reload();
 	 } 
 	}
 	function username()
