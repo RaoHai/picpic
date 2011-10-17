@@ -24,7 +24,10 @@
   direction: ltr;
   cursor: pointer;
 }
-
+.fileupload-group
+{
+	float:right;
+}
 .fileinput-button {
   overflow: hidden;
 }

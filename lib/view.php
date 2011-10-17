@@ -144,7 +144,10 @@ class ImgGroupView extends PublicView
 		$this->model->InsertNewImage($GroupId,$author,$img_url);
 		
 	}
-	
+	function RemoveImg($img_url)
+	{
+		$this->model->RemoveImg($img_url);
+	}
 	function CheckImgGroup($id)
 	{
 		$this->model->FindAllGroups($id);

@@ -24,7 +24,7 @@
 		else
 		{
 			echo "2";
-			$_SESSION['user']=$_GET['username'];
+			$_SESSION['user']=$use['UserID'];
 		}
 	}
 

@@ -31,6 +31,10 @@ div
 {
 			display: block;
 }
+.inframe
+{
+	frameborder: none;
+}
 #index
 {
 	background : #FFF;
@@ -147,7 +151,7 @@ list-style: none;
 	line-height:30px;
 	font-size: 14px;
 }
-
+.
 .hd-link
 {
 	height:20px;

@@ -23,6 +23,14 @@
 			fwrite($fp, $log);
 			fclose($fp);
 		}
+		function RemoveImg($img_url)
+		{
+			$this->dao->fetch("DELETE FROM image where img_url='".$img_url."' and author=".$_SESSION['user']);
+			$log= "DELETE FROM image where img_url='".$img_url."' and author=".$_SESSION['user'];
+			$fp = fopen('log.txt', 'a');
+			fwrite($fp, $log);
+			fclose($fp);
+		}
 	}
 class Imgs extends modelbase{
 	function Imgs(& $dao)

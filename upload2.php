@@ -9,19 +9,19 @@
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
  */
-require_once('../handler.php');
+require_once('handler.php');
 session_start();
 error_reporting(E_ALL | E_STRICT);
 
 class UploadHandler
 {
     private $options;
-    
+    public $filepatchout;
     function __construct($options=null) {
         $this->options = array(
             'script_url' => $_SERVER['PHP_SELF'],
-            'upload_dir' => dirname(__FILE__).'/files/',
-            'upload_url' => dirname($_SERVER['PHP_SELF']).'/files/',
+            'upload_dir' => 'files/',
+            'upload_url' => 'files/',
             'param_name' => 'files',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
@@ -43,10 +43,10 @@ class UploadHandler
                 ),
                 */
                 'thumbnail' => array(
-                    'upload_dir' => dirname(__FILE__).'/thumbnails/',
-                    'upload_url' => dirname($_SERVER['PHP_SELF']).'/thumbnails/',
-                    'max_width' => 80,
-                    'max_height' => 80
+                    'upload_dir' => 'thumbnails/',
+                    'upload_url' => 'thumbnails/',
+                    'max_width' =>130,
+                    'max_height' => 130
                 )
             )
         );
@@ -54,7 +54,6 @@ class UploadHandler
             $this->options = array_replace_recursive($this->options, $options);
         }
     }
-    
     private function get_file_object($file_name) {
         $file_path = $this->options['upload_dir'].$file_name;
         if (is_file($file_path) && $file_name[0] !== '.') {
@@ -171,7 +170,8 @@ class UploadHandler
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $encoded_filename = urlencode($name);
+       // $file->name = trim(basename(stripslashes($name)), ".\x00..\x20");
+		$encoded_filename = urlencode($name);
 		$encoded_filename = str_replace("+", "%20", $encoded_filename);
 		$time = date("YmdHis");
 		$file->name = trim(basename(stripslashes($time.$encoded_filename)), ".\x00..\x20");
@@ -285,20 +285,23 @@ class UploadHandler
             header('Content-type: text/plain');
         }
         echo json_encode($info);
+		return $info;
     }
     
     public function delete() {
         $file_name = isset($_REQUEST['file']) ?
             basename(stripslashes($_REQUEST['file'])) : null;
         $file_path = $this->options['upload_dir'].$file_name;
-		$this->filepathout=$file_name;
         $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
+		 header('Content-type: application/json');
+        echo json_encode($success);
         if ($success) {
             foreach($this->options['image_versions'] as $version => $options) {
                 $file = $options['upload_dir'].$file_name;
                 if (is_file($file)) {
                     unlink($file);
-						$this->filepathout=$file_name;
+					$this->filepathout=$file_name;
+					
                 }
             }
         }
@@ -321,10 +324,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         $upload_handler->post();
+		//InsertNewImage($GroupId,$author,$img_url)
 		$imgGroupView->InsertNewImage($_SESSION['CurrentGroupId'],$_SESSION["user"],$upload_handler->filepathout);
         break;
     case 'DELETE':
         $upload_handler->delete();
+	
 		$imgGroupView->RemoveImg($upload_handler->filepathout);
         break;
     case 'OPTIONS':

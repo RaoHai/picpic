@@ -34,10 +34,10 @@
             minFileSize: 1,
             // The regular expression for allowed file types, matches
             // against either file type or file name:
-            acceptFileTypes:  /^image\/(gif|jpeg|png)$/,
+            acceptFileTypes: /^image\/(jpg|gif|jpeg|png)$/,
             // The regular expression to define for which files a preview
             // image is shown, matched against the file type:
-            previewFileTypes: /^image\/(gif|jpeg|png)$/,
+            previewFileTypes: /^image\/(jpg|gif|jpeg|png)$/,
             // The maximum width of the preview images:
             previewMaxWidth: 80,
             // The maximum height of the preview images:
@@ -269,6 +269,7 @@
         // Invokes the callback with an img or optional canvas
         // element (if supported by the browser) as parameter:
         _loadImage: function (file, callback, options) {
+		
             var that = this,
                 url,
                 img;
@@ -363,7 +364,6 @@
         },
 
         _validate: function (files) {
-		
             var that = this,
                 valid = !!files.length;
             $.each(files, function (index, file) {
