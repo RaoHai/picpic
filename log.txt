@@ -3,3 +3,4 @@
 =======
 20111003053150cover.pngINSERT INTO image(GroupID,img_url,author,Date) VALUES('','20111003053150cover.png','','') 20111003053150cover.png20111003053215cover.pngINSERT INTO image(GroupID,img_url,author,Date) VALUES('','20111003053215cover.png','','') 20111003053215cover.png
 >>>>>>> heishu
+201110140537270b7d76e8a51ec782622a909a75fcd69e742f9fb8.jpgINSERT INTO image(GroupID,img_url,author,Date) VALUES('0','201110140537270b7d76e8a51ec782622a909a75fcd69e742f9fb8.jpg','','2011-10-14 05:37:28') 

@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
-require_once("../handler.php");
-=======
 require_once('..\handler.php');
->>>>>>> ab98343cc1b3175d8564db088adfcdfdb4a462e6
 session_start();
 $_SESSION=$_POST['username'];
 $birthday=$_POST['birthday'];
@@ -45,6 +41,7 @@ $imgView->showinformation();
 	}
 	</script>
 	<div>
+	<p class="button"><a  href="../information/upload/index.php"  onclick= "" >照片</a></p>
 	<form name="user" action="user.php" method="post" enctype="multipart/form-data" autocomplete="off" target="frame_profile">
 	<select name="birthyear" id="birthyear" tabindex="1" onchange="showbirthday();">
 		<option value="">年</option>
@@ -177,8 +174,7 @@ $imgView->showinformation();
 		</select>
 		<span id="password"></span> 
 	<p><input type=submit name="click2" value="确定"/></p>
-	</form>
-	</div>';
+	</form>';
 if($birthday!=NULL)
 	$imgView->updateprofile($profile['UserId'],$birthday);
 echo $show;
