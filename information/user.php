@@ -1,12 +1,31 @@
 <?php
 require_once('..\handler.php');
 session_start();
-$_SESSION=$_POST['username'];
-$birthday=$_POST['birthday'];
-$user=$imgView->GetUser($_SESSION['user']);
-$profile=$imgView->getprofile($user['UserID']);
+
+$sex=$_POST['sex'];
+$blood=$_POST['blood'];
+$birthday=$_POST['birthyear'].'/'.$_POST['birthmonth'].'/'.$_POST['birthday'];	
+$profile=$imgView->getprofile($_SESSION['user']);
+$user=$imgView->GetUserID($_SESSION['user']);
 $click1=$_GET['click1'];
 $imgView->showinformation();
+$file="upload\avatar_small\\".$_SESSION['user']."_small.jpg";
+
+if($_POST['birthyear'] && $_POST['birthmonth'] && $_POST['birthday'])
+	$imgView->updateprofile($profile['UserId'],$birthday,$profile['sex'],$profile['blood']);	
+if($_POST['sex'])
+	$imgView->updateprofile($profile['UserId'],$profile['Birthday'],$sex,$profile['blood']);
+if($_POST['blood'])
+	$imgView->updateprofile($profile['UserId'],$profile['Birthday'],$profile['sex'],$blood);
+
+$profile=$imgView->getprofile($_SESSION['user']);
+$user=$imgView->GetUserID($_SESSION['user']);
+
+if(file_exists($file))
+	$file="upload\avatar_small\\".$_SESSION['user']."_small.jpg";
+	else
+	$file="upload\avatar_small\_small.jpg";
+if($_GET['update']==1)
 	$show='
 	<script language="javascript" type="text/javascript">
 	function showbirthday()
@@ -36,13 +55,23 @@ $imgView->showinformation();
 			document.getElementById("birthday").add(dayoption3,31);
 			if(document.forms["user"].elements["birthmonth"].value=="4" || document.forms["user"].elements["birthmonth"].value=="6" || document.forms["user"].elements["birthmonth"].value=="9" || document.forms["user"].elements["birthmonth"].value=="11" )
 			document.getElementById("birthday").remove(31);
-			document.getElementById("password").innerHTML="111";
 		}
 	}
 	</script>
 	<div>
-	<p class="button"><a  href="../information/upload/index.php"  onclick= "" >照片</a></p>
-	<form name="user" action="user.php" method="post" enctype="multipart/form-data" autocomplete="off" target="frame_profile">
+	<img src="'.$file.'" />
+	<p><a  href="../information/upload/index.php"  onclick= "" >照片</a></p>
+	<form name="user" action="user.php" method="post" >
+		<p>性别：	 <input type="radio" name="sex" value="男" /> 男
+					 <input type="radio" name="sex" value="女" /> 女
+					 <input type="radio" name="sex" value="无性别？" /> 无性别？</p>
+	<p><select name="blood" id="blood" >
+	    <option value="">血型</option>
+		<option value="A">A</option>
+		<option value="B">B</option>
+		<option value="AB">AB</option>
+		<option value="O">O</option>
+		</select></p>
 	<select name="birthyear" id="birthyear" tabindex="1" onchange="showbirthday();">
 		<option value="">年</option>
 		<option value="2011">2011</option>
@@ -172,10 +201,19 @@ $imgView->showinformation();
 		<option value="30">30</option>
 		<option value="31">31</option>
 		</select>
-		<span id="password"></span> 
-	<p><input type=submit name="click2" value="确定"/></p>
+		<span id="password"></span> 		
+	<p><input type=submit name="click2" value="确定"/>
+	<input type=reset name="click1" vlaue="重置"/></p>
 	</form>';
-if($birthday!=NULL)
-	$imgView->updateprofile($profile['UserId'],$birthday);
+else
+	$show='	
+	<img src="'.$file.'" />
+	<p>用户名：  '.$user['UserName'].'</p>
+	<a  href="user.php?update=1"  onclick= "" >编辑资料</a>
+	<p>性别：	 '.$profile['sex'].'</p>
+	<p>血型：	 '.$profile['blood'].'</p>
+	<p>邮箱：    '.$user['email'].'</p>
+	<p>生日：    '.$profile['Birthday'].'</p>
+	';
 echo $show;
 ?>

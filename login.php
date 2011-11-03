@@ -12,6 +12,7 @@
 	$word1= $use['password']."wibble".$key;
 	$hased = sha1($word);
 	$hased1 = sha1($word1);
+
 	if(!$use)
 	{
 		echo "0";
@@ -23,14 +24,8 @@
 		else
 		{
 			echo "2";
-			$_SESSION['user']=$_GET['username'];
+			$_SESSION['user']=$use['UserID'];
 		}
 	}
-	echo "0";
-	else
-	if($hased!=$use['password'])
-		echo "1";
-		else
-		echo "2";
-	$_SESSION['user']=$_GET['username'];
+
 ?>

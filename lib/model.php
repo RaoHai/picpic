@@ -33,6 +33,10 @@ class Imgs extends modelbase{
 	{
 		$this->dao->fetch("SELECT * FROM user");
 	}
+	function GetFriend($user)
+	{
+		$this->dao->fetch("SELECT * FROM friend");
+	}
 	function GetPopImg()
 	{
 		$this->dao->fetch("SELECT * FROM image limit 0,10");
@@ -51,9 +55,9 @@ class Imgs extends modelbase{
 	{
 		$this->dao->fetch("SELECT * FROM profile");
 	}
-	function updateprofile($userid,$birthday)
+	function updateprofile($userid,$birthday,$sex,$blood)
 	{
-		$sql="UPDATE profile SET Birthday = '".$birthday."'  WHERE UserId = '".$userid."' ";
+		$sql="UPDATE profile SET Birthday = '".$birthday."', sex='".$sex."' , blood='".$blood."' WHERE UserId = '".$userid."' ";
 		$this->dao->fetch($sql);
 	}
 

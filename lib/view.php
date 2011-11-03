@@ -81,6 +81,30 @@ class ImgView extends PublicView
 		}
 		return false;
 	}
+	function GetUserID($user)
+	{
+		$this->model->GetUser($user);		
+		while($list=$this->model->getdata()) 
+		{
+			if($user==$list["UserID"])
+				return $list;			
+		}
+		return false;
+	}
+	function GetFriend($user)
+	{
+		$i=0;
+		$this->model->GetFriend($user);		
+		while($list=$this->model->getdata()) 
+		{
+			if($user==$list["UserId"])
+			{
+				$a[$i]=$list["OtherUserId"];
+				$i++;
+			}				
+		}
+		return $a;
+	}
 	function getprofile($userid)
 	{
 		$this->model->getprofile($userid);		
@@ -114,9 +138,9 @@ class ImgView extends PublicView
 			echo "<img src='thumbnails/".$list["img_url"]."'>";
 		}
 	}
-	function updateprofile($userid,$birthday)
+	function updateprofile($userid,$birthday,$sex,$blood)
 	{
-		$this->model->updateprofile($userid,$birthday);
+		$this->model->updateprofile($userid,$birthday,$sex,$blood);
 		if(!$list=$this->model->getdata())
 			return false;
 		return true;
@@ -125,6 +149,7 @@ class ImgView extends PublicView
 	{
 		echo<<<EOD
 		<p><a href=# onClick="top.location.href='user.php'"/>用户</a>
+		   <a href=# onClick="top.location.href='friend.php'"/>好友</a>
 		   <a href=# onClick="top.location.href='other.php'"/>其他</a></p>
 EOD;
 	}
