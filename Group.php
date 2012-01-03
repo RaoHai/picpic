@@ -1,17 +1,20 @@
 <?php
-	/* home.php */
-	/* user home page view and user control;*/
+	/* Group.php */
+	/* ImgGroup Show and Setting;*/
 	require_once('handler.php');
 	session_start();
-	$group= $imgGroupView->CheckImgGroup($_SESSION["user"]);
-	$imgCatalog=$imgGroupView->GetImgGroupByUser($_SESSION["user"]);
+	$imgShow=$imgGroupView->GetImgGroupById($_GET["id"]);
+	if($imgGroupView->CheckPermissionForGroup($_SESSION["user"],$_GET["id"]))
+	{
+		$_SESSION['CurrentGroupId']=$_GET["id"];
+	}
 	$values=array(
 		"title"=>"AcgPic",
 		"user"=>$imgView->GetLogin(),
 		"userinfo"=>"userinfohere",
 		"uploadphoto"=>"photoloadhere",
-		"photocatalog"=>$imgCatalog,
-		"imggroup"=>$group,
+		"photocatalog"=>$imgShow,
+		"imggroup"=>"",
 	);
 	$imgView->LoadTemplate("home");
 	$imgView->Instance($values);

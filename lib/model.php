@@ -64,6 +64,8 @@ class Imgs extends modelbase{
 		$sql="UPDATE profile SET Birthday = '".$birthday."'  WHERE UserId = '".$userid."' ";
 		$this->dao->fetch($sql);
 	}
+	
+
 
 }
 class ImgGroup extends modelbase{
@@ -78,7 +80,29 @@ class ImgGroup extends modelbase{
 	function CreateNewGroup($name,$GroupCatalog,$time,$like,$coverid)
 	{
 		$this->dao->fetch("INSERT INTO imagegroup(GroupName,GroupCatalog,author,updates,likes,coverid) VALUES('".$name."','".$GroupCatalog."','".$_SESSION[user]."','".$time."','".$like."','".$coverid."' )");
-		echo "INSERT INTO imagegroup(GroupName,GroupCatalog,author,updates,likes,coverid) VALUES('".$name."','".$GroupCatalog."','".$_SESSION[user]."','".$time."','".$like."','".$coverid."' )";
+		//echo "INSERT INTO imagegroup(GroupName,GroupCatalog,author,updates,likes,coverid) VALUES('".$name."','".$GroupCatalog."','".$_SESSION[user]."','".$time."','".$like."','".$coverid."' )";
+	}
+	function ReadImgByUser($UserID)
+	{
+		$sql = "SELECT * FROM `image` right join `imagegroup` on `image`.`GroupID`=`imagegroup`.`GroupID` \n"
+		. "WHERE `imagegroup`.`author`=".$UserID."\n"
+		. "Group by `imagegroup`.`GroupID` ";
+		$this->dao->fetch($sql);
+	}
+	function ReadImgByImgGroup($ImgGroupId)
+	{
+		$this->dao->fetch("SELECT * FROM image WHERE GroupID='".$ImgGroupId." ' ");
+
+	}
+	function GetImgById($id)
+	{
+		$sql="SELECT * FROM image where ImageId=".$id;
+		$this->dao->fetch($sql);
+	}
+	function CheckPermissionForGroup($userid,$GroupID)
+	{
+		$sql="SELECT * FROM imagegroup where author=".$userid." and  GroupID= ".$GroupID;
+		$this->dao->fetch($sql);
 	}
 
 }

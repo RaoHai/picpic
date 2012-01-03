@@ -10,14 +10,92 @@
 	function CreateNewImgGroup()
 	{
 		src=$("#GroupName").val();
-		alert(src);
+		if(scr!="")
+		{
+			xmlHttp=new XMLHttpRequest();
+			xmlHttp.onreadystatechange=stateChanged;	
+			xmlHttp.open("get","imggroup.php?new="+src,true);
+			alert("imggroup.php?new="+src);
+			xmlHttp.send(null)		
+			document.getElementById("GroupName").value="";
+		}
 	}
+	function stateChanged() 
+	{ 
+		if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+		 { 		 
+			 document.getElementById("imggroupselect").innerHTML=xmlHttp.responseText;
+			 
+		 }
+	}	 
+
+</script>
+
+<script type='text/javascript'>
+		function ImgGroupChange(val){
+			if (window.XMLHttpRequest)
+			  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {// code for IE6, IE5
+			  xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
+			  }
+			
+			  xmlhttp.open("GET","Variable.php?CurrentGroupId="+val,true);
+				xmlhttp.send();
+		}
+		function UploadImgByButton(val)
+		{
+			alert(val);
+		}
 </script>
 </head>
 <body>
+<div id="signin_dialog">
+<!--
+登录页面
+-->
+	
+	<div id="main">
+		<div id="header1">登录</div>
+			<div id="inner">
+				<form name="login" action="login.php" method="post" >
+				  <div>
+				  <p>
+				  <label>
+					用户名:</br>
+						  <input type="text" name="username"/>
+					</label></p>
+					<p>
+					<label>
+					密码:</br>
+						  <input type="password" name="password"/>
+					</label>
+					</p>
+				  </div>
+				 <p style="color:grey"><a id="password">还没有帐号？</a><a href=# onClick='top.location.href="register.html"'>点这里注册</a></p>
+				 </br>
+				 <p class='button'><a  href=# onclick= "checkon()"> 登录 </a> </p>
+
+				  <input type="submit" style="display:none;"/>
+				  
+				</form>
+			</div>
+		</div>
+</div>
+<!--
+登录页面结束
+-->
 <div id="signin_upload">
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" id="theme">
 	<link rel="stylesheet" href="../script/jquery.fileupload-ui.css">
+	<div class="fileupload-groupselect" >
+			<div style="float:left">请选择图片组：</div>
+			
+				{@imggroup}
+		
+			 </div>
 	<div id="fileupload">
     <form action="load/upload.php" method="POST" enctype="multipart/form-data">
         <div class="fileupload-buttonbar">
@@ -28,20 +106,12 @@
             <button type="submit" class="start">开始上传</button>
             <button type="reset" class="cancel">取消上传</button>
             <button type="button" class="delete">删除文件</button>
-			<div class="fileupload-group">
-			<div id="imggroupselect" style="float:left">
-				{@imggroup}
-			</div>
-			<div style="float:right">
-				<input type='text' name='name' id='GroupName' />
-				 <button type="create" class="start" onclick='CreateNewImgGroup();'>新建</button>
-				 </div>
-			 </div>
+			
         </div>
 	
     </form>
 
-    <div class="fileupload-content">
+    <div class="fileupload-content" id="fileuploadmain">
         <table class="files"></table>
         <div class="fileupload-progressbar"></div>
     </div>
@@ -118,7 +188,7 @@
 <div id="fade" class="black_overlay" onclick='hideUpload(); return false'></div>
 <div id="index">
 	<div id="header">
-		<div class="hd-link">
+		<div id="hd-link">
 						{@user}
 
 		</div>
@@ -143,7 +213,7 @@
 					<form action="index.php" class="clearfix" id="search_box" method="get">
 					  <label> 
 						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
-						  <button id="topsearch-sub" type="submit">找一找</button>
+						  <button class="topsearch-sub" type="submit">找一找</button>
 					  </label> 
 					</form> 
 				</a>
@@ -152,7 +222,16 @@
 		</div>
 	</div>
 	<div id="content">
-		 <p class='button'><a  href=# onclick='showUpload();'>上传照片</a> </p>
+		<div id="userInfo">
+			{@userinfo}
+		</div>
+		<div id="uploadphoto">
+			<p class='button'><a  href=# onclick='showUpload();'>上传照片</a> </p>
+			{@uploadphoto}
+		</div>
+		<div id="photocatalog">
+			{@photocatalog}
+		</div>
 	</div>
 	<div id="footer">
 		<p>©Copyright by surgesoft, 2011,all rights reserved</p>

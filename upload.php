@@ -317,7 +317,7 @@ header('X-Content-Type-Options: nosniff');
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'HEAD':
     case 'GET':
-        $upload_handler->get();
+       // $upload_handler->get();
         break;
     case 'POST':
         $upload_handler->post();

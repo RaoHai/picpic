@@ -121,6 +121,7 @@ class ImgView extends PublicView
 			return false;
 		return true;
 	}
+	
 	function showinformation()
 	{
 		echo<<<EOD
@@ -128,6 +129,10 @@ class ImgView extends PublicView
 		   <a href=# onClick="top.location.href='other.php'"/>其他</a></p>
 EOD;
 	}
+	/*------------------------------------------
+			img data read handler
+	--------------------------------------------*/
+	
 }
 
 
@@ -139,6 +144,9 @@ class ImgGroupView extends PublicView
 		PublicView::PublicView();
 		$this->model = & $model;
 	}
+	/*--------------------------------------
+		ImgGroup控制函数
+	-----------------------------------------*/
 	function InsertNewImage($GroupId,$author,$img_url)
 	{
 		$this->model->InsertNewImage($GroupId,$author,$img_url);
@@ -152,27 +160,9 @@ class ImgGroupView extends PublicView
 	{
 		$this->model->FindAllGroups($id);
 		$ImgGroupCount=0;
-		$result=<<<EOD
-		<script type='text/javascript'>
-		function ImgGroupChange(val){
-			if (window.XMLHttpRequest)
-			  {// code for IE7+, Firefox, Chrome, Opera, Safari
-			  xmlhttp=new XMLHttpRequest();
-			  }
-			else
-			  {// code for IE6, IE5
-			  xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
-			  }
-			
-			  xmlhttp.open("GET","Variable.php?CurrentGroupId="+val,true);
-				xmlhttp.send();
-		}
-		function UploadImgByButton(val)
-		{
-			alert(val);
-		}
-		</script>
-EOD;
+		
+		$result="<div id='imggroupselect' style='float:left'>";
+		
 		$result.="<select name='imagegroup id='imagegroup' onchange='ImgGroupChange(this.options[this.options.selectedIndex].value)'>";
 		$_SESSION['CurrentGroupId']=0;
 		while($list=$this->model->getdata()) 
@@ -182,13 +172,182 @@ EOD;
 			$result.="<option value='".$list['GroupID']."' >".$list["GroupName"]."</option>";
 			$_SESSION['CurrentGroupId']=$list['GroupID'];
 		}
-		$result.="</select>";
+		$result.="</select>	</div>
+			<div >
+				<input type='text' name='name' id='GroupName' />
+				 <button type='create' class='start' onclick='CreateNewImgGroup();'>新建</button>
+				 </div>";
 		return $result;
 		if($ImgGroupCount==0) return "0";
+	}
+	function FreshGroup($id)
+	{
+			$this->model->FindAllGroups($id);
+			$result.="<select name='imagegroup id='imagegroup' onchange='ImgGroupChange(this.options[this.options.selectedIndex].value)'>";
+			while($list=$this->model->getdata()) 
+			{
+				$result.="<option value='".$list['GroupID']."' >".$list["GroupName"]."</option>";
+			}
+			$result.="</select>";
+			return $result;
 	}
 	function CreateNewGroup($name,$GroupCatalog,$time,$like,$coverid)
 	{
 		$this->model->CreateNewGroup($name,$GroupCatalog,$time,$like,$coverid);
+	}
+	/*-----------------------------------------------------
+		imggroup 读取函数
+	-----------------------------------------------------*/
+	function GetImgGroupByUser($user_id)
+	{
+		$result="<div><p>我的专辑</p>";
+		$arr=array();
+		$this->model->ReadImgByUser($user_id);
+		while($list=$this->model->getdata()) 
+		{
+				$result.="<div style='float:left;width:300px'>";
+				$result.="<div>".$list["GroupName"]."|".$list["likes"]."喜欢</div>";
+				if($list["img_url"])
+					$result.="<div><a href='Group?id=".$list["GroupID"]."'><img src='load/thumbnails/".$list["img_url"]."'></a></div>";
+				else
+					$result.="<div><img src='logo.png'></div>";
+				$result.="</div>";
+		}
+		
+		$result.="</div>";
+		return $result;
+	}
+	function GetImgGroupById($user_id)
+	{
+		$this->model->ReadImgByImgGroup($user_id);
+		while($list=$this->model->getdata()) 
+		{
+			$result.="<div style='float:left;width:300px'>";
+			$result.="<div>".$list["ImageName"]."|".$list["Date"]."</div>";
+			$result.="<div><a href='ImgShow?id=".$list["ImageId"]."'><img src='load/thumbnails/".$list["img_url"]."'></a></div>";
+			$result.="</div>";
+		}
+		return $result;
+	}
+	function CheckPermissionForGroup($user_id,$ImgGroupId)
+	{
+		$this->model->CheckPermissionForGroup($user_id,$ImgGroupId);
+		if($list=$this->model->getdata()) return true;
+		else return false;
+	}
+	function GetLoadCtrl()
+	{
+		return<<<EOD
+		<div id="signin_upload">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" id="theme">
+	<link rel="stylesheet" href="../script/jquery.fileupload-ui.css">
+	<div id="fileupload">
+    <form action="load/upload.php" method="POST" enctype="multipart/form-data">
+        <div class="fileupload-buttonbar">
+            <label class="fileinput-button">
+                <span>添加图片...</span>
+                <input type="file" name="files[]" multiple>
+            </label>
+            <button type="submit" class="start">开始上传</button>
+            <button type="reset" class="cancel">取消上传</button>
+            <button type="button" class="delete">删除文件</button>
+			<div class="fileupload-group" >
+			<div id="imggroupselect" style="float:left">
+				{@imggroup}
+			</div>
+			<div style="float:right">
+				<input type='text' name='name' id='GroupName' />
+				 <button type="create" class="start" onclick='CreateNewImgGroup();'>新建</button>
+				 </div>
+			 </div>
+        </div>
+	
+    </form>
+
+    <div class="fileupload-content" id="fileuploadmain">
+        <table class="files"></table>
+        <div class="fileupload-progressbar"></div>
+    </div>
+</div>
+<script id="template-upload" type="text/x-jquery-tmpl">
+    <tr class="template-upload{{if error}} ui-state-error{{/if}}">
+        <td class="preview"></td>
+        <td class="name">${name}</td>
+        <td class="size">${sizef}</td>
+        {{if error}}
+            <td class="error" colspan="2">错误:
+                {{if error === 'maxFileSize'}}文件过大
+                {{else error === 'minFileSize'}}文件过小
+                {{else error === 'acceptFileTypes'}}文件类型错误
+                {{else error === 'maxNumberOfFiles'}}文件数量过多
+                {{else}}${error}
+                {{/if}}
+            </td>
+        {{else}}
+            <td class="progress"><div></div></td>
+            <td class="start"><button>Start</button></td>
+        {{/if}}
+        <td class="cancel"><button>Cancel</button></td>
+    </tr>
+</script>
+<script id="template-download" type="text/x-jquery-tmpl">
+    <tr class="template-download{{if error}} ui-state-error{{/if}}">
+        {{if error}}
+            <td></td>
+            <td class="name">${name}</td>
+            <td class="size">${sizef}</td>
+            <td class="error" colspan="2">错误:
+                {{if error === 1}}文件太大（error code=1）
+                {{else error === 2}}文件太大（error code =2）
+                {{else error === 3}}文件只有部分被上传
+                {{else error === 4}}没有文件被上传
+                {{else error === 5}}找不到临时文件夹
+                {{else error === 6}}写入文件失败
+                {{else error === 7}}文件上传异常停止
+                {{else error === 'maxFileSize'}}文件太大
+                {{else error === 'minFileSize'}}文件太小
+                {{else error === 'acceptFileTypes'}}文件类型错误
+                {{else error === 'maxNumberOfFiles'}}文件数量过多
+                {{else error === 'uploadedBytes'}}上传的字节超过文件大小
+                {{else error === 'emptyResult'}}空文件
+                {{else}}${error}
+                {{/if}}
+            </td>
+        {{else}}
+            <td class="preview">
+                {{if thumbnail_url}}
+                    <a href="${url}" target="_blank"><img src="${thumbnail_url}"></a>
+                {{/if}}
+            </td>
+            <td class="name">
+                <a href="${url}"{{if thumbnail_url}} target="_blank"{{/if}}>${name}</a>
+            </td>
+            <td class="size">${sizef}</td>
+            <td colspan="2"></td>
+        {{/if}}
+        <td class="delete">
+            <button data-type="${delete_type}" data-url="${delete_url}">Delete</button>
+        </td>
+    </tr>
+</script>
+<script src="../jquery-1.6.1.min.js"></script>
+<script src="../jquery-ui.min.js"></script>
+<script src="../jquery.tmpl.min.js"></script>
+<script src="../script/jquery.iframe-transport.js"></script>
+<script src="../script/jquery.fileupload.js"></script>
+<script src="../script/jquery.fileupload-ui.js"></script>
+<script src="application.js"></script>
+</div>
+		
+EOD;
+	}
+	function GetImgByID($id)
+	{
+		$this->model->GetImgById($id);
+		while($list=$this->model->getdata())
+		{
+				return "<img src='load/files/".$list["img_url"]."'>";
+		}
 	}
 }
 ?>
