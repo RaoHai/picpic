@@ -1,0 +1,35 @@
+#dropdown{
+background: white;
+color: #666;
+border: 1px solid #CCC;
+padding: 1px;
+}
+#dropdown ul
+{
+margin:0;
+padding: 0;
+clear: both;
+}
+#dropdown li
+{
+  cursor: pointer;
+height: 20px;
+ line-height:20px;
+  padding: 0;
+ list-style: none; 
+}
+#dropdown .cur
+{
+  background: #eee;
+}
+#dropdown a
+{
+  margin-left:10px;
+  margin-right:10px;
+}
+textarea
+{
+  width:300px;
+height:60px;
+  font-size:20px;
+}

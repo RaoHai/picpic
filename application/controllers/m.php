@@ -1,0 +1,1 @@
+<?php	require_once( APPLICATION_PATH."/db.conn.php");	$dao=& new database();		$dao->fetch("SELECT * FROM   `image` ");	while($data=$dao->getRow())	{		echo $data["img_url"];	}?>

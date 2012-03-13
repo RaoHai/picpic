@@ -1,0 +1,89 @@
+﻿﻿<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page controller.active.class.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name">/controllers/controller.active.class.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-classes">Classes</a>
+			|							<a href="#sec-includes">Includes</a>
+												</div>
+	<div class="info-box-body">	
+		﻿<!-- ========== Info from phpDoc block ========= -->
+		
+			</div>
+</div>
+		
+	<a name="sec-classes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Classes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Classes</span>
+			|							<a href="#sec-includes">Includes</a>
+																		</div>
+		<div class="info-box-body">	
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../model-base-class-php/active.html">active</a>
+					</td>
+					<td>
+											controller 的基类
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+	<a name="sec-includes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Includes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-classes">Classes</a>
+				|						<span class="disabled">Includes</span>
+														</div>
+		<div class="info-box-body">	
+			﻿<a name="_controller_base_class_php"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name"><a href="../model-base-class-php/_controllers---controller.base.class.php.html">"controller.base.class.php"</a></span>)
+			(line <span class="line-number">19</span>)
+		</span>
+	</div>
+
+	﻿<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">友邻广播显示</p>
+<p class="description"><p>采用Memcache与数据库结合的做法 	1-所有的数据在Active表，id号递增，时间排序 	2-对于每个人，在memcache中维护他最近[1天]的动态（id，type) 列表（合并/过滤都在这个列表上进行） 	3- 当需要查看1天前的广播时，直接查db（这个[1天]根据用户数量进行调整） 	4-单条广播在memcache中单独为一个key 	5-查看友邻广播时，首先拿到所有友邻的广播(id,type)列表，按id排序合并，去掉不能看到的type,然后过滤，合并。 	同种action的合并（关注了同一个画集，同加入了一个小组）    同一个人的同种行为合并（消除刷屏的危险） <ul></ul><ul><li>合并一个人连续的同类型行为（推荐）</li></ul> 	以上 参考自豆瓣。 	新增/删除的列表使用差集维护。。</p></p>
+	
+</div>
+		</div>
+	</div>
+	
+	
+	
+	
+﻿	<p class="notes" id="credit">
+		Documentation generated on Fri, 24 Feb 2012 14:38:19 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>
