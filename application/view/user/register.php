@@ -4,9 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册-ACGPIC</title>
 <link rel="stylesheet" href="/bootstrap.min.css">
-
+<link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
 <link rel="stylesheet" href="/indexstyle.css">
-
+<script src="/jquery-1.6.1.min.js"></script>
+<script src="/popup.js"></script>
+<script type="text/javascript" src="/jquery.pstrength-min.1.2.js">
+</script>
+<script type="text/javascript">
+$(function() {
+$('#password').pstrength();
+});
+</script>
 </head>
 <body >
 <div id="index" style="height:0px;">
@@ -57,23 +65,8 @@
 				</form>
 			</div>
 			
-			
 		</div>
 </div>
 </div>
-
-<script src="/jquery-1.6.1.min.js"></script>
-<script src="/popup.js"></script>
-<script type="text/javascript" src="/jquery.pstrength-min.1.2.js"></script>
-<script src="/bootstrap-modal.min.js"></script>
-
-
-<script type="text/javascript">
-		$(function() {
-		$('#password').pstrength();
-		});
-</script>
-
-
 </body>
 </html>

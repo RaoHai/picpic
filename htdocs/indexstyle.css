@@ -21,7 +21,7 @@ div
 body
 {
 		font-size: 12px;
-		line-height: 20px;
+		line-height: 1.5;
 		font-family: tahoma,arial,sans-serif;
 		margin:0px;
 		min-height:500px;
@@ -79,42 +79,40 @@ height:88px;
 	margin:5px 0 0 20px;
 }
 #welcome #showup 
-{
-  position: absolute;
+{	
+	position:absolute;
 	height:140px;
 	width:210px;
 	background-color:#eee;
-	margin-left:305px;
+	margin-left:135px;
 	border: 1px solid #EBE5E5;
-display:block;
-            
 }
 #welcome #myphoto
 {
 	position:absolute;
 	height:140px;
-	width:285px;
-    display:block;
+	width:130px;
+	border: 1px solid #EBE5E5;
+	background-color:#eee;
 	
+}
+#welcome #showcatch
+{
+	position:absolute;
+	height:140px;
+	width:210px;
+	border: 1px solid #EBE5E5;
+	background-color:#eee;
+	margin-left:350px;
 }
 #welcome #showgroup
 {
 	position:absolute;
 	height:140px;
-	width:160px;
+	width:210px;
 	border: 1px solid #EBE5E5;
 	background-color:#eee;
-	margin-left:526px;
-display:block;
-}
-#welcome #showfriend
-{
-	position:absolute;
-	height:140px;
-	width:180px;
-	border-top:2px solid #EBE5E5;
-	margin-left:705px;
-display:block;
+	margin-left:565px;
 }
 #content div
 {
@@ -275,9 +273,6 @@ list-style: none;
 #nv-search
 {
 	margin: 14px 2px 0 -1px;
-}
-#nv-search a{
-height:36px;
 }
 
 #signin_dialog
@@ -480,10 +475,12 @@ filter:alpha(opacity=60);
 	position:relative;
 	margin-right: 20px;
 	margin-top: -130px;
-	width: 15px;
-	height: 15px;
+	width: 30px;
+	height: 30px;
+	background: transparent url('fancybox.png');
 	cursor: pointer;
 	z-index: 1103;
+	
 }
 .filecan
 {
@@ -626,5 +623,4 @@ font-size: 12px;
 margin: 0px 0 7px;
 -moz-border-radius: 3px;
 -webkit-border-radius: 3px;
-  
-}
+} 

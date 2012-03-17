@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<?
+<?php
 @header("Expires: 0");
 @header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
 @header("Pragma: no-cache");

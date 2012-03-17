@@ -19,7 +19,6 @@
 		}
 		public function _new()
 		{
-			
 			$data = array($_POST['groupname'],$_POST['groupdescription'],$_POST['groupcatalog'],$_SESSION['USERID'],date("Y-m-d"),0,0);
 			$this->model->New($data);
 			$id=mysql_insert_id();
@@ -223,5 +222,48 @@
             $comment->saveToReply();
             echo json_encode(array("success"));
         }
+		//以下为群组画集函数
+		//---------------------------------------------------------
+		
+		//群组的画集添加，基本参照用户的画集添加,需要权限管理
+		public function _add($groupname,$description,$catalog,$coverid)
+		{
+			$Teamuser=new teamuser();
+			if($Teamuser->_permissions()!=0)
+			{
+			$this->model->New(array($groupname,$description,$catalog,$_SESSION['USERID'],date("Y-m-d"),0,$coverid));
+			return 'true';
+			}
+			else
+			return 'false';
+		}
+		
+		//更新有关画集的相关信息
+		public function _updategroupname($groupID,$groupname)
+		{
+			if($Teamuser->_permissions()!=0);
+			{
+				$this->model->Set(array("GroupName"=>$groupname,"updates"=>date("Y-m-d")),array("ImagegroupId"=>$grouID));
+				return true;
+				}
+		}		
+		public function _updatedescription($groupID,$description)
+		{
+			if($Teamuser->_permissions()!=0);
+			{
+				$this->model->Set(array("Description"=>$description,"updates"=>date("Y-m-d")),array("ImagegroupId"=>$grouID));
+				return true;
+				}
+		}
+		
+		//显示有关画集的相关信息
+		public function _showteamimagegroup($id)
+		{
+			$this->model->Get_By_ImagegroupId($id);
+			$re=$this->model->getresult();
+			return $re;
+		}
+		
+		
 	}
 ?>

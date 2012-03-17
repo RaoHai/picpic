@@ -34,16 +34,6 @@
 			}
 			return $profile;
 		}
-		public function _uploadavatar()
-		{
-			require_once(APPLICATION_PATH."/lib/avataruploader.php");
-			$inputName = 'uploadfile'; 
-			// 即<input type=“file" name="uploadfile" /> 中的name值，不填也行 
-			$upload = new upload($inputName); 
-			$new_dir = INDEX_PATH.'/avatar/'; // 将文件移动到的路径 
-			$upload->moveTo($new_dir); 
-			echo "<img src='/avatar/".$_SESSION["USERID"].".jpg' />";
-		}
 				
 	}	
 ?>

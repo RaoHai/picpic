@@ -1,0 +1,157 @@
+<html>
+<body>
+<span style="position:fixed;width:300;height:230;overflow:hidden;border:1 solid black;" onmousemove="getmouse()" id="forma">
+<img id="image" src="85.jpg" style="position:absolute;left:0;top:0;filter:alpha(opacity=100);" onmousemove="getmouse()">
+</span><br>
+图片SRC操作<BR>
+图片属性操作<br>
+<button onclick="big()">放大图片</button>
+<button onclick="reduce()">缩小图片</button><br>
+滤镜操作<br>
+<button onclick="blurs(3)">透明图片</button>
+<button onclick="blurs(0)">恢复图片</button>
+<br>
+图片方向移动操作<br>
+<div>
+<button onclick="movepic(1)">↖</button>
+<button onclick="movepic(2)">↑</button>
+<button onclick="movepic(3)">↗</button><br>
+<button onclick="movepic(4)">←</button>
+<button onclick="movepic(5)">⊙</button>
+<button onclick="movepic(6)">→</button><br>
+<button onclick="movepic(7)">↙</button>
+<button onclick="movepic(8)">↓</button>
+<button onclick="movepic(9)">↘</button>
+</div><br>
+鼠标控制模块<br>
+<button onclick="mousectl()" id='temouse'>使用鼠标控制</button><br>
+X:<input type="text" name="x_mouse" id="xxx" value="0" size=3>
+Y:<input type="text" name="y_mouse" id="yyy" value="0" size=3>
+<script language=javascript>
+var t_op    =        0;                            //默认的图片位置
+var l_l        =        0;
+var mouseflg=true;                                //鼠标控制标记
+l_eft=document.all['image'].width/document.all['image'].height;    //比例
+    function addurl(){
+        url=document.all['imgurl'].value;
+        url=url.toLowerCase();
+        if(url.substr(0,7)!="http://"){
+             alert("不允许加载其他资源...");
+             alert(url);
+             return;
+        }
+        document.all['image'].src=url;
+    }
+    function reduce(){        //缩小图片
+            var img=document.all['image'];
+                w=img.width;
+                h=img.height;
+                f=w/h;
+                if(img.width>300){
+                  img.width=img.width-1;
+                }
+                if(img.height>230){
+                  img.height=img.height*f;
+                }
+        }
+
+    function blurs(mdd){        //透明图片
+            var img=document.all['image'].filters;
+            if(mdd>1){
+                img.alpha.opacity--;
+                }else{
+                img.alpha.opacity++;
+                }
+        }
+    function big(){        //放大图片
+            var img=document.all['image'];
+                w=img.width;
+                h=img.height;
+                f=w/h;
+                  img.width=img.width+1;
+                  img.height=img.height*f;
+        }
+    function movepic(method){        //移动图片
+            var img=document.all['image'].style;
+            if(method==1){//左上移图片
+              img.top=--t_op;
+              img.left=--t_op*l_eft;
+            }
+            if(method==2){//上移图片
+              img.top=--t_op;
+            }
+            if(method==3){//右上移
+              img.top=--t_op;
+                img.left=l_l++;
+            }
+            if(method==4){//左移动
+                img.left=l_l--;
+            }
+            if(method==5){//重新定位
+              img.top=0
+                img.left=0;
+            }
+            if(method==6){//右移动
+                img.left=l_l++;
+            }
+            if(method==7){//左下移图片
+              img.top=++t_op;
+              img.left=l_l--;
+            }
+            if(method==8){//下移图片
+              img.top=++t_op;
+            }
+            if(method==9){//右下移图片
+              img.top=++t_op;
+              img.left=l_l++;
+            }
+        }
+       
+        function mousectl(){//鼠标控制开关
+            mousebutton=document.all['temouse'];
+            if(mouseflg){
+                mousebutton.value="禁止鼠标控制";
+                mouseflg=false;
+            }else{
+                mousebutton.value="使用鼠标控制";
+                mouseflg=true;
+            }
+        }
+        function getmouse(){    //鼠标控制
+            if(mouseflg){    //检查是否打开鼠标控制按扭
+                form1=document.all['forma'];
+                var x=event.x;
+                var y=event.y;
+                document.all['xxx'].value=x;
+                document.all['yyy'].value=y;
+                if(x>parseInt(forma.style.width)/3){//右侧操作
+                        if(y>parseInt(forma.style.height)/3){//右下方
+                            movepic(9);
+                        }else if(y<parseInt(forma.style.height)/3){//右上方
+                            movepic(3);
+                        }else{//纯粹性右侧
+                            movepic(6);
+                        }
+                }else if(x<parseInt(forma.style.width)/3){//左侧操作
+                        if(y>(parseInt(forma.style.height)/3)){//左下方
+                            movepic(7);
+                        }else if(y<(parseInt(forma.style.height)/3)){//左上方
+                            movepic(1);
+                        }else{//纯粹左
+                            movepic(4);
+                        }
+                }else{    //中间操作
+                        if(y>(forma.style.height/3)){//向下移动
+                        }else if(y<(parseInt(forma.style.height)/3)){//向上移动
+                            movepic(2);
+                        }else{//定位图片
+                            movepic(5);
+                        }
+                }
+            }else{
+                return;
+            }
+        }
+</script>
+</body>
+</html>

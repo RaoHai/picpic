@@ -110,7 +110,7 @@
 			case 'foreach':
 				$pieces = explode(',', $parts[1]);
 				$string .= 'foreach(' . preg_replace($from, $to, $pieces[0]) . ' as ';
-				$string .= "$".$pieces[1];//preg_replace($from, $to, $pieces[1]);
+				$string .= preg_replace($from, $to, $pieces[1]);
 				if(sizeof($pieces) == 3) 
 					$string .= '=>' . preg_replace($from, $to, $pieces[2]);
 				$string .= ') { ';
@@ -128,9 +128,6 @@
 			case 'include':
 				$string .= 'echo $this->output("' . $parts[1] . '");';
 				break;
-            case '#':
-                $string .='echo $'.$parts[1].';';
-                break;
 			default:
 				$string .= 'echo ' . preg_replace($from, $to, $parts[0]) . ';';
 				break;

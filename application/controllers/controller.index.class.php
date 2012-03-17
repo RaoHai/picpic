@@ -11,7 +11,6 @@
 		
 		public function _index()
 		{
-        
 			$img = new image();
 			$imgs = $img->model->Get("all",0,0,"ImageId desc");
 			

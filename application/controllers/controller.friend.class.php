@@ -9,31 +9,53 @@
 		}
 		public function _getfriend()
 		{
-			$id = $_SESSION["USERID"];
-			$this->model->Get("all",array("User={$id}"),array(0,10));
+			$this->model->Get_By_User($_SESSION["USERID"]);
 			$re=$this->model->getresult();
-			$count;
-			$out="<b style='color:skyblue;font-size:16px;'>濂藉弸:</b></br>";
 			foreach($re as $r)
-			{	
-				$count++;
-				$friendID=$r->OtherUserId;	
-				$name = $r->user->NickName;
-				$out.=  "<a href='/user/{$friendID}' title='{$name}'><img style='margin:2px;width:30px;height:30px;' src='/upload/avatar_small/{$friendID}_small.jpg' /></a>";
-				if($count==5) $out.= "</br>";
+			{
+				$friendID=$r->OtherUserId;				
+				echo $friendID."<a href='friend?delete=".$friendID."'>删除</a></br>";
 			}
-		
-			return $out;
-		
+			
 		}
 		public function _Addfriend($FriendID)
 		{
-			$this->model->New(array($_SESSION["USERID"],$FriendID));
-			$this->model->New(array($FriendID,$_SESSION["USERID"]));
-		}
-		public function _Del($FriendID)
-		{
-			$this->model->Del(array("User={$_SESSION['USERID']}","OtherUserId={$FriendID}"));
+			$User = new user();
+			$Profile = new profile();
+				$User->model->Get_By_UserId($FriendID);
+				$A=1;
+				$this->model->Get_By_User($_SESSION["USERID"]);
+				$re=$this->model->getresult();
+				
+				foreach($re as $r)
+				{
+					$friendID=$r->OtherUserId;	
+					if($friendID==$FriendID)
+					{
+					$A=0;
+					break;
+					}
+					
+				}
+			
+				if(!$User->model->getresult())
+					{
+					$show="不存在该用户";
+					}
+				else
+					if($A==1)
+					{
+						$this->model->New(array($_SESSION["USERID"],$FriendID));
+						$this->model->New(array($FriendID,$_SESSION["USERID"]));
+						$show="添加成功";
+					}
+					else
+					if($A==0)
+					{
+					$show="好友已存在";
+					}
+			return $show;
+			echo "123";
 		}
 				
 	}

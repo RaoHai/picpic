@@ -21,7 +21,8 @@
 							"comments"=>array("UserId","ImgId","SharedId","ImgGroupId","CommentText","QuoteID","ReplyID","Time"),
 							"profile"=>array("UserId","avatar","Birthday","FavoriteHash","FriendId","Shared","Blood","Sex"),
 							"friend"=>array("User","OtherUserId"),
-							"active"=>array("UserId","ActionType","content"),
-					    	"message"=>array("senderId","reciverId","messageText","readMark","senderDel","Title","reciverDel","Time"),	
-							);
+							"message"=>array("senderID","reciverID","messageText","readmark","senderDel","Title","reciverDel"),
+							"teaminformation"=>array("teamname","teamremarks","teamtake","teammader","teammadetime"),
+							"activity"=>array("takeID","title","text","take1"),
+							"teamuser"=>array("userID","usertake","userinformation","offerteamID","time"),);
 ?>
