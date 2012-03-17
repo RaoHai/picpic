@@ -344,13 +344,14 @@ height:36px;
 	left:10%;
 	width:80%;
 }
-#showactives div 
-{
-  margin:2px;
-}
+
 #showactives #weibocontent
 {
 width:480px;
+}
+#comments_text #weibocontent
+{
+width:700px;
 }
 .inner a
 {
@@ -401,6 +402,33 @@ width:600px;
 height:60px;
 resize:none;
 margin-left:30px;
+}
+#weiborepo
+{
+width:520px;
+height:60px;
+resize:none;
+
+}
+#weibopreview
+{
+margin:5px;
+background:#F3F3F3;
+}
+#repos
+{
+background: #E6E6E6;
+border-color: #CCC;
+border-width: 1px;
+border-style: solid;
+zoom: 1;
+line-height: 20px;
+padding: 15px 20px 13px;
+_padding: 0 20px 13px;
+font-size: 12px;
+margin: 0px 0 7px 20px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
 }
 .button {
 
@@ -534,6 +562,10 @@ margin: 5px 0 0 20px;
 	margin:10px;
 	border-bottom: 1px solid #09F;
 }
+#comments_text p
+{
+  margin:auto;
+}
 #comments_text img
 {
 	max-width:300px;
@@ -551,4 +583,48 @@ background:black;
 .icon-red {
 background-image: url(../img/glyphicons-halflings-red.png);
 }
+.W_vline, .W_sline, .W_arrline, .W_arrline_mini {
+  font-style: normal;
+color: #E6E6E6;
+font-family: "SimSun";
+overflow: hidden;
+font-size: 21px;
+display: block;
+height: 10px;
+       
+}
+#arrow
+{
+margin: -25px 0 0 0;
+margin-left: 280px;
+width: 25px;
+height: 11px;
+overflow: hidden;
+  
+}
+#arrow2
+{
+margin: -25px 0 0 0;
+width: 25px;
+height: 11px;
+overflow: hidden;
 
+}
+#replybox
+{
+background:#E6E6E6;
+float:right;
+width:400px;
+      border-color:#ccc;
+border-width: 1px;
+border-style: solid;
+zoom: 1;
+line-height: 20px;
+padding: 15px 20px 13px;
+_padding: 0 20px 13px;
+font-size: 12px;
+margin: 0px 0 7px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+  
+}

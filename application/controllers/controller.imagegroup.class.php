@@ -124,6 +124,15 @@
 				Header("Location:/404.html");
 			}
 		}
+        public function getNameById($id)
+        {
+            $this->model->Get_groupname_By_ImagegroupID($id);
+            foreach($this->model->getresult() as $group)
+            {
+                return $group->groupname;
+            }
+
+        }
 		public function _all($userid)
 		{
 			if(empty($userid)) $userid=$_SESSION["USERID"];
@@ -174,31 +183,45 @@
 			$comment = new comments();
 			$comment->model->Get_By_ImgGroupId($groupid);
 			$re = $comment->model->getresult();
-			
+		    $mem = new Memcache;
+            $mem->connect("127.0.0.1",11211);
+	
 			foreach ($re as $r)
 			{
-				
-			
-					$jsarr[] = array("userid"=>$r->UserId,
+				    $saved = $mem->get('_C'.$r->CommentsId);
+                    if($saved!=false) $jsarr[]= $saved;
+                    else
+                        	$jsarr[] = array("id"=>$r->CommentsId,
+                                           "userid"=>$r->UserId,
 										   "username"=>$r->user->NickName,
 										   "time"=>$r->Time,
 										   "text" =>$r->CommentText,
 										   );
-				
 			}
+               // echo "<pre>";
+                //var_dump($jsarr);
+                //echo "</pre>";
 				echo json_encode($jsarr);
 		}
 		public function _savecomments($groupid)
 		{
-			$groupid =$_GET['Groupid']; 
-			$time = date("Y-m-d H:i:s", time()) ; 
-			$userid = $_SESSION['USERID'];
-			$str = $_GET['str'];
 			$comment = new comments();
-			$data = array($userid,0,0,$groupid,$str,0,0,$time);
-			$comment->model->New($data);
-		
+            $comment->UserId = $_SESSION['USERID'];
+            $comment->ImgGroupId= $_GET['Groupid'];
+            $comment->Time =  date("Y-m-d H:i:s",time());
+            $comment->CommentText = $_GET['str'];
+		    $comment->presave();		
 			echo json_encode(array("success"));
 		}
+        public function _replyto($id)
+        {
+            $comment = new comments();
+            $comment->UserId = $_SESSION["USERID"];
+            $comment->Time = date("Y-m-d H:i:s",time());
+            $comment->CommentText = $_GET['str'];
+            $comment->ReplyID = $id;
+            $comment->saveToReply();
+            echo json_encode(array("success"));
+        }
 	}
 ?>

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="header" style="background-color:black;">
-				<a href="/home"><img src="/logo.png" title="主页" style="width:120px;margin-left:10px;"/></a>
+				<a href="/"><img src="/logo.png" title="主页" style="width:120px;margin-left:10px;"/></a>
 				<span class="right_ab">
 						<?php if($this->values["user"]) {  ?>
 							<a href="/home" ><b><?php echo $this->values["nickname"]; ?></b></a> <a href="/user/logout">[退出]</a> 
@@ -34,8 +34,8 @@
 				</div>
 			</div>
 				<div  style="width:60%;min-width:800px;margin:10px auto;">
-				评论：
-				<div id="comments_text"></div>
+				评论：<?php if($this->values["user"]) {  ?>
+				<ul id="comments_text"></ul>
 				<!--<link rel="stylesheet" type="text/css" href="/markitup/markitup/skins/markitup/style.css" /> <!--  -->
 				<!--<link rel="stylesheet" type="text/css" href="/markitup/markitup/sets/bbcode/style.css" /><!-- -->
 
@@ -46,6 +46,7 @@
 			</form>
 			
 				</div>
+                <?php } ?>
 				</div>
 
 		<div id="gallery-loader"></div>
@@ -65,7 +66,7 @@
     </div>
 </div>
 		<script src="/jquery.min.js"></script>
-		<script type="text/javascript" src="/jquery.montage.js"></script>
+		<script src="/jquery.montage.js"></script>
 		<script src="/vendor/jquery.ui.widget.js"></script>
 		<script src="/load-image.min.js"></script>
 		<script src="/bootstrap-modal.min.js"></script>
@@ -87,7 +88,8 @@
 						});
 					});
 					
-				$('#comments_bt1').click(
+$(document).ready(function(){
+    	$('#comments_bt1').click(
 				function(){
 					var xhtml=editor.html();
 					if(editor.count()<10)
@@ -103,60 +105,108 @@
 					$('#comments_text').html(" ");
 					$.getJSON($('#comments_form').prop('action'),{str:xhtml}, function (files) {
 							editor.html("提交成功！");
-								$.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(result) {
+						$.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(result) {
 							  $.each(result, function(i, field){
-									 $('#comments_text').append("<div id='comments_replay'><div><a  style='color:blue;' href='/user/"+field.userid+"'>"+field.username+ ":</a>"+field.text
-									 +"</div><div>"+field.time+"</div></div>");
-								});
+                                  refresh(field);
+                                });
 						});
-						});
-				});
-				$(document).ready(function(){
-					$.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(result) {
-							  $.each(result, function(i, field){
-									 $('#comments_text').append("<div id='comments_replay'><div><a  style='color:blue;' href='/user/"+field.userid+"'>"+field.username+ ":</a>"+field.text
-									 +"</div><div>"+field.time+"</div></div>");
-								});
-						});
-				});
-				</script>
-		<script type="text/javascript">
-				
 	
-			$(function() {
-				 
-				
-				var $container 	= $('#am-container'),
-					$imgs		= $container.find('img').hide(),
-					totalImgs	= $imgs.length,
-					cnt			= 0;
-				
-				$imgs.each(function(i) {
-					var $img	= $(this);
-					$('<img/>').load(function() {
-						++cnt;
-						if( cnt === totalImgs ) {
-							$imgs.show();
-							$container.montage({
-								liquid 	: false,
-								fillLastRow : true
-							});
-							
-							/* 
-							 * just for this demo:
-							 */
-							$('#overlay').fadeIn(500);
-						}
-					}).attr('src',$img.attr('src'));
+						});
 				});
-					
-				// Initialize the Bootstrap Image Gallery plugin:
-				$('#am-container').imagegallery();			
 
-				
-				
-			});
-		</script>
-	
+    refresh = function(field)
+    {
+    var replys="";
+    if (field.replys){
+    $.each(field.replys,function(j,replies)
+      { 
+      replys+='<div style="width:750px;margin-left:20px;float:left;">'+
+      '<div style="float:left"><img style="width:30px;height:30px;"src="/upload/avatar_small/'+
+      replies.userid+'_small.jpg"/></div>'+
+      '<div style="float:left;margin-top:-3px;"><p><a href="/user/'+replys.userid+
+      '" style="margin:5px;color:#995F28;">'+
+      '<b>'+replies.username+'</b></a>'+replies.text+'</p><p>'+
+      replies.time+'</p></div></div>';
+      });
+    }
+    $('<li></li>').html('<div style="float:left;width:750px;border-bottom:1px #CCCCCC dotted;"><div style="float:left">'+
+      '<img src="/upload/avatar_small/'+field.userid+'_small.jpg" />'+
+      '</div><div style="float:left;margin-top:-3px;" id="weibocontent">	<p><a href="/user/'+field.userid+
+      '" style="margin:5px;color:#995F28;"><b>'+field.username+'</b></a>:'+
+      field.text+'</p><p style="float:right;"><a style="cursor:pointer" onclick="replyto(this,'+field.id+')">回复</a>|'+
+      field.time+'</p></div>'+replys+'</div>'
+      )
+      .appendTo($('#comments_text'));
+    };
+replyto = function(obj,id)
+{
+  $("<div id='replybox'></div>").html("<div>"+
+      '<div id="arrow"><em class="W_arrline">◆</em></div>'+
+      "<input id='replytext' style='width:400px;margin:4px;'/>"+
+      "<a id='replysubmit' key="+id+" class='btn btn-primary' style='float:right;'>提交</a>"+
+      "</div>"
+      ).appendTo(obj.parentNode.parentNode.parentNode);
+  $("#replysubmit").click(function()
+      {
+      var id = $(this).attr("key");
+      $.getJSON("/imagegroup/replyto/"+id,{str:$('#replytext').val()}, function() {
+         $(this).parent().parent().remove();
+        $('#comments_text').html('');
+        $.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(result) {
+          $.each(result, function(i, field){
+            refresh(field);
+            });
+        });
+        });
+
+      });
+
+  //alert(id);
+};
+$.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(result) {
+    $.each(result, function(i, field){
+      refresh(field);
+      });
+    });
+});
+</script>
+<script type="text/javascript">
+
+
+$(function() {
+
+
+    var $container 	= $('#am-container'),
+    $imgs		= $container.find('img').hide(),
+    totalImgs	= $imgs.length,
+    cnt			= 0;
+
+    $imgs.each(function(i) {
+      var $img	= $(this);
+      $('<img/>').load(function() {
+        ++cnt;
+        if( cnt === totalImgs ) {
+        $imgs.show();
+        $container.montage({
+liquid 	: false,
+fillLastRow : true
+});
+
+        /* 
+         * just for this demo:
+         */
+        $('#overlay').fadeIn(500);
+        }
+        }).attr('src',$img.attr('src'));
+      });
+
+// Initialize the Bootstrap Image Gallery plugin:
+$('#am-container').imagegallery();			
+
+
+
+});
+</script>
+
 </body>
 </html>

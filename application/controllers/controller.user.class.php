@@ -217,6 +217,17 @@
             }
             return $showuser;
         }
+        public function getuserbyid($id)
+        {
+            $this->model->Get_By_UserId($id);
+            $re=$this->model->getresult();
+
+            foreach($re as $r)
+            {
+                return $r->NickName;
+            }
+
+        }
 
         public function _message($page)
         {

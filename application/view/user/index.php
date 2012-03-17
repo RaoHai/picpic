@@ -171,7 +171,24 @@
               <a href="#" class="btn primary" id="groupsubmit" >添加</a>
               
             </div>
-          </div>          
+          </div>    
+          <!-- 转发微博 -->
+          <div id="modal-weibo-repo" class="modal hide fade">
+              <div class="modal-header" style="background-color:#339BB9;">
+              <a href="#" class="close">&times;</a>
+              <h3 style="color:white;">转发微博</h3>
+            </div>
+            <div class="modal-body">
+            <p>转发：</p>
+            <h4 style="float:right;margin-left:40px;" id="weiborepolength"></h4></br>
+            <div id="weibopreview"></div>  
+            <textarea id="weiborepo"></textarea> 
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn primary" id="reposubmit" >转发</a>
+              
+            </div>
+          </div>
 		  <!--编辑画集信息 -->
 		  <div id="modal-from-edit" class="modal hide fade">
             <div class="modal-header">

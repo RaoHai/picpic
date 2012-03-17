@@ -168,7 +168,7 @@
 			$this->DAL($sql);
 			
 		}
-		public function Del($Constraints)
+         public function Del($Constraints)
 		{
 			$this->QueryType="";
 			$this->QueryColum="";

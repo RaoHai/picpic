@@ -21,17 +21,32 @@
 		protected $TemplateFolder;
 		protected $TemplateFile;
 		protected $values;
+        public $instance;
 		public function  __construct()
 		{
 			//$this->model = new ModelBase();
 			$instance = get_class($this);
+            $this->instance = $instance;
 			$modelname = $instance."_model";
 			require_once( APPLICATION_PATH."/models/model.{$instance}.class.php");
 			$this->TemplateFolder= APPLICATION_PATH."/view/{$instance}/";
 			$this->model	 = new $modelname($instance);
+           
 			//echo $modelname;
 			//echo $TemplateFolder;
 		}
+        public function save()
+        {
+            global $_Struct;
+            $savedata;
+            foreach ($_Struct[$this->instance] as $data)
+            {
+                $savedata[]=isset($this->$data)?$this->$data:0;
+            }
+            $this->model->New($savedata);
+           // var_dump($savedata);
+            //var_dump($_Struct[$this->instance]);
+        }
 	
 		 /*模板引擎
 		 * 参考自vemplator
@@ -108,7 +123,7 @@
 				$string .= '} else {';
 				break;
 			case 'case':
-				$string .= 'break; case ' . preg_replace($from, $to, $parts[1]) . ':';
+    			$string .= 'break; case ' . preg_replace($from, $to, $parts[1]) . ':';
 				break;
 			case 'include':
 				$string .= 'echo $this->output("' . $parts[1] . '");';
@@ -125,12 +140,11 @@
 	}
 	public function __call($FuncName,$arg)
 	{
-		echo $FuncName."error!";
-	}
+          Header("Location: /404.html");
 
-		
+	}
+        }
+
 	
-	}
-
 
 ?>

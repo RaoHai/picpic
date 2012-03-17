@@ -20,5 +20,38 @@
 				}
 			
 		}
+        public function presave()
+        {
+            $mem = new Memcache;
+            $mem->connect("127.0.0.1",11211);
+            $this->save();
+            $commentid=mysql_insert_id();
+            $saveToMemcache = new stdClass();
+            $saveToMemcache->id = $commentid;
+            $saveToMemcache->userid = $this->UserId;
+            $saveToMemcache->text = $this->CommentText;
+            $saveToMemcache->time = $this->Time;
+            $saveToMemcache->username = $_SESSION['NICK'];
+            $mem->set("_C".$commentid,$saveToMemcache,0,0);
+        }
+       public function savetoReply()
+        {
+            $mem = new Memcache;
+            $mem->connect("127.0.0.1",11211);
+            $this->save();
+            $commentid = mysql_insert_id();
+            $saveToMemcache = new stdClass();
+            $saveToMemcache->id = $commentid;
+            $saveToMemcache->userid = $this->UserId;
+            $saveToMemcache->text = $this->CommentText;
+            $saveToMemcache->time = $this->Time;
+            $saveToMemcache->username = $_SESSION['NICK'];
+            $saveToMemcache->replyid = $this->ReplyID;
+            $parentComment = $mem->get("_C".$saveToMemcache->replyid);
+            if(!isset($parentComment->replys)) $parentComment->replys=array();
+            $parentComment->replys[] = $saveToMemcache;
+            $mem->set('_C'.$commentid,$saveToMemcache,0,0);
+            $mem->set('_C'.$saveToMemcache->replyid,$parentComment,0,0);
+        }
 	}
 ?>

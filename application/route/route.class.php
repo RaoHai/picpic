@@ -116,7 +116,7 @@ class Route
         $acl->allow("guest","user","checkemail");
         $acl->allow("guest","user","checkname");
         $acl->allow("guest","user","new");
-
+        $acl->allow("guest","imagegroup","view");    
         //$acl->allow("guest","user");
 
         //echo $permission;

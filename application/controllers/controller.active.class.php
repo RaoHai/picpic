@@ -112,7 +112,7 @@ class active extends ControllerBase
         else
         {
             //	echo "save";
-            if($userid==$_SESSION['USERID'])
+            if($userid==$_SESSION['USERID']||$recovermode==1)
                 $content=array('t'=>time(),"n"=>$_SESSION["NICK"],"uid"=>$_SESSION['USERID'],$type=>array($targetmessage));
             
             //$msg = array($targetmessage->id=>$targetmessage->imgurl);
@@ -128,7 +128,7 @@ class active extends ControllerBase
     {
       $mem = new Memcache;
       $mem->connect("127.0.0.1",11211);
-      $arr = $mem->get('4');
+      $arr = $mem->get('_4');
        echo '<pre>';
        var_dump($arr);
        echo '</pre>';
@@ -216,14 +216,31 @@ class active extends ControllerBase
     }
     public function _loadfromdb()
     {
-
-        $this->model->Get_By_UserId(4);
+        //$mem = new Memcache;
+       // $mem->connect("127.0.0.1",11211);
+      // $mem->set('4',array(),0,0);
+        $this->model->Get_By_UserId($_SESSION['USERID']);
         $result = $this->model->getresult();
         foreach($result as $re)
         {
             $obj = json_decode($re->content);
+            $obj->id = $re->ActiveId;
+            echo $obj->id."</br>";
             $this->_new($re->UserId,$re->ActionType,$obj,1);
         } 
+    }
+    public function _repo()
+    {
+       $msg = $_POST['text'];
+       if(mb_strlen($msg)==0) $msg="转发：";
+       $weibo = new stdClass();
+       $weibo->ti = time();
+       $weibo->d = addslashes($msg);
+       $weibo->repo = $_POST['repo'];
+       //var_dump($weibo);
+       $this->_new($_SESSION['USERID'],6,$weibo);
+
+
     }
     public function _weibo()
     {
@@ -252,7 +269,19 @@ class active extends ControllerBase
      * 合并规则参照前文。
      *
      */
-    public function _show()
+    public function _getActionById($id)
+    {
+        $this->model->Get_By_ActiveId($id);
+        $acts = $this->model->getresult();
+        $weibouser = new user();
+        foreach($acts as $a)
+        {
+            $a->username = $weibouser->getuserbyid($a->UserId);
+            $a->content = json_decode($a->content);
+            echo json_encode($a);
+        }
+    }
+    public function _show($page)
     {
         $mem = new Memcache;
         $mem->connect("127.0.0.1", 11211);
@@ -314,10 +343,10 @@ class active extends ControllerBase
                                 }
                             }
                             if($_SESSION['USERID']==$r->OtherUserId)
-                                $imgarr[$curtime][$img->gid][]=array('d'=>$img->d,'id'=>$img->id);
+                                $imgarr[$curtime][$img->gid][]=array('d'=>$img->d,'id'=>$img->id,'repo'=>$img->repo);
                             else
-                                $imgarr[$curtime][$img->gid][]=array('d'=>$img->d);
-
+                                $imgarr[$curtime][$img->gid][]=array('d'=>$img->d,'repo'=>$img->repo);
+                           
 
 
 
@@ -359,10 +388,12 @@ class active extends ControllerBase
             }
         }
         sort($msgarr);
+        $chunked = array_chunk($msgarr,5,TRUE);
+        if(!isset($page)||empty($page)) $page = 0;
         //echo '<pre>';
-        // var_dump($msgarr);
+        // var_dump($chunked[$page]);
         //  echo "</pre>";
-        echo json_encode($msgarr);
+        echo json_encode($chunked[$page]);
     }
 
 }
