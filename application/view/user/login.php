@@ -33,7 +33,7 @@
 					<p>
 					<label>
 					密码:</br>
-						  <input type="password" name="password" id="password"/>
+						  <input type="password" name="password"/>
 					</label>
 					</p>
 				  </div>

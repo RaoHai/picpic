@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="/bootstrap.new.css">
+<link rel="stylesheet" href="/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
 <link rel="stylesheet" href="/indexstyle.css">
 
@@ -24,7 +24,7 @@
 			<div style="text-align: right;display: block;position: absolute;float: left;left:50px;top:50px;">
 			<input id="currentgroupid" style="display:none;" value='{$groupid}'></input>
 			<h1>{$groupname}</h1>
-			<div style="width:220px;">{$groupdesc}</div>
+			<div style="margin-top:-20px;width:220px;">{$groupdesc}</div>
 			<p>图集作者:<a href='/user/{$authorid}'>| {$authorname} |</a></p>
 			</div>
 			
@@ -59,9 +59,9 @@
     <div class="modal-body"></div>
     <div class="modal-footer">
 		<p id="imgdesc" style="float:left;width:auto;"></p>
-        <a class="btn btn-primary next"><i class="icon-arrow-right icon-white"></i>下一张</a>
-        <a class="btn btn-info prev"><i class="icon-arrow-left icon-white"></i>上一张</a>
-        <a class="btn btn-success download" target="_blank"><i class="icon-download icon-white"></i>下载</a>
+        <a class="btn primary next">下一张</a>
+        <a class="btn info prev">上一张</a>
+        <a class="btn success download" target="_blank">下载</a>
     </div>
 </div>
 		<script src="/jquery.min.js"></script>

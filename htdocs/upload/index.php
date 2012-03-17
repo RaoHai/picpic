@@ -66,7 +66,7 @@ a{color:#3b5998;}
 			 */
 			function avatarSaved(){
 				alert('保存成功.');
-				//window.location.href = '/profile.do';
+				window.location.href = '/information/update';
 			}
 			
 			 /**

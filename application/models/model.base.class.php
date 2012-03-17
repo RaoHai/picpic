@@ -72,11 +72,6 @@
 		**/
 		public function Get($QueryColums,$Constraints,$limit,$order)
 		{
-			$this->QueryType="";
-			$this->QueryColum="";
-			$this->QueryConstraint="";
-			$this->QueryConstraintOperators="=";
-			$this->obj=array();
 			if(empty($limit)) $limit=array(0,30);
 			$sql = "select ";
 			$instance = $this->instance;
@@ -87,12 +82,7 @@
 				$q = "*";
 				$this->QueryColums = $this->DataStruct;
 			}
-            else if($QueryColums == "count")
-            {
-                $q = "COUNT(*)";
-                $this->QueryColums ="COUNT(*)";
-            }
-          	else
+			else
 			{
 				$this->QueryColums = $QueryColums;
 				$q;
@@ -104,7 +94,7 @@
 							$q.=",`{$instance}`.`{$query}` ";
 				}
 			}
-			$sql.="{$q} from  `{$instance }` {$this->join_sql}";
+			$sql.="{$q} from  `{$instance }` ";
 			$Con;
 			foreach($Constraints as $Key)
 			{
@@ -137,11 +127,6 @@
 		
 		public function Set($QueryColums,$Constraints)
 		{
-			$this->QueryType="";
-			$this->QueryColum="";
-			$this->QueryConstraint="";
-			$this->QueryConstraintOperators="=";
-			$this->obj=array();
 			$instance = $this->instance;
 			$sql = "update {$instance} set";
 			$query;
@@ -167,29 +152,6 @@
 		//	echo $sql;
 			$this->DAL($sql);
 			
-		}
-		public function Del($Constraints)
-		{
-			$this->QueryType="";
-			$this->QueryColum="";
-			$this->QueryConstraint="";
-			$this->QueryConstraintOperators="=";
-			$this->obj=array();
-			$instance = $this->instance;
-			$sql = "DELETE from {$instance} where ";
-			$Con;
-			foreach($Constraints as $Key)
-			{
-				$Key=str_replace("=","`='",$Key);
-				$Key=str_replace("<","`<'",$Key);
-				$Key=str_replace(">","`>'",$Key);
-				if(empty($Con))
-					$Con .="`{$instance}`.`{$Key}'";
-				else
-					$Con.=" and `{$instance}`.`{$Key}'";
-			}
-			$sql .= $Con;
-			$this->DAL($sql);
 		}
 		/**
 		*
@@ -231,13 +193,13 @@
 					{
 						//echo "全部接收成功>>>";
 						//处理多表
-                        $instance = $this->instance;
+						foreach($this->one_to_one as $otherlabel)
+						{
+							$this->QueryColum .=",`".$otherlabel[1].'`.* ';
+						}
+						$instance = $this->instance;
 						switch($this->QueryType){
 							case "select":
-                                foreach($this->one_to_one as $otherlabel)
-                                {
-                                    $this->QueryColum .=",`".$otherlabel[1].'`.* ';
-                                }
 								$sql = $this->QueryType." {$this->QueryColum} from `{$instance}`  {$this->join_sql} where `{$instance }`.`{$this->QueryConstraint}` {$this->QueryConstraintOperators}'".$arg[0]."'";
 								break;
 							case "update":
@@ -255,6 +217,7 @@
 								break;
 							}
 							$this->DAL($sql);
+						
 						
 						
 					}
@@ -278,18 +241,14 @@
 		private function DAL($sql)
 		{
 				$this->dao->fetch($sql);
-                if($this->QueryColums=="COUNT(*)")
-                {
-                   $re = $this->dao->getRow();
-                   $this->obj = $re["COUNT(*)"];
-                   return;
-                }
+				
 				while($list = $this->dao->getRow () )
 				{
-
+					
 					//$echoid =$arg[0];			
 					//echo "!!".$list["UserId"]."!!";
 					$idset = ucfirst($this->instance)."Id" ;
+					
 					$currentid =  $list[$idset];
 				
 					if(!isset($this->obj[$currentid]))

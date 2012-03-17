@@ -10,9 +10,7 @@
 		
 		public function _index()
 		{
-			$this->model->Get('count',0,array(0,10000));
-            var_dump($this->model->getresult());
-            //  var_dump($this->model->getresult());
+			$this->model->Get("all",array("id=5","sex=男"));
 			//$this->model->Set(array("Description"=>"123456","feature"=>"aaaaa"),array("ImageId=90","GroupID=11"));
 		}	
 		public function _show()

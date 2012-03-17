@@ -1,0 +1,17 @@
+@charset 'UTF-8';
+
+body
+{
+		font-size: 12px;
+		line-height: 1.5;
+		font-family: tahoma,arial,sans-serif;
+		margin:0px;
+		min-height:500px;
+
+}
+
+div
+{
+	display: block;
+
+}

@@ -69,13 +69,19 @@ var checkname = false;
 	$(document).ready(function(){
 		$('#regbt').click(function()
 		{
-
+			/*
+			$("#inner").animate({
+            opacity: "0.1",
+            left: "-=500"
+			}, 600);
+			//*/
+			// /*
 			if(checkemail==true && checkname==true  && $('#agreement').attr('checked')=="checked" )
 			{
 					 $.getJSON("/user/new",{email:$("#email").val(),username:$("#username").val(),nickname:$("#nickname").val(),password:$("#password").val()}, function (values) {
-						if(values >0)
+						if(values==true)
 						{
-							window.location= "/welcome.html"; 
+							
 						}
 				});
 			}
@@ -120,47 +126,4 @@ var checkname = false;
 			 });
 			 }
 	});
-  $('#password').keypress(function(e){
- var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-     if (keyCode == 13){ 
-     }
-     checkon();
-
-      });
- 
-   $('#msgsendr').click(function(){
-          
-           $.ajax({                                                
-type: "POST",                                 
-url: "/message/send/",  
-data: "reciverid="+$('#reciverid').val()+"&msgtitle="+$('#msgtitle').val()+"&msgcontext="+$('#msgtext').val(),  
- dataType: "json",
-success: function(msg){ 
-       $('#modal-send-message').removeClass('in');
-      $('.modal-backdrop').removeClass('in');
-      $('.modal-backdrop').remove();
-
-    }});
-
-       });
-     $.getJSON("/message/getunread/",0, function (values) {
-         if(values==0)
-         {
-         $('#newmessage').tooltip({
-            placement:"bottom",
-            title:"没有新邮件",
-            delay: { show: 10, hide: 600 }
-          }).removeClass("icon-red");
-         }
-         else
-         {
-         $('#newmessage').tooltip({
-            placement:"bottom",
-            title:"有"+values+"封新邮件",
-            delay: { show: 10, hide: 600 }
-          }).addClass("icon-red");
-
-         }
-         });
-
 });

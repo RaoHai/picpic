@@ -8,7 +8,6 @@
 			$this->IsDbObj = true;
 			parent::__construct($instance);
 			//echo "index->index";
-			$this->has_one("OtherUserId","user","UserId");
 		}		
 		
 		
