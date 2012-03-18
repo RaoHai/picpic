@@ -23,19 +23,21 @@
     If it is not included, either remove the "fade" class from the upload/download templates,
     or define your own "fade" class with CSS transitions.
 -->
-<link rel="stylesheet" href="/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap.new.css">
 <link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
 <link rel="stylesheet" href="/indexstyle.css">
 <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
 <link rel="stylesheet" href="/jquery.fileupload-ui.css">
 
 </head>
-<body>
+<body  onbeforeunload="SaveText()">
 <div id="index">
 <div id="header">
 		<div id="hd-link">
 						{$if:user}
-							欢迎回来，<a href="/home" >{$nickname}</a> <a href="/user/logout">[退出]</a>
+							欢迎回来，<a href="/home" >{$nickname}</a>
+                              <a href="/user/message"> <i class="icon-envelope" id="newmessage"></i></a>
+                              <a href="/user/logout">[退出]</a>
 						{$else}
 							<a href="/user/loginpage?/" >[登录]</a>
 							<a href="/user/register">[注册]</a>
@@ -74,35 +76,39 @@
 	</div>
 	<div id="content1">
 		<div id="welcome" >
-			<a id="myphoto">{$nickname}</a>
+			<div id="myphoto" > <a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/{$userid}_big.jpg" title="点击以更改头像"/></a>
+			<div style="float:right;width:160px;">
+			<p><b>{$nickname}</b></p>
+			<p> <a href="#" data-controls-modal="modal-from-profile" data-backdrop="true" >[修改个人信息]</a></p>
+			</div>
+			</div>
 			<a id="showup"style="text-align:center;">上传</a>
-			<a id="showcatch">抓取网址</a>
 			<a id="showgroup" href="/imagegroup/all">查看画集</a>
+			<span id="showfriend" >{$friends}</span>
 		</div>
-<p></p>
+<p></p>`
 </br>
-
-<div class="container" id="fcontainer">
+<div class="container" id="fcontainer" style="display:none;">
     <form id="fileupload" action="/user/loader/" method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="span16 fileupload-buttonbar">
-                <span class="btn success fileinput-button">
+                <span class="btn btn-success fileinput-button"><i class="icon-plus icon-white"></i>
                     <span>添加文件...</span>
                     <input type="file" name="files[]" multiple>
                 </span>
-                <button type="submit" class="btn primary start">开始上传</button>
-                <button type="reset" class="btn info cancel">取消上传</button>
-                <button type="button" class="btn danger delete">删除选择的文件</button>
+                <button type="submit" class="btn btn-primary start"><i class="icon-upload icon-white"></i>开始上传</button>
+                <button type="reset" class="btn btn-info cancel"><i class="icon-remove icon-white"></i>取消上传</button>
+                <button type="button" class="btn btn-danger delete"><i class="icon-trash icon-white"></i>删除选择的文件</button>
                 <input type="checkbox" class="toggle">全选
-				 <button type="button" class="btn danger complete" id="uploadcomplete" style="float:right">完成</button>
+				 <button type="button" class="btn btn-danger complete" id="uploadcomplete" style="float:right">完成</button>
 				   <p>
 				   <div style="float:left;margin-top:10px;">请选择要上传到的画集：</div>
 				   	<select id="upselect" name="upselect" style="float:left;margin-top:5px;">
 						{$groupselect}
 					</select>
 					 				 
-					<button data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">新建画集</button>
-					<button data-controls-modal="modal-from-edit" data-backdrop="true" data-keyboard="true" class="btn" id="groupsettings" style="margin-top: 4px;margin-left:20px;">画集设定</button>
+					<button data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true" class="btn btn-primary"style="margin-top: 4px;margin-left:20px;">新建画集</button>
+					<button data-controls-modal="modal-from-edit" data-backdrop="true" data-keyboard="true" class="btn btn-primary" id="groupsettings" style="margin-top: 4px;margin-left:20px;">画集设定</button>
 				
 				   <div class="progressbar fileupload-progressbar fade"><div style="width:0%;"></div></div></p>
             </div>
@@ -114,6 +120,20 @@
             </div>
         </div>
     </form>
+</div>
+<div>
+<div style="width:640px;height:110px;">
+<h4 style="float:right;margin-left:40px;" id="weibolength">请文明发言</h4>
+<textarea id="weibo"></textarea></br>
+<input type="button" id="weibosend" disabled='disabled' class='btn primary disabled' style='float:right;margin-top:2px;'value="发布" />
+</div>
+<div style='margin-left:40px;'>
+<p>  好友动态：</p>
+	<ul id="showactives" style="float:left">
+	</ul>
+    <div id="pageselect"> 
+    </div>
+</div>
 </div>
 </div>
 <!-- gallery-loader is the loading animation container -->
@@ -128,12 +148,13 @@
     <div class="modal-body"></div>
     <div class="modal-footer">
 		<input id="edimgdesc" name="edimgdesc" class="imgdesc" style="float:left" value="点击这里为图片添加描述"/>
-		<a class="btn save" id="imgedit" style="float:left">保存</a>
-        <a class="btn primary next">下一张</a>
-        <a class="btn info prev">上一张</a>
-        <a class="btn success download" target="_blank">下载</a>
+		<a class="btn btn-primary" id="imgedit" style="float:left">保存</a>
+        <a class="btn btn-primary next"><i class="icon-arrow-right icon-white"></i>下一张</a>
+        <a class="btn btn-info prev"><i class="icon-arrow-left icon-white"></i>上一张</a>
+        <a class="btn btn-success download" target="_blank"><i class="icon-download icon-white"></i>下载</a>
     </div>
 </div>
+<!--新建画集 -->
           <div id="modal-from-dom" class="modal hide fade">
             <div class="modal-header" style="background-color:#339BB9;">
               <a href="#" class="close">&times;</a>
@@ -171,7 +192,6 @@
             </div>
           </div>
 		  <!--编辑画集信息 -->
-          </div>          
 		  <div id="modal-from-edit" class="modal hide fade">
             <div class="modal-header">
               <a href="#" class="close">&times;</a>
@@ -192,6 +212,143 @@
               
             </div>
           </div>
+		  <!--编辑个人信息 -->
+		    <div id="modal-from-profile" class="modal hide fade">
+            <div class="modal-header">
+              <a href="#" class="close">&times;</a>
+              <h3>修改个人信息</h3>
+            </div>
+			<div id="edgroupnotice" style="text-align:center;display:none;">    <h4 style="color:red;">设置成功</h4></div>
+            <div class="modal-body">
+				 <form id="profileedit" name="profileeid" action="/imagegroup/new" method="POST" enctype="multipart/form-data">
+				<p>修改个人信息……</p>
+				<input id="profileid" style="display:none;"/>
+				<p>性别：<input name="profilesex" id="profilesex"/></p></br>
+				<p>血型：<textarea name="profileblood" id="profileblood" ></textarea></p></br>
+				<p>生日：<select name="profilebirth" id="profilebirth"><option value="1">所有人可见</option><option value="2">仅自己可见</option><option value="3">仅小组可见</option><option value="4">仅好友可见</option></select></p>
+			  </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn primary" id="edgroupsubmit" >保存</a>
+              
+            </div>
+          </div>
+		 <!--编辑头像 -->
+		 <div id="modal-from-avatar" class="modal hide fade" style="width:650px;margin-top:-300px;">
+            <div class="modal-header" style="background-color:#339BB9;">
+              <a href="#" class="close">&times;</a>
+              <h3 style="color:white;">更改头像</h3>
+            </div>
+			<div id="groupnotice" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功！</h4></div>
+            <div class="modal-body" style="float:left;">
+
+		<div style="padding:10px 0;color:#666;">
+		上传一张图片，或者  <a style="color:#cc3300;" href="javascript:void(0);" onclick="useCamera()">使用摄像头</a>
+		</div>
+		<form enctype="multipart/form-data" method="post" name="upform" target="upload_target" action="/upload/upload.php">
+		<input type="file" name="Filedata" id="Filedata"/>
+		<input style="margin-right:20px;" type="submit" name="" value="上传形象照" onclick="return checkFile();" /><span style="visibility:hidden;" id="loading_gif"><img src="/upload/loading.gif" align="absmiddle" />上传中，请稍侯......</span>
+		</form>
+		<iframe src="about:blank" name="upload_target" style="display:none;"></iframe>
+		<div id="avatar_editor"></div>
+		<script type="text/javascript">
+		//允许上传的图片类型
+		var extensions = 'jpg,jpeg,gif,png';
+		//保存缩略图的地址.
+		var saveUrl = '/upload/save_avatar.php';
+		//保存摄象头白摄图片的地址.
+		var cameraPostUrl = '/upload/camera.php';
+		//头像编辑器flash的地址.
+		var editorFlaPath = '/upload/AvatarEditor.swf';
+
+		function useCamera()
+		{
+			var content = '<embed height="464" width="514" ';
+			content +='flashvars="type=camera';
+			content +='&postUrl='+cameraPostUrl+'?&radom=1';
+			content += '&saveUrl='+saveUrl+'?radom=1" ';
+			content +='pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" ';
+			content +='allowscriptaccess="always" quality="high" ';
+			content +='src="'+editorFlaPath+'"/>';
+			document.getElementById('avatar_editor').innerHTML = content;
+		}
+		function buildAvatarEditor(pic_id,pic_path,post_type)
+		{
+			var content = '<embed height="464" width="514"'; 
+			content+='flashvars="type='+post_type;
+			content+='&photoUrl='+pic_path;
+			content+='&photoId='+pic_id;
+			content+='&postUrl='+cameraPostUrl+'?&radom=1';
+			content+='&saveUrl='+saveUrl+'?radom=1"';
+			content+=' pluginspage="http://www.macromedia.com/go/getflashplayer"';
+			content+=' type="application/x-shockwave-flash"';
+			content+=' allowscriptaccess="always" quality="high" src="'+editorFlaPath+'"/>';
+			document.getElementById('avatar_editor').innerHTML = content;
+		}
+			/**
+			  * 提供给FLASH的接口 ： 没有摄像头时的回调方法
+			  */
+			 function noCamera(){
+				 alert("未找到摄像头");
+			 }
+					
+			/**
+			 * 提供给FLASH的接口：编辑头像保存成功后的回调方法
+			 */
+			function avatarSaved(){
+				alert('保存成功.');
+				$('#avatarshow').html();
+				$('#avatarshow').html("<img src='/upload/avatar_small/{$users}_small.jpg' />");
+				$('#dialogclose').click();
+				//window.location.href = '/profile.do';
+			}
+			
+			 /**
+			  * 提供给FLASH的接口：编辑头像保存失败的回调方法, msg 是失败信息，可以不返回给用户, 仅作调试使用.
+			  */
+			 function avatarError(msg){
+				 alert("上传失败了呀，哈哈");
+			 }
+
+			 function checkFile()
+			 {
+				 var path = document.getElementById('Filedata').value;
+				 var ext = getExt(path);
+				 
+				 var re = new RegExp("(^|\\s|,)" + ext + "($|\\s|,)", "ig");
+				  if(extensions != '' && (re.exec(extensions) == null || ext == '')) {
+				 alert('对不起，只能上传jpg, gif, png类型的图片');
+				 return false;
+				 }
+
+				 showLoading();
+				 return true;
+			 }
+
+			 function getExt(path) {
+				return path.lastIndexOf('.') == -1 ? '' : path.substr(path.lastIndexOf('.') + 1, path.length).toLowerCase();
+			}
+              function	showLoading()
+			  {
+				  document.getElementById('loading_gif').style.visibility = 'visible';
+			  }
+			  function hideLoading()
+			  {
+				document.getElementById('loading_gif').style.visibility = 'hidden';
+			  }
+</script>
+
+	</div>
+
+				
+
+			
+
+            <div class="modal-footer">
+              <a href="#" class="btn primary close" id="dialogclose" style="display:none;">完成</a>
+
+
+</div>	  
 </div>
 <script>
 var fileUploadErrors = {
@@ -202,6 +359,8 @@ var fileUploadErrors = {
     uploadedBytes: '上传的字节超过文件的大小',
     emptyResult: '空文件'
 };
+var myid={$userid};
+      
 </script>
 <script id="template-upload" type="text/html">
 {% for (var i=0, files=o.files, l=files.length, file=files[0]; i<l; file=files[++i]) { %}
@@ -246,7 +405,7 @@ var fileUploadErrors = {
         {% } %}
 		          
         <div class="delete" id="deletebt">
-            <button class="filedel" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"  title="删除"></button>
+            <button class="icon-trash icon-black filedel" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"  title="删除"></button>
 			
 			<input type="checkbox" name="delete" value="1" id="deleteck">
         </div>
@@ -265,11 +424,18 @@ var fileUploadErrors = {
 <script src="/bootstrap-image-gallery.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
 <script src="/jquery.iframe-transport.js"></script>
+<script src="/jquery.cookie.js"></script>
 <script src="/jquery.fileupload.js"></script>
 <script src="/jquery.fileupload-ui.js"></script>
 <script src="/application.js"></script>
-
+<script src="/bootstrap-tooltip.js"></script>
+<script src="/popup.js"></script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
+	<div id="footer">
+		<p>©Copyright by surgesoft, 2011,all rights reserved</p>
+		<p>收集工具|关于我们|帮助</p>
+	</div>
+
 </body> 
 </html>

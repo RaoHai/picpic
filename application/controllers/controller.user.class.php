@@ -9,24 +9,37 @@
 			parent::__construct();
 		}
 		
-		public function _index()
+		public function _index($uid=0)
 		{
+                if($uid>0)
+                {
+                    return $this->userindex($uid);
+                }
 				$imagegroup = new imagegroup();
 				$imagegroup ->model->Get_By_author($_SESSION["USERID"]);
 				$re =$imagegroup ->model->getresult();
-				
+
 				foreach($re as $r)
 				{
 					$groupselect .="<option value='".$r->ImagegroupId."'>".$r->GroupName."</option>";
 				}
+				$friendlist = new friend();
+				$flist = $friendlist->_getfriend();
+				
 				$this->values = array("user"=>$_SESSION["USER"],
+												"userid"=>$_SESSION["USERID"],
 												"title"=>"我的Pic-ACGPIC",
+												"friends"=>$flist,
 												"nickname"=>$_SESSION['NICK'],
 												"groupselect"=>$groupselect,
 												);
 				$this->RenderTemplate("index");
 				
 		}	
+        public function userindex($uid)
+        {
+            $username = $this->getuserbyid($uid);
+        }
 		public function _logout()
 		{
             setcookie("USER",0,0,'/');
@@ -34,6 +47,7 @@
             setcookie("NICK",0,0,'/');
             setcookie("permission",0,0,'/');
             session_destroy();
+
             header("Location:"."/");
         }
         public function _loginpage($url)
@@ -248,38 +262,6 @@
             $this->RenderTemplate("msg");
 
         }
-		public function _test()
-		{
-			$this->values = array("user"=>"hello");
-			$this->RenderTemplate("test");
-		}
-		public function _getuser()
-		{
-		
-			$this->model->Get_By_UserId($_SESSION["USERID"]);
-			$re=$this->model->getresult();
-			$showuser=array();
-		
-			foreach($re as $r)
-			{
-				$showuser['username']=$r->UserName;
-				$showuser['email']=$r->email;
-			}
-			return $showuser;
-		}
-		
-//-----------------------------------------------------------		
-		public function _getusername($id)
-		{
-			$this->model->Get_By_UserId($id);
-			$re=$this->model->getresult();
-		
-			foreach($re as $r)
-			{
-				$showuser=$r->UserName;
-			}
-			return $showuser;
-		}
-		
-	}
+
+    }
 ?>

@@ -2,12 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo $this->values["title"]; ?></title>
-<link rel="stylesheet" href="/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap.new.css">
 <link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
 <link rel="stylesheet" href="/indexstyle.css">
-<script src="/jquery.min.js"></script>
-<script src="popup.js"></script>
 </head>
 <body>
 
@@ -15,7 +14,9 @@
 	<div id="header">
 		<div id="hd-link">
 						<?php if($this->values["user"]) {  ?>
-							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a> <a href="/user/logout">[退出]</a>
+							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a>
+                              <a href="/user/message"> <i class="icon-envelope" rel="tooltip" id="newmessage"></i></a>
+                              <a href="/user/logout">[退出]</a>
 						<?php } else { ?>
 							<a href="/user/loginpage?/" >[登录]</a>
 							<a href="/user/register">[注册]</a>
@@ -53,10 +54,13 @@
 		</div>
 	</div>
 	<div id="content">
+<?php if($this->values["user"]) {  ?>
+<?php } else { ?>
 		<div id="welcome">
 			<a href="/reg">欢迎信息|注册链接
 			<?php echo $this->values["welcome"]; ?></a>
 		</div>
+<?php } ?>
 		<div id="indexshow">
 			
 				<?php echo $this->values["images"]; ?>
@@ -79,6 +83,7 @@
 		<p>收集工具|关于我们|帮助</p>
 	</div>
 	</div>
+    <script src="/jquery.min.js"></script>
 	<script type="text/javascript">
 				
 	
@@ -120,17 +125,16 @@
 				});
 					
 				// Initialize the Bootstrap Image Gallery plugin:
-				$('#am-container').imagegallery();			
 
 				
 				
 			});
 		</script>
-		<script src="/jquery.min.js"></script>
-		<script type="text/javascript" src="/jquery.montage.js"></script>
+		<script src="/jquery.montage.js"></script>
 		<script src="/vendor/jquery.ui.widget.js"></script>
 		<script src="/load-image.min.js"></script>
-	<script type="text/javascript" src="/jquery.montage.js"></script>
-
-</body>
+    	<script src="/jquery.montage.js"></script>
+        <script src="/bootstrap-tooltip.js"></script>
+        <script src="/popup.js"></script>
+        </body>
 </html>

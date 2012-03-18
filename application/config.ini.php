@@ -21,6 +21,7 @@
 	defined('DB_USER_PASSWORD')  	|| define('DB_USER_PASSWORD', "");
 	//数据库名
 	defined('DB_NAME')  || define('DB_NAME', "pic");
+	//Memcache服务器连接数据
 
 	 
 ?>

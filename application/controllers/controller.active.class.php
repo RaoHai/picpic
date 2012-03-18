@@ -239,6 +239,8 @@ class active extends ControllerBase
        $weibo->repo = $_POST['repo'];
        //var_dump($weibo);
        $this->_new($_SESSION['USERID'],6,$weibo);
+       $weibo->id=mysql_insert_id();
+        echo json_encode(array(array('id'=>$weiboid,'time'=>date('Y-m-d h:i:s',time()),'type'=>6,'username'=>$_SESSION['NICK'],'userid'=>$_SESSION['USERID'],'gid'=>"",'data'=>array(array('d'=>$weibo->d,'id'=>$weibo->id,'repo'=>$weibo->repo)))));
 
 
     }
@@ -281,8 +283,13 @@ class active extends ControllerBase
             echo json_encode($a);
         }
     }
-    public function _show($page)
+    public function _show($page=0)
     {
+        $page = empty($page)?0:$page;
+        $start = $page * 10;
+        $end = ($page+1) *10;
+        $curpage = 0;
+        $count = 0;
         $mem = new Memcache;
         $mem->connect("127.0.0.1", 11211);
         $friends = new friend();
@@ -342,10 +349,10 @@ class active extends ControllerBase
                                     }
                                 }
                             }
-                            if($_SESSION['USERID']==$r->OtherUserId)
+                            //if($_SESSION['USERID']==$r->OtherUserId)
                                 $imgarr[$curtime][$img->gid][]=array('d'=>$img->d,'id'=>$img->id,'repo'=>$img->repo);
-                            else
-                                $imgarr[$curtime][$img->gid][]=array('d'=>$img->d,'repo'=>$img->repo);
+                            //else
+                            //    $imgarr[$curtime][$img->gid][]=array('d'=>$img->d,'repo'=>$img->repo);
                            
 
 
@@ -363,6 +370,7 @@ class active extends ControllerBase
                         {
                             foreach($ar as $gid=>$li)
                             {
+                                 $count+=count($val2['data']);
                                 $msgarr[]=array("time"=>date('Y-m-d,H:i:s',$ti),"type"=>$i,"gid"=>$gid,"username"=>$username,"userid"=>$userid,"data"=>$li);
                                 $cachearr[]=array('time'=>date('Y-m-d,H:i:s',$ti),"type"=>$i,'gid'=>$gid,"username"=>$username,"userid"=>$userid,"data"=>$li);
 
@@ -381,19 +389,26 @@ class active extends ControllerBase
             }
             else
             {
+                $count+=count($val2['data']);
                 foreach($val2['data'] as $d)
                 {
-                    $msgarr[]=$d;
+                      $msgarr[]=$d;
                 }
             }
         }
-        sort($msgarr);
-        $chunked = array_chunk($msgarr,5,TRUE);
-        if(!isset($page)||empty($page)) $page = 0;
+        arsort($msgarr);
+        
+        $data->pages =  ceil($count/10);
+        $data->curpage = $page+1;
+        $data->msg = array_slice($msgarr,$start,$end);
+        //$data->msg = $msgarr;
+        //$msgarr->pages = $count
+        //$chunked = array_chunk($msgarr,5,TRUE);
+        //if(!isset($page)||empty($page)) $page = 0;
         //echo '<pre>';
-        // var_dump($chunked[$page]);
+        // var_dump($msgarr);
         //  echo "</pre>";
-        echo json_encode($chunked[$page]);
+        echo json_encode($data);
     }
 
 }

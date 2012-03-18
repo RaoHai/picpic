@@ -16,6 +16,11 @@
 			mysql_query("SET NAMES 'UTF8'"); 
 			//echo "db_connected";
 		}
+        static public function getinsertid()
+        {
+            return mysql_insert_id(self::$db);
+        }
+        
 		static public function fetch($sql)
 		{
 			//echo $sql;
