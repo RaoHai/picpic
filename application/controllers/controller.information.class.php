@@ -13,13 +13,13 @@
 		function showinformation()
 		{
 			echo<<<EOD
-			<p><a href='/information/index'/>ÓÃ»§</a>
-			   <a href='/information/friend'/>ºÃÓÑ</a>
-			   <a href='/information/other'/>ÆäËû</a></p>
+			<p><a href='/information/index'/>ç”¨æˆ·</a>
+			   <a href='/information/friend'/>å¥½å‹</a>
+			   <a href='/information/other'/>å…¶ä»–</a></p>
 EOD;
 		}
 		
-		public function _index()//×Ô¶¨ÒåÄãµÄaction·½·¨
+		public function _index()//è‡ªå®šä¹‰ä½ çš„actionæ–¹æ³•
 		{
 		$User = new user();
 		$Profile = new profile();		
@@ -45,11 +45,11 @@ EOD;
 			$showprofile=$Profile->_getprofile();
 			$showsex='';
 			if($showprofile['sex']==1)
-			$showsex='ÄĞ';
+			$showsex='ç”·';
 			if($showprofile['sex']==2)
-			$showsex='Å®';
+			$showsex='å¥³';
 			if($showprofile['sex']==3)
-			$showsex='ÎŞĞÔ±ğ£¿';
+			$showsex='æ— æ€§åˆ«ï¼Ÿ';
 			
 			$showblood='';
 			if($showprofile['blood']==1)
@@ -63,12 +63,12 @@ EOD;
 			
 			$show='	
 			<a href="../upload/index.php"><img src="'.$file.'"/></a>
-			<p>ÓÃ»§Ãû£º  '.$showuser['username'].'</p>
-			<a  href="/information/update"  onclick= "" >±à¼­×ÊÁÏ</a>
-			<p>ĞÔ±ğ£º	 '.$showsex.'</p>
-			<p>ÑªĞÍ£º	 '.$showblood.'</p>
-			<p>ÓÊÏä£º    '.$showuser['email'].'</p>
-			<p>ÉúÈÕ£º    '.$showprofile['birthday'].'</p>
+			<p>ç”¨æˆ·åï¼š  '.$showuser['username'].'</p>
+			<a  href="/information/update"  onclick= "" >ç¼–è¾‘èµ„æ–™</a>
+			<p>æ€§åˆ«ï¼š	 '.$showsex.'</p>
+			<p>è¡€å‹ï¼š	 '.$showblood.'</p>
+			<p>é‚®ç®±ï¼š    '.$showuser['email'].'</p>
+			<p>ç”Ÿæ—¥ï¼š    '.$showprofile['birthday'].'</p>
 			';
 			//echo '<link rel="stylesheet" href="/bootstrap.min.css">';
 
@@ -95,58 +95,58 @@ EOD;
 			if(file_exists($file))
 				$file="..\upload\avatar_small\_small.jpg";		
 				
-			$show1=' <input type="radio" name="sex" value="1" /> ÄĞ
-					 <input type="radio" name="sex" value="2" /> Å®
-					 <input type="radio" name="sex" value="3" /> ÎŞĞÔ±ğ£¿';	
+			$show1=' <input type="radio" name="sex" value="1" /> ç”·
+					 <input type="radio" name="sex" value="2" /> å¥³
+					 <input type="radio" name="sex" value="3" /> æ— æ€§åˆ«ï¼Ÿ';	
 			if($showprofile['sex']==1)
-			$show1=' <input type="radio" name="sex" value="1" checked/> ÄĞ
-								 <input type="radio" name="sex" value="2" /> Å®
-								 <input type="radio" name="sex" value="3" /> ÎŞĞÔ±ğ£¿';
+			$show1=' <input type="radio" name="sex" value="1" checked/> ç”·
+								 <input type="radio" name="sex" value="2" /> å¥³
+								 <input type="radio" name="sex" value="3" /> æ— æ€§åˆ«ï¼Ÿ';
 			if($showprofile['sex']==2)
-			$show1=' <input type="radio" name="sex" value="1" /> ÄĞ
-								 <input type="radio" name="sex" value="2" checked/> Å®
-								 <input type="radio" name="sex" value="3" /> ÎŞĞÔ±ğ£¿';
+			$show1=' <input type="radio" name="sex" value="1" /> ç”·
+								 <input type="radio" name="sex" value="2" checked/> å¥³
+								 <input type="radio" name="sex" value="3" /> æ— æ€§åˆ«ï¼Ÿ';
 			if($showprofile['sex']==3)
-			$show1=' <input type="radio" name="sex" value="1" /> ÄĞ
-								 <input type="radio" name="sex" value="2" /> Å®
-								 <input type="radio" name="sex" value="3" checked/> ÎŞĞÔ±ğ£¿';
+			$show1=' <input type="radio" name="sex" value="1" /> ç”·
+								 <input type="radio" name="sex" value="2" /> å¥³
+								 <input type="radio" name="sex" value="3" checked/> æ— æ€§åˆ«ï¼Ÿ';
 
 			$show2='
-					<option value="">ÑªĞÍ</option>
+					<option value="">è¡€å‹</option>
 					<option value="1">A</option>
 					<option value="2">B</option>
 					<option value="3">AB</option>
 					<option value="4">O</option>';
 			if($showprofile['blood']==1)	
 			$show2='
-					<option value="">ÑªĞÍ</option>
+					<option value="">è¡€å‹</option>
 					<option value="1" selected>A</option>
 					<option value="2">B</option>
 					<option value="3">AB</option>
 					<option value="4">O</option>';
 			if($showprofile['blood']==2)	
 			$show2='
-					<option value="">ÑªĞÍ</option>
+					<option value="">è¡€å‹</option>
 					<option value="1">A</option>
 					<option value="2" selected>B</option>
 					<option value="3">AB</option>
 					<option value="4">O</option>';
 			if($showprofile['blood']==3)	
 			$show2='
-					<option value="">ÑªĞÍ</option>
+					<option value="">è¡€å‹</option>
 					<option value="1">A</option>
 					<option value="2">B</option>
 					<option value="3" selected>AB</option>
 					<option value="4">O</option>';
 			if($showprofile['blood']==4)	
 			$show2='
-					<option value="">ÑªĞÍ</option>
+					<option value="">è¡€å‹</option>
 					<option value="1">A</option>
 					<option value="2">B</option>
 					<option value="3">AB</option>
 					<option value="4" selected>O</option>';
 				
-			$show3='<option value="">Äê</option>';
+			$show3='<option value="">å¹´</option>';
 			for($i=2011;$i>=1935;$i--)
 			{
 			if($i==intval(substr($showprofile['birthday'],0,(strcspn ($showprofile['birthday'],"/") ) ) ) )
@@ -155,7 +155,7 @@ EOD;
 			$show3=$show3.'<option value="'.$i.'">'.$i.'</option>';
 			}
 
-			$show4='<option value="">ÔÂ</option>';
+			$show4='<option value="">æœˆ</option>';
 			$a=substr($showprofile['birthday'],(strcspn ($showprofile['birthday'],"/") +1) ) ;
 			for($i=1;$i<=12;$i++)
 			{
@@ -165,7 +165,7 @@ EOD;
 			$show4=$show4.'<option value="'.$i.'">'.$i.'</option>';
 			}
 
-			$show5='<option value="">ÈÕ</option>';
+			$show5='<option value="">æ—¥</option>';
 			$b=substr($a,(strcspn($a,"/")+1) ) ;
 			for($i=1;$i<=31;$i++)
 			{
@@ -211,7 +211,7 @@ EOD;
 			<div>
 			<a href="../upload/index.php"><img src="'.$file.'"/></a>
 			<form name="user" action="index" method="post" >
-				<p>ĞÔ±ğ£º	'.$show1.'</p>
+				<p>æ€§åˆ«ï¼š	'.$show1.'</p>
 			<p><select name="blood" id="blood" >'.$show2.'</select></p>
 			<select name="birthyear" id="birthyear" tabindex="1" onchange="showbirthday();">'.$show3.'</select>
 				<select name="birthmonth" id="birthmonth" onchange="showbirthday();" tabindex="1">
@@ -221,8 +221,8 @@ EOD;
 				'.$show5.'
 				</select>
 				<span id="password"></span> 		
-			<p><input type=submit name="click2" value="È·¶¨"/>
-			<input type=reset name="click1" vlaue="ÖØÖÃ"/></p>
+			<p><input type=submit name="click2" value="ç¡®å®š"/>
+			<input type=reset name="click1" vlaue="é‡ç½®"/></p>
 			</form>';
 			
 			
@@ -240,8 +240,8 @@ EOD;
 		
 		$show="<form name='addfriend' action='friend' method='post' >
 				<p><input type='text' name='friendid' />
-				<input type=submit name='click2' value='È·¶¨'/>
-				<input type=reset name='click1' vlaue='ÖØÖÃ'/></p>";			
+				<input type=submit name='click2' value='ç¡®å®š'/>
+				<input type=reset name='click1' vlaue='é‡ç½®'/></p>";			
 			
 				
 				if($_POST['friendid']!=null)
@@ -268,8 +268,8 @@ EOD;
 				<input type='text' name='toID' />
 				<input type='text' name='information' />
 				<input type='text' name='title' />
-				<input type=submit name='click2' value='È·¶¨'/>
-				<input type=reset name='click1' vlaue='ÖØÖÃ'/></p>";
+				<input type=submit name='click2' value='ç¡®å®š'/>
+				<input type=reset name='click1' vlaue='é‡ç½®'/></p>";
 			echo $show;
 			
 			$showinformation=$Message->_showinformation($_SESSION["USERID"]);
@@ -296,8 +296,8 @@ EOD;
 				<input type='text' name='title' />
 				<input type='text' name='text' />
 				<input type='text' name='take1' />
-				<input type=submit name='click2' value='È·¶¨'/>
-				<input type=reset name='click1' vlaue='ÖØÖÃ'/></p>";
+				<input type=submit name='click2' value='ç¡®å®š'/>
+				<input type=reset name='click1' vlaue='é‡ç½®'/></p>";
 			echo $show;
 			
 			$showactivity=$Activity->_showinformation(1);
@@ -315,7 +315,7 @@ EOD;
 		$Teamuser=new teamuser();
 		if($_GET['teamid']==null)
 		{
-			$show="<a href='/information/teamadd'>Ìí¼ÓÈº</a></br>";
+			$show="<a href='/information/teamadd'>æ·»åŠ ç¾¤</a></br>";
 			echo $show;
 			$Teaminformation->_showallteam();
 		}
@@ -326,9 +326,9 @@ EOD;
 			{
 				echo $r->teamname." ".$r->teamremarks." ".$User->_getusername($r->teammader)." ".$r->teammadetime."</br>";
 			}
-			echo "<a  href='/information/teamuseradd'> ¼ÓÈë</a> ";
-			echo "<a href='/information/teamupdate'>ĞŞ¸Ä</a> ";
-			echo "<a href='/information/teamimage'>»­¼¯</a> ";
+			echo "<a  href='/information/teamuseradd'> åŠ å…¥</a> ";
+			echo "<a href='/information/teamupdate'>ä¿®æ”¹</a> ";
+			echo "<a href='/information/teamimage'>ç”»é›†</a> ";
 			echo "</br>";
 			$Teamuser->_showall();
 			/*
@@ -346,7 +346,7 @@ EOD;
 					return true;
 					}';
 			</script> 
-			<a  href=#  onclick= "checkon()"> ¼ÓÈë</a> 
+			<a  href=#  onclick= "checkon()"> åŠ å…¥</a> 
 EOD;
 */
 		}
@@ -360,8 +360,8 @@ EOD;
 				<p>
 				<input type='text' name='teamname' />
 				<input type='text' name='teamremarks'/>
-				<input type=submit name='click2' value='È·¶¨'/>
-				<input type=reset name='click1' vlaue='ÖØÖÃ'/></p>";
+				<input type=submit name='click2' value='ç¡®å®š'/>
+				<input type=reset name='click1' vlaue='é‡ç½®'/></p>";
 			else
 			{
 				$Teaminformation->_add($_POST['teamname'],$_POST['teamremarks'],$_SESSION["USERID"],0);
@@ -394,8 +394,8 @@ EOD;
 			<p>
 			<input type='text' name='teamname' value='".$Teamname."'>
 			<input type='text' name='marks' value='".$Marks."'>
-			<input type=submit name='click2' value='È·¶¨'/>
-			<input type=reset name='click1' vlaue='ÖØÖÃ'/>
+			<input type=submit name='click2' value='ç¡®å®š'/>
+			<input type=reset name='click1' vlaue='é‡ç½®'/>
 			</p>";
 			echo $show;
 			
@@ -403,7 +403,7 @@ EOD;
 		
 		public function _teamimage()
 		{
-			echo "<a href='/information/teamimageadd'>ĞÂ½¨</a>";
+			echo "<a href='/information/teamimageadd'>æ–°å»º</a>";
 		}
 		
 		public function _teamimageadd()
@@ -417,8 +417,8 @@ EOD;
 			<p>
 			<input type='text' name='name'>
 			<input type='text' name='description'>
-			<input type=submit name='click2' value='È·¶¨'/>
-			<input type=reset name='click1' vlaue='ÖØÖÃ'/>
+			<input type=submit name='click2' value='ç¡®å®š'/>
+			<input type=reset name='click1' vlaue='é‡ç½®'/>
 			</p>
 			</form>";
 			echo $show;
@@ -429,23 +429,14 @@ EOD;
 		{
 		$Teaminformation = new teaminformation();
 		$re=$Teaminformation->_showallteam(); 
-		$i=1;
 		foreach($re as $r)
 			{
-			if($i==1)
-			$allteam .="<tr>";
-				$allteam .="<td width='185px'><a href='".$r->TeaminformationId."'>".$r->teamname."</a></td>";
+			$marks=s
+				$allteam .="<div id='group_show'><img class='group_picture' src='../1.jpg'><div id='group_information'><a href='".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
 				$i++;
-			if($i==4)
-			{
-			$allteam .="</tr>";
-			$i=1;
 			}
-			}
-		if($i!=4)	
-			$allteam .="</tr>";
 		$this->values = array("user"=>$_SESSION["USER"],
-												"title"=>"ÎÒµÄPic-ACGPIC",
+												"title"=>"æˆ‘çš„Pic-ACGPIC",
 												"nickname"=>$_SESSION['NICK'],
 												"allteam"=>$allteam,
 												);
@@ -457,32 +448,18 @@ EOD;
 		$Teamuser = new teamuser();
 		$Teaminformation = new teaminformation();
 		$re=$Teamuser->_showoffergroup();
-		$i=1;
 		
 		foreach($re as $r)
 		{
-		echo $r->offerteamID;
-/*
 		$re1=$Teaminformation->_show($r->offerteamID);
 		foreach($re1 as $r1)
 			{
-			echo "111";
-			if($i==1)
-			$allteam .="<tr>";
-				$allteam .="<td width='185px'><a href='".$r1->TeaminformationId."'>".$r1->teamname."</a></td>";
-				$i++;
-			if($i==4)
-			{
-			$allteam .="</tr>";
-			$i=1;
+				$allteam .="<div><a href='".$r1->TeaminformationId."'>".$r1->teamname."</a></div>";
 			}
-			}
-			*/
+			
 		}
-		if($i!=4)	
-			$allteam .="</tr>";
 		$this->values = array("user"=>$_SESSION["USER"],
-												"title"=>"ÎÒµÄPic-ACGPIC",
+												"title"=>"æˆ‘çš„Pic-ACGPIC",
 												"nickname"=>$_SESSION['NICK'],
 												"allteam"=>$allteam,
 												);

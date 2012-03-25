@@ -72,98 +72,12 @@
 			</ul>
 		</div>
 	</div>
-<div>
-	<table width="100%">
-		<tbody>
-			{$allteam}
-		</tbody>
-	</table>
-</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<div class="container" id="fcontainer">
-<div class="row">
-            <div class="span16">
-                <div class="zebra-striped"><div class="files" ></div></div>
-            </div>
-        </div>	
-	
-<script>
-var fileUploadErrors = {
-    maxFileSize: '文件太大',
-    minFileSize: '文件太小',
-    acceptFileTypes: '无效的文件类型',
-    maxNumberOfFiles: '文件数量过多',
-    uploadedBytes: '上传的字节超过文件的大小',
-    emptyResult: '空文件'
-};
-</script>
-<script id="template-upload" type="text/html">
-{% for (var i=0, files=o.files, l=files.length, file=files[0]; i<l; file=files[++i]) { %}
-    <div class="template-upload fade" style="width:130px;height:130px;float:right;">
-        <div class="preview"  style="width:100px;height:80px;"><span class="fade"></span></div>
-        <div class="name">{%=file.name%}</div>
-        <div class="size">{%=o.formatFileSize(file.size)%}</div>
-     
-        {% if (file.error) { %}
-            <div class="error" colspan="2"><span class="label important">Error</span> {%=fileUploadErrors[file.error] || file.error%}</div>
-        {% } else if (o.files.valid && !i) { %}
-            <div class="progress" ><div class="progressbar"><div style="width:0%;"></div></div></div>
-            <div class="start">{% if (!o.options.autoUpload) { %}<button class="btn primary">开始上传</button>{% } %}</div>
-        {% } else { %}
-            <div colspan="2"></div>
-        {% } %}
-        <div class="cancel">{% if (!i) { %}<button class="filecan" name="取消上传"></button>{% } %}</div>
-    </div>
-{% } %}
-</script>
-<script id="template-download" type="text/html" >
-{% for (var i=0, files=o.files, l=files.length, file=files[0]; i<l; file=files[++i]) { %}
-    <div class="template-download fade" style="width:130px;height:130px;float:left;">
-        {% if (file.error) { %}
-            <div></div>
-            <div class="name">{%=file.name%}</div>
-            <div class="size">{%=o.formatFileSize(file.size)%}</div>
-            <div class="error" colspan="2"><span class="label important">Error</span> {%=fileUploadErrors[file.error] || file.error%}</div>
-        {% } else { %}
-			
-            <div class="preview" style="width:100px;height:100px;">{% if (file.thumbnail_url) { %}
-                <a href="{%=file.url%}" title="{%=file.name%}"  name="{%=file.desc%}" rel="gallery"><img src="{%=file.thumbnail_url%}"></a>
-				
-            {% } %}</div>
-			
-            <div class="name" style="overflow:hidden;width:100px;">
-                <a href="{%=file.url%}" title="编辑 {%=file.shortname%}" rel="normal">{%=file.shortname%}</a>
-            </div>
-            <div class="size">{%=o.formatFileSize(file.size)%}</div>
-         
-            <div colspan="2"></div>
-        {% } %}
-		          
-        <div class="delete" id="deletebt">
-            <button class="filedel" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"  title="删除"></button>
-			
-			<input type="checkbox" name="delete" value="1" id="deleteck">
-        </div>
-		
-    </div>
-{% } %}
-</script>
+	<div id="group_offer">
+		{$allteam}
+	</div>
+</div>	
+
+
 <script src="/jquery.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="/vendor/jquery.ui.widget.js"></script>

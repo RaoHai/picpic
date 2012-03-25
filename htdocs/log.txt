@@ -1,62 +1,26 @@
-﻿SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamname` = '' where `teaminformationId` = '3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamremarks` = '' where `teaminformationId` = '3'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `teamuser`   where `teamuser`.`offerteamID` ='3'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamname` = '' where `teaminformationId` = '3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamremarks` = '' where `teaminformationId` = '3'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamname` = '' where `teaminformationId` = '3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamremarks` = '' where `teaminformationId` = '3'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamname` = 'aaaaa' where `teaminformationId` = '3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamremarks` = 'aaaaaa' where `teaminformationId` = '3'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamname` = '' where `teaminformationId` = '3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:update `teaminformation` set `teaminformation`.`teamremarks` = '' where `teaminformationId` = '3'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('aaaa','aaaaa','0','4','2012-03-12','0','3')
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `teamuser`   where `teamuser`.`offerteamID` ='3'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select * from `teamuser`   where `teamuser`.`offerteamID` ='3'
-SQL:select * from `user`   where `user`.`UserId` ='4'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
+﻿SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('接着测试','- -你个混蛋
+','1','4','2012-03-25','0','0')
 SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('测试成功吧','= =要我测试几次啊
+','1','4','2012-03-25','0','0')
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
+SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
+SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='3'
+SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`offerteamID`='3' limit 0,30
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('你妹啊','你妹啊','1','4','2012-03-25','0','0')
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('我败了','我去','1','4','2012-03-25','0','0')
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('是短发','','1','4','2012-03-25','0','0')
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('阿道夫是','是短发','1','4','2012-03-25','0','0')
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('坑爹呢','','1','4','2012-03-25','0','3')
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('- -|||','这坑爹呢还是坑爹呢？
+','1','4','2012-03-25','0','3')
 SQL:select `imagegroup`.`ImagegroupId` ,`imagegroup`.`GroupName` ,`imagegroup`.`Description` ,`imagegroup`.`author`  from  `imagegroup`  where `imagegroup`.`author`='4' limit 0,30
 SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='4'
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='11'
@@ -66,6 +30,41 @@ SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`G
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='29'
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='30'
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='31'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='32'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='33'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='34'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='35'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='36'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='37'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='38'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='39'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='40'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='41'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='42'
+SQL:select  `imagegroup`.`ImagegroupId` , `imagegroup`.`GroupName`, `imagegroup`.`Description`, `imagegroup`.`author` from `imagegroup`   where `imagegroup`.`ImagegroupID` ='38'
+SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='4'
+SQL:select  `image`.`ImageId` , `image`.`imgurl`, `image`.`Description` from `image`   where `image`.`GroupID` ='38'
+SQL:select *,`user`.*  from `comments`  INNER JOIN  `user` ON  `comments`.`UserId` =  `user`.`UserId`  where `comments`.`ImgGroupId` ='38'
+SQL:select `imagegroup`.`ImagegroupId` ,`imagegroup`.`GroupName` ,`imagegroup`.`Description` ,`imagegroup`.`author`  from  `imagegroup`  where `imagegroup`.`author`='4' limit 0,30
+SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='4'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='11'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='12'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='13'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='28'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='29'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='30'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='31'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='32'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='33'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='34'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='35'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='36'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='37'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='38'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='39'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='40'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='41'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='42'
 SQL:select  `imagegroup`.`ImagegroupId` , `imagegroup`.`GroupName`, `imagegroup`.`Description`, `imagegroup`.`author` from `imagegroup`   where `imagegroup`.`ImagegroupID` ='11'
 SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='4'
 SQL:select  `image`.`ImageId` , `image`.`imgurl`, `image`.`Description` from `image`   where `image`.`GroupID` ='11'
@@ -79,229 +78,81 @@ SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`G
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='29'
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='30'
 SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='31'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='32'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='33'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='34'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='35'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='36'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='37'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='38'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='39'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='40'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='41'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='42'
 SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
 SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='3'
+SQL:select * from  `imagegroup`  limit 0,30
 SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from `user`   where `user`.`username` ='surgesoft1'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
-SQL:select * from  `image`  where `image`.`id`='5' and `image`.`sex`='男' limit 0,30
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='null'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `image`   where `image`.`GroupID` ='11'
-SQL:select * from `image`   where `image`.`GroupID` ='null'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from `imagegroup`   where `imagegroup`.`author` ='4'
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from `user`   where `user`.`username` ='test1'
 SQL:select * from `user`   where `user`.`username` ='text1'
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
 SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
 SQL:select * from `imagegroup`   where `imagegroup`.`author` ='16'
 SQL:select * from `image`   where `image`.`GroupID` ='null'
+SQL:select `imagegroup`.`ImagegroupId` ,`imagegroup`.`GroupName` ,`imagegroup`.`Description` ,`imagegroup`.`author`  from  `imagegroup`  where `imagegroup`.`author`='16' limit 0,30
+SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='16'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='16'
+SQL:insert into `imagegroup`(GroupName,Description,GroupCatalog,author,updates,likes,coverid) VALUES('阿萨德发','深深深','1','16','2012-03-25','0','0')
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='16'
+SQL:select * from `image`   where `image`.`GroupID` ='43'
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='16'
+SQL:select * from `image`   where `image`.`GroupID` ='43'
+SQL:select `imagegroup`.`ImagegroupId` ,`imagegroup`.`GroupName` ,`imagegroup`.`Description` ,`imagegroup`.`author`  from  `imagegroup`  where `imagegroup`.`author`='16' limit 0,30
+SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='16'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='43'
+SQL:select * from `imagegroup`   where `imagegroup`.`author` ='16'
+NEW:43_20120325110237_%E6%9C%AA%E5%91%BD%E5%90%8D.jpg
+SQL:insert into `image`(ImageName,Description,author,Date,imgurl,GroupID) VALUES('','','16','2012-03-25','43_20120325110237_%E6%9C%AA%E5%91%BD%E5%90%8D.jpg','43')
+SQL:select `imagegroup`.`ImagegroupId` ,`imagegroup`.`GroupName` ,`imagegroup`.`Description` ,`imagegroup`.`author`  from  `imagegroup`  where `imagegroup`.`author`='16' limit 0,30
+SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='16'
+SQL:select  `image`.`ImageId` , `image`.`imgurl` from `image`   where `image`.`GroupID` ='43'
+SQL:select  `imagegroup`.`ImagegroupId` , `imagegroup`.`GroupName`, `imagegroup`.`Description`, `imagegroup`.`author` from `imagegroup`   where `imagegroup`.`ImagegroupID` ='43'
+SQL:select  `user`.`UserId` , `user`.`NickName` from `user`   where `user`.`UserID` ='16'
+SQL:select  `image`.`ImageId` , `image`.`imgurl`, `image`.`Description` from `image`   where `image`.`GroupID` ='43'
+SQL:select *,`user`.*  from `comments`  INNER JOIN  `user` ON  `comments`.`UserId` =  `user`.`UserId`  where `comments`.`ImgGroupId` ='43'
+SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
 SQL:select * from `user`   where `user`.`username` ='text1'
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:insert into `teaminformation`(teamname,teamremarks,teamtake,teammader,teammadetime) VALUES('123','123','0','16','2012-03-17')
-SQL:select `teamuser`.`TeamuserId`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='4' limit 0,30
-SQL:insert into `teamuser`(userID,usertake,userinformation,offerteamID,time) VALUES('16','2','','4','2012-03-17')
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:insert into `teaminformation`(teamname,teamremarks,teamtake,teammader,teammadetime) VALUES('ccc','ccc','0','16','2012-03-17')
-SQL:select `teamuser`.`TeamuserId`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='5' limit 0,30
-SQL:insert into `teamuser`(userID,usertake,userinformation,offerteamID,time) VALUES('16','2','','5','2012-03-17')
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:insert into `teaminformation`(teamname,teamremarks,teamtake,teammader,teammadetime) VALUES('dfg','dfg','0','16','2012-03-17')
-SQL:select `teamuser`.`TeamuserId`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='6' limit 0,30
-SQL:insert into `teamuser`(userID,usertake,userinformation,offerteamID,time) VALUES('16','2','','6','2012-03-17')
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:insert into `teaminformation`(teamname,teamremarks,teamtake,teammader,teammadetime) VALUES('ppp','ppp','0','16','2012-03-17')
-SQL:select `teamuser`.`TeamuserId`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='7' limit 0,30
-SQL:insert into `teamuser`(userID,usertake,userinformation,offerteamID,time) VALUES('16','2','','7','2012-03-17')
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`usertake!`='-2' limit 0,30
 SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from `user`   where `user`.`username` ='surgesoft1'
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from  `teaminformation`  limit 0,30
+SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
+SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='1' limit 0,30
+SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
+SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='1' limit 0,30
+SQL:select * from  `teaminformation`  limit 0,30
 SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select * from  `image`  ORDER BY ImageId desc limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
 SQL:select * from  `teaminformation`  limit 0,30
 SQL:select * from  `teaminformation`  limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake!`='-2' limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select * from  `teaminformation`  limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake`<'`>'`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake`<'`>'`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake`<'`>'`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' and `teamuser`.`usertake`<'`>'`='-2' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='1'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from `teamuser`   where `teamuser`.`userID` ='4'
-SQL:select * from `teamuser`   where `teamuser`.`userID` ='4'
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select `teamuser`.`offerteamID`  from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
-SQL:select * from  `teamuser`  where `teamuser`.`userID`='4' limit 0,30
+SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='4'
+SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='4' limit 0,30
+SQL:select * from `teaminformation`   where `teaminformation`.`TeaminformationId` ='4'
+SQL:select `teamuser`.`usertake`  from  `teamuser`  where `teamuser`.`userID`='16' and `teamuser`.`offerteamID`='4' limit 0,30
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='4'
+SQL:select * from `imagegroup`   where `imagegroup`.`coverid` ='4'

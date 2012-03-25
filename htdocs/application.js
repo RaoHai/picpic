@@ -99,6 +99,19 @@ $(document).ready(function(){
 			}    
 			});  
 	});
+	$("#group_submit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/group/imagegroupadd",                                    
+			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val()+"&groupcatalog="+$("#groupcatalog").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice").show("fast");
+			}    
+			});  
+	});
 $('#edgroupsubmit').click(function()
 {
 		$.ajax({                                                

@@ -105,6 +105,7 @@ class Route
 			$acl->allow("user","comments");
 			$acl->allow("user","image");
 			$acl->allow("user","information");
+			$acl->allow("user","group");
 			$acl->allow("guest","user","loginpage");
 			$acl->allow("guest","user","login");
 			$acl->allow("guest","user","logout");

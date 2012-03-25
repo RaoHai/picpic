@@ -205,16 +205,19 @@
 		//---------------------------------------------------------
 		
 		//群组的画集添加，基本参照用户的画集添加,需要权限管理
-		public function _add($groupname,$description,$catalog,$coverid)
+		public function _add($groupname,$description,$catalog)
 		{
 			$Teamuser=new teamuser();
-			if($Teamuser->_permissions()!=0)
+		//	if($Teamuser->_permissions()!=0)
 			{
-			$this->model->New(array($groupname,$description,$catalog,$_SESSION['USERID'],date("Y-m-d"),0,$coverid));
+			$this->model->New(array($groupname,$description,$catalog,$_SESSION['USERID'],date("Y-m-d"),0,$_SESSION['TEAMID']));
 			return 'true';
 			}
+			/*
 			else
 			return 'false';
+			*/
+			
 		}
 		
 		//更新有关画集的相关信息
@@ -243,6 +246,46 @@
 			return $re;
 		}
 		
+		public function _allgroup($teamid)
+		{
+			if(empty($teamid)) $teamid=$_SESSION["TEAMID"];
+		//	$this->model->Get_GroupName_Description_author_By_author( $userid);
+			$this->model->Get(array("ImagegroupId","GroupName","Description","author"),array("coverid={$teamid}"));
+			$re1 = $this->model->getresult();
+			$img = new image();
+
+			foreach($ren as $rn)
+				$authorname= $rn->NickName;
+			foreach($re1 as $r)
+			{
+				$id = $r->ImagegroupId;
+				$img->model->Get_imgurl_By_GroupID($id);
+				$re2 =$img->model->getresult();
+				foreach($re2 as $ra)
+				{
+					$str = $ra->imgurl;
+					$src = rawurlencode($str);
+					break;
+				}
+				if($src)
+					$images.="<div style='width:360px;float:left;height:100px;overflow:hidden;margin-left:10px;'>"
+					."<h3 style='display: inline;float:left;position: absolute;color:#09f;margin-top:11px;margin-left:1px;'>".$r->GroupName."</h3>"
+					."<h3 style='display: inline;float:left;position: absolute;color:white;margin-top:10px;'>".$r->GroupName."</h3>"
+					."<a href ='/imagegroup/".$id."' title='".$r->Description."' >"
+					."<img style='display: inline; width: 360px; left: 0px; top: 0px;margin-top:10px; ' src='/medium/".$src."' /></a></div>";
+			
+			}
+				
+				
+			$this->values = array("user"=>$_SESSION["USER"],
+													"nickname"=>$_SESSION['NICK'],
+													"images"=>$images,
+													"groupname"=>$authorname."的画集",
+													"authorname"=>$authorname,
+													"authorid"=>$userid,
+													"groupid"=>$id,
+													);
+		}
 		
 	}
 ?>
