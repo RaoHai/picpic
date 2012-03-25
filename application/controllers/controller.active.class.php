@@ -191,8 +191,8 @@ class active extends ControllerBase
         $mem = new Memcache;
         $mem->connect("127.0.0.1",11211);
        // $mem->flush();
-       // $mem->set('4', array(), 0, 0);
-        $arr = $mem->get(23);
+        $mem->set('4', array(), 0, 0);
+        /*$arr = $mem->get(23);
         echo "<pre>";
         foreach($arr as $k=>$a)
         {
@@ -211,7 +211,7 @@ class active extends ControllerBase
         var_dump($arr);
         $mem->set('23',$arr,0,0);
         echo "</pre>";
-
+*/
 
     }
     public function _loadfromdb()

@@ -66,15 +66,42 @@
 				{$images}
 				
 		</div>
-		<div id="activeuser">
-			<a>活跃用户</a>
+       		<div id="activeuser">
+             <div style="width:100%; border-bottom:dotted 1px #ccc;"><h4 style="color:#09f;">活跃用户>></h4></div>
+              <div style="width:100%;margin-top:10px;"> 
+            	{$foreach:users,usr}
+                <a href="/user/{$$usr->UserId}"><img src="upload/avatar_small/{$$usr->UserId}_small.jpg"  style="height:50px;"/></a>
+               	{$end}
+                </div>
 		</div>
 		<div id="recommand">
 		<div id="re-left">
 		左列表
 		</div>
 		<div id="re-right">
-		右列表
+        <div style="width:100%;">
+        <h4 style="color:#09f;">热门画集>></h4>
+        </div>
+		 {$foreach:cover,f} 
+        <div style="margin:25px 5px 5px 10px;width:310px;display:block;float:left;">
+        <div style="width:100%;"><a href="/imagegroup/{$$f->GroupId}" title="{$$f->Desc}"><h3>{$$f->GroupName}</h3></a></div>
+         <a href="/imagegroup/{$$f->GroupId}" title="{$$f->Desc}" >        <div style="float:left;width:161px;overflow:hidden;">
+            <img src="/medium/{$$f->img[0]}"  style="height:161px;"/>
+          </div>
+          <div style="margin-left:5px;height:160px;width:133px;">
+              <div id="coversmall">
+                 <img src="/medium/{$$f->img[1]}"  style="width:133px;"/>
+              </div></br>
+               <div id="coversmall" style="margin-top:5px;">
+              <img src="/medium/{$$f->img[2]}"  style="width:133px;"/>
+              </div></br>
+               <div id="coversmall" style="margin-top:5px;">
+              <img src="/medium/{$$f->img[3]}"  style="width:133px;"/>
+              </div>
+          </div>
+        </div></a>
+	    {$end}
+
 		</div>
 	</div>
 	</div>

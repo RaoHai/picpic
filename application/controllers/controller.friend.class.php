@@ -7,9 +7,8 @@
 		{
 			parent::__construct();
 		}
-		public function _getfriend()
+		public function _getfriend($id)
 		{
-			$id = $_SESSION["USERID"];
 			$this->model->Get("all",array("User={$id}"),array(0,10));
 			$re=$this->model->getresult();
 			$count;
@@ -26,14 +25,30 @@
 			return $out;
 		
 		}
+        public function IsFriends($FriendID)
+        {
+            $this->model->Get("all",array("User={$_SESSION['USERID']}","OtherUserId={$FriendID}"));
+            $focused = $this->model->getresult();
+            $this->model->Get("all",array("User={$FriendID}","OtherUserId={$_SESSION['USERID']}"));
+            $beingfocused = $this->model->getresult();
+            $atob = 0;
+            $btoa = 0;
+            if(!empty($focused)) $atob=1;
+            if(!empty($beingfocused)) $btoa=1;
+            return $atob.$btoa;
+                
+        }
 		public function _Addfriend($FriendID)
 		{
 			$this->model->New(array($_SESSION["USERID"],$FriendID));
-			$this->model->New(array($FriendID,$_SESSION["USERID"]));
+            echo json_encode($this->IsFriends($FriendID));
+			//$this->model->New(array($FriendID,$_SESSION["USERID"]));
 		}
 		public function _Del($FriendID)
 		{
 			$this->model->Del(array("User={$_SESSION['USERID']}","OtherUserId={$FriendID}"));
+             echo json_encode($this->IsFriends($FriendID));
+
 		}
 				
 	}

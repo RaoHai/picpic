@@ -104,6 +104,8 @@
 							$q.=",`{$instance}`.`{$query}` ";
 				}
 			}
+            $ins =  ucfirst($instance);
+            $q.=",`{$instance}`.`{$ins}Id` ";
 			$sql.="{$q} from  `{$instance }` {$this->join_sql}";
 			$Con;
 			foreach($Constraints as $Key)

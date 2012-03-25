@@ -21,10 +21,18 @@
 				$desc = $img->Description;
 				$images.="<div style='display:inline;width:120px;height:80px;overflow:hidden;'><a href='/files/".$url."' title='".$url ."'><img src='/medium/".$url."' title='".$desc."' ></img></a></div>\n";
 			}
+            $users = new user();
+            $users->model->Get(array('NickName'));
+            $usr = $users->model->getresult();
+            $imggroup = new imagegroup();
+            $cover = $imggroup->getPublicImgs();
+
 			$this->values = array("user"=>$_SESSION["USER"],
 												"title"=>"主页-ACGPIC",
 												"nickname"=>$_SESSION['NICK'],
-												"images"=>$images);
+												"images"=>$images,
+                                                "cover"=>$cover,
+                                                "users"=>$usr);
 												
 			$this->RenderTemplate("index");
 			//赋值耗时0.0022368431091309

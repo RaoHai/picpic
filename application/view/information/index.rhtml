@@ -34,8 +34,10 @@
 <div id="index">
 <div id="header">
 		<div id="hd-link">
-						{$if:user}
-							欢迎回来，<a href="/home" >{$nickname}</a> <a href="/user/logout">[退出]</a>
+							{$if:user}
+							欢迎回来，<a href="/home" >{$nickname}</a>
+                              <a href="/user/message"> <i class="icon-envelope" rel="tooltip" id="newmessage"></i></a>
+                              <a href="/user/logout">[退出]</a>
 						{$else}
 							<a href="/user/loginpage?/" >[登录]</a>
 							<a href="/user/register">[注册]</a>
@@ -48,13 +50,13 @@
 		<div class="nav">
 			<ul id="logonav">
 				<li id="nv-hm">
-					<a href="/home"  >我的Pic</a>
+					<a href="/home" style="border-bottom: 4px solid #09f;color:#09f;" >我的Pic</a>
 				</li>
 				<li id="nv-cv">
 					<a href="/cover">发现</a>
 				</li>
 				<li id="nv-group">
-					<a href="/group"  style="border-bottom: 4px solid #09f;color:#09f;">小组</a>
+					<a href="/group">小组</a>
 				</li>	
 				<li id="nv-recom">
 					<a href="/recommend">推荐</a>
@@ -73,113 +75,13 @@
 		</div>
 	</div>
 <div>
-	<table width="100%">
-		<tbody>
-			{$allteam}
-		</tbody>
-	</table>
 </div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<div class="container" id="fcontainer">
-<div class="row">
-            <div class="span16">
-                <div class="zebra-striped"><div class="files" ></div></div>
-            </div>
-        </div>	
-	
-<script>
-var fileUploadErrors = {
-    maxFileSize: '文件太大',
-    minFileSize: '文件太小',
-    acceptFileTypes: '无效的文件类型',
-    maxNumberOfFiles: '文件数量过多',
-    uploadedBytes: '上传的字节超过文件的大小',
-    emptyResult: '空文件'
-};
-</script>
-<script id="template-upload" type="text/html">
-{% for (var i=0, files=o.files, l=files.length, file=files[0]; i<l; file=files[++i]) { %}
-    <div class="template-upload fade" style="width:130px;height:130px;float:right;">
-        <div class="preview"  style="width:100px;height:80px;"><span class="fade"></span></div>
-        <div class="name">{%=file.name%}</div>
-        <div class="size">{%=o.formatFileSize(file.size)%}</div>
-     
-        {% if (file.error) { %}
-            <div class="error" colspan="2"><span class="label important">Error</span> {%=fileUploadErrors[file.error] || file.error%}</div>
-        {% } else if (o.files.valid && !i) { %}
-            <div class="progress" ><div class="progressbar"><div style="width:0%;"></div></div></div>
-            <div class="start">{% if (!o.options.autoUpload) { %}<button class="btn primary">开始上传</button>{% } %}</div>
-        {% } else { %}
-            <div colspan="2"></div>
-        {% } %}
-        <div class="cancel">{% if (!i) { %}<button class="filecan" name="取消上传"></button>{% } %}</div>
-    </div>
-{% } %}
-</script>
-<script id="template-download" type="text/html" >
-{% for (var i=0, files=o.files, l=files.length, file=files[0]; i<l; file=files[++i]) { %}
-    <div class="template-download fade" style="width:130px;height:130px;float:left;">
-        {% if (file.error) { %}
-            <div></div>
-            <div class="name">{%=file.name%}</div>
-            <div class="size">{%=o.formatFileSize(file.size)%}</div>
-            <div class="error" colspan="2"><span class="label important">Error</span> {%=fileUploadErrors[file.error] || file.error%}</div>
-        {% } else { %}
-			
-            <div class="preview" style="width:100px;height:100px;">{% if (file.thumbnail_url) { %}
-                <a href="{%=file.url%}" title="{%=file.name%}"  name="{%=file.desc%}" rel="gallery"><img src="{%=file.thumbnail_url%}"></a>
-				
-            {% } %}</div>
-			
-            <div class="name" style="overflow:hidden;width:100px;">
-                <a href="{%=file.url%}" title="编辑 {%=file.shortname%}" rel="normal">{%=file.shortname%}</a>
-            </div>
-            <div class="size">{%=o.formatFileSize(file.size)%}</div>
-         
-            <div colspan="2"></div>
-        {% } %}
-		          
-        <div class="delete" id="deletebt">
-            <button class="filedel" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"  title="删除"></button>
-			
-			<input type="checkbox" name="delete" value="1" id="deleteck">
-        </div>
-		
-    </div>
-{% } %}
-</script>
-<script src="/jquery.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="/vendor/jquery.ui.widget.js"></script>
-<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
-<script src="/tmpl.min.js"></script>
-<script src="/load-image.min.js"></script>
-<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
-<script src="/bootstrap-modal.min.js"></script>
-<script src="/bootstrap-image-gallery.min.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="/jquery.iframe-transport.js"></script>
-<script src="/jquery.fileupload.js"></script>
-<script src="/jquery.fileupload-ui.js"></script>
-<script src="/application.js"></script>
+  <script src="/jquery.min.js"></script>
+	<script src="/jquery.montage.js"></script>
+		<script src="/vendor/jquery.ui.widget.js"></script>
+		<script src="/bootstrap-modal.min.js"></script>
+        <script src="/bootstrap-tooltip.js"></script>
+        <script src="/popup.js"></script>
 
-<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
-<!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
 </body> 
 </html>

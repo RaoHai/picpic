@@ -79,7 +79,7 @@
 			<div id="myphoto" > <a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/<?php echo $this->values["userid"]; ?>_big.jpg" title="点击以更改头像"/></a>
 			<div style="float:right;width:160px;">
 			<p><b><?php echo $this->values["nickname"]; ?></b></p>
-			<p> <a href="#" data-controls-modal="modal-from-profile" data-backdrop="true" >[修改个人信息]</a></p>
+			<p> <a href="/information" >[修改个人信息]</a></p>
 			</div>
 			</div>
 			<a id="showup"style="text-align:center;">上传</a>
@@ -212,27 +212,7 @@
               
             </div>
           </div>
-		  <!--编辑个人信息 -->
-		    <div id="modal-from-profile" class="modal hide fade">
-            <div class="modal-header">
-              <a href="#" class="close">&times;</a>
-              <h3>修改个人信息</h3>
-            </div>
-			<div id="edgroupnotice" style="text-align:center;display:none;">    <h4 style="color:red;">设置成功</h4></div>
-            <div class="modal-body">
-				 <form id="profileedit" name="profileeid" action="/imagegroup/new" method="POST" enctype="multipart/form-data">
-				<p>修改个人信息……</p>
-				<input id="profileid" style="display:none;"/>
-				<p>性别：<input name="profilesex" id="profilesex"/></p></br>
-				<p>血型：<textarea name="profileblood" id="profileblood" ></textarea></p></br>
-				<p>生日：<select name="profilebirth" id="profilebirth"><option value="1">所有人可见</option><option value="2">仅自己可见</option><option value="3">仅小组可见</option><option value="4">仅好友可见</option></select></p>
-			  </form>
-            </div>
-            <div class="modal-footer">
-              <a href="#" class="btn primary" id="edgroupsubmit" >保存</a>
-              
-            </div>
-          </div>
+		 
 		 <!--编辑头像 -->
 		 <div id="modal-from-avatar" class="modal hide fade" style="width:650px;margin-top:-300px;">
             <div class="modal-header" style="background-color:#339BB9;">

@@ -66,15 +66,42 @@
 				<?php echo $this->values["images"]; ?>
 				
 		</div>
-		<div id="activeuser">
-			<a>活跃用户</a>
+       		<div id="activeuser">
+             <div style="width:100%; border-bottom:dotted 1px #ccc;"><h4 style="color:#09f;">活跃用户>></h4></div>
+              <div style="width:100%;margin-top:10px;"> 
+            	<?php foreach($this->values["users"] as $usr) {  ?>
+                <a href="/user/<?php echo $usr->UserId; ?>"><img src="upload/avatar_small/<?php echo $usr->UserId; ?>_small.jpg"  style="height:50px;"/></a>
+               	<?php } ?>
+                </div>
 		</div>
 		<div id="recommand">
 		<div id="re-left">
 		左列表
 		</div>
 		<div id="re-right">
-		右列表
+        <div style="width:100%;">
+        <h4 style="color:#09f;">热门画集>></h4>
+        </div>
+		 <?php foreach($this->values["cover"] as $f) {  ?> 
+        <div style="margin:25px 5px 5px 10px;width:310px;display:block;float:left;">
+        <div style="width:100%;"><a href="/imagegroup/<?php echo $f->GroupId; ?>" title="<?php echo $f->Desc; ?>"><h3><?php echo $f->GroupName; ?></h3></a></div>
+         <a href="/imagegroup/<?php echo $f->GroupId; ?>" title="<?php echo $f->Desc; ?>" >        <div style="float:left;width:161px;overflow:hidden;">
+            <img src="/medium/<?php echo $f->img[0]; ?>"  style="height:161px;"/>
+          </div>
+          <div style="margin-left:5px;height:160px;width:133px;">
+              <div id="coversmall">
+                 <img src="/medium/<?php echo $f->img[1]; ?>"  style="width:133px;"/>
+              </div></br>
+               <div id="coversmall" style="margin-top:5px;">
+              <img src="/medium/<?php echo $f->img[2]; ?>"  style="width:133px;"/>
+              </div></br>
+               <div id="coversmall" style="margin-top:5px;">
+              <img src="/medium/<?php echo $f->img[3]; ?>"  style="width:133px;"/>
+              </div>
+          </div>
+        </div></a>
+	    <?php } ?>
+
 		</div>
 	</div>
 	</div>

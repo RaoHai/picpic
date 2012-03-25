@@ -24,7 +24,7 @@
 					$groupselect .="<option value='".$r->ImagegroupId."'>".$r->GroupName."</option>";
 				}
 				$friendlist = new friend();
-				$flist = $friendlist->_getfriend();
+				$flist = $friendlist->_getfriend($_SESSION['USERID']);
 				
 				$this->values = array("user"=>$_SESSION["USER"],
 												"userid"=>$_SESSION["USERID"],
@@ -38,7 +38,28 @@
 		}	
         public function userindex($uid)
         {
+            //if($uid==$_SESSION['USERID'])
+            //    header("Location:"."/home");
+
             $username = $this->getuserbyid($uid);
+            $friendlist = new friend();
+			$flist = $friendlist->_getfriend($uid);
+            $isFriends = $friendlist->isFriends($uid);
+            $prof = new profile();
+            $desc =  $prof->getdesc($uid);
+            $imggroup = new imagegroup();
+            $cover = $imggroup->getCoverByID($uid);
+            $this->values = array("user"=>$_SESSION["USER"],
+                                 "userid"=>$_SESSION['USERID'],
+                                 "nickname"=>$_SESSION['NICK'],
+                                 "thisuserid"=>$uid,
+                                 "friends"=>$flist,
+                                 "thisdesc"=>$desc,
+                                 "isfriends"=>$isFriends,
+                                 "cover"=>$cover,
+                                 "thisnickname"=>$username,
+                                 "title"=>$username."的个人空间",);
+            $this->RenderTemplate("user");
         }
 		public function _logout()
 		{

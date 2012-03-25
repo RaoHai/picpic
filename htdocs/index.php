@@ -20,6 +20,14 @@ error_reporting(E_ALL);
   
 
 session_start();
+ if($_COOKIE["USERID"]>0){
+            $_SESSION["USER"]=$_COOKIE['USER'];
+            $_SESSION["USERID"]=$_COOKIE['USERID'];
+            $_SESSION["NICK"]=$_COOKIE['NICK'];
+            $_SESSION["permission"]=$_COOKIE["permission"];
+
+        }
+
 if(empty($_SESSION["permission"])) $_SESSION["permission"]="guest";
 define("WEB_AUTH",TRUE);
 

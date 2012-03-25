@@ -178,6 +178,58 @@
 													);
 			$this->RenderTemplate("all");
 		}
+        public function getPublicImgs()
+        {
+            $this->model->Get('all',array(),array(0,5),"likes DESC");
+            $imggroups = $this->model->getresult();
+            $img = new image();
+            $returnCover=array();
+            foreach($imggroups as $groups)
+            {
+                $cover = new stdClass();
+                $gid = $groups->ImagegroupId;
+                $cover->GroupId = $gid;
+                $cover->GroupName = $groups->GroupName;
+                $cover->Desc = $groups->Description;
+                $img->model->Get(array('imgurl'),array("GroupId={$gid}"),array(0,4));
+                $imgs = $img->model->getresult();
+                foreach($imgs as $i)
+                {
+                    $cover->img[] = rawurlencode($i->imgurl);
+                }
+                $returnCover[] = $cover;
+            }
+            //echo "<pre>";
+            //var_dump($returnCover);
+            //echo "</pre>";
+            return $returnCover;
+        }
+        public function getCoverByID($id)
+        {
+            $this->model->Get_By_Author($id);
+            $imggroups = $this->model->getresult();
+            $img = new image();
+            $returnCover=array();
+            foreach($imggroups as $groups)
+            {
+                $cover = new stdClass();
+                $gid = $groups->ImagegroupId;
+                $cover->GroupId = $gid;
+                $cover->GroupName = $groups->GroupName;
+                $cover->Desc = $groups->Description;
+                $img->model->Get(array('imgurl'),array("GroupId={$gid}"),array(0,4));
+                $imgs = $img->model->getresult();
+                foreach($imgs as $i)
+                {
+                    $cover->img[] = rawurlencode($i->imgurl);
+                }
+                $returnCover[] = $cover;
+            }
+            //echo "<pre>";
+            //var_dump($returnCover);
+            //echo "</pre>";
+            return $returnCover;
+        }
 		public function _showcomments($groupid)
 		{
 			$comment = new comments();

@@ -135,23 +135,19 @@ font-size : 10px;
 	height:auto;
 	float:left;
 	margin:5px 0 0 20px;
+  
 
 }
 #activeuser
 {
-		width:960px;
+    	width:960px;
 	height:120px;
-	border: 1px solid #EBE5E5;
-	margin:5px 0 0 20px;
-	background-color:#eee;
+	margin:25px 0 0 20px;
 }
 #recommand
 {
 	width:960px;
-	height:360px;
-	border: 1px solid #EBE5E5;
 	margin:5px 0 0 20px;
-	background-color:#eee;
 	padding-bottom: 24px;
 }
 #footer
@@ -177,7 +173,6 @@ font-size : 10px;
 	margin:3px;
 	background-color:#fff;
 	width:38%;
-	height:98%;
 	float:right;
 }
 ul
@@ -615,7 +610,7 @@ overflow: hidden;
 background:#E6E6E6;
 float:right;
 width:400px;
-      border-color:#ccc;
+border-color:#ccc;
 border-width: 1px;
 border-style: solid;
 zoom: 1;
@@ -641,4 +636,73 @@ float:right;
 {
 float:right;
       margin-right:20px;
+}
+.follow
+{
+  width:65px;
+background-position:0px -50px;
+}
+.followboth
+{
+width:130px;
+background-position:0px -25px;
+}
+.youfollowhe
+{
+width:120px;
+background-position:0px -75px;
+}
+.hefollowyou
+{
+width:95px;
+}
+#followfunction
+{
+float: left;
+height: 22px;
+line-height: 1.5;
+padding: 0;
+margin: 0;
+background-repeat: no-repeat;
+text-indent: -99999px;
+background-image: url(/img/focus.png);
+cursor:pointer;
+
+}
+.follow a:hover
+{
+  text-decoration: none;
+}
+#usertable
+{
+  font-size:12px;
+}
+#usertable th
+{
+width:200px;
+padding:8px;
+text-align: right;
+}
+#usertable td
+{
+padding:8px;
+color:#999;
+}
+#tabs
+{
+display:inline;
+}
+#coversmall
+{
+position: relative;
+display: block;
+  
+  height:50px;
+  overflow:hidden;
+}
+#imggroups img
+{
+float: left;
+display: block;
+border: 0px;  
 }

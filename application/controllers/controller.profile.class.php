@@ -21,18 +21,22 @@
 			$birthday=$Birthyear.'/'.$Birthmonth.'/'.$Birthday;
 			$Profile->model->Set_Birthday_By_UserId($_SESSION["USERID"],$birthday);
 		}
+        public function getdesc($id)
+        {
+            $this->model->Get_Desc_By_UserId($id);
+            foreach($this->model->getresult() as $re)
+            {
+                return $re->Desc;
+            }
+        }
 		public function _getprofile()
 		{
 			$this->model->Get_By_UserId($_SESSION["USERID"]);
 			$re1=$this->model->getresult();
-			$profile=array();
 			foreach($re1 as $r1)
 			{
-				$profile['birthday']=$r1->Birthday;
-				$profile['sex']=$r1->Sex;
-				$profile['blood']=$r1->Blood;
+                return $r1;
 			}
-			return $profile;
 		}
 		public function _uploadavatar()
 		{
