@@ -29,7 +29,6 @@ class Route
         $this->route_arr   = $routeArr;
         $uri == NULL && $uri = $_SERVER['REDIRECT_URL'];
         $this->_uri   = $uri;
-     
         $this->init();
 
 
@@ -106,6 +105,7 @@ class Route
         $acl->allow("user","image");
         $acl->allow("user","information");
         $acl->allow("user","profile");
+        $acl->allow("user","group");
         $acl->allow("user","friend");
         $acl->allow("user","active");
         $acl->allow("user","message");

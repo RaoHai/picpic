@@ -119,7 +119,7 @@
 		
 		public function _showoffergroup()
 		{
-			$this->model->Get("all",array("userID=".$_SESSION["USERID"]));
+			$this->model->Get("all",array("userID=".$_SESSION["USERID"],"usertake>-1"));
 			//$this->model->Get_By_userID($_SESSION["USERID"]);
 			$re=$this->model->getresult();
 			return $re;			

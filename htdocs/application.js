@@ -267,6 +267,46 @@ $("#groupnotice").show("fast");
 }    
 });  
       });
+	  $("#showup").click(function(){
+			  $("#fcontainer").show("fast");
+			
+			return false;
+    }); 
+	$("#uploadcomplete").click(function(){
+			  $("#fcontainer").hide("fast");
+			 
+			return false;
+    });
+	$("#upselect").change(function(){
+			$('#fileupload .files').empty();
+		   questandset();
+	});
+	$("#groupsubmit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/imagegroup/new",                                    
+			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val()+"&groupcatalog="+$("#groupcatalog").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice").show("fast");
+			}    
+			});  
+	});
+	$("#group_submit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/group/imagegroupadd",                                    
+			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val()+"&groupcatalog="+$("#groupcatalog").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice").show("fast");
+			}    
+			});  
+	});
 $('#edgroupsubmit').click(function()
     {
     $.ajax({                                                
