@@ -85,8 +85,8 @@
 		 {$foreach:cover,f} 
         <div style="margin:25px 5px 5px 10px;width:310px;display:block;float:left;">
         <div style="width:100%;"><a href="/imagegroup/{$$f->GroupId}" title="{$$f->Desc}"><h3>{$$f->GroupName}</h3></a></div>
-         <a href="/imagegroup/{$$f->GroupId}" title="{$$f->Desc}" >        <div style="float:left;width:161px;overflow:hidden;">
-            <img src="/medium/{$$f->img[0]}"  style="height:161px;"/>
+         <a href="/imagegroup/{$$f->GroupId}" title="{$$f->Desc}" >        <div  style="float:left;width:161px;overflow:hidden;" data-url="">
+            <img class="imginfo" src="/medium/{$$f->img[0]}"  style="height:161px;"/>
           </div>
           <div style="margin-left:5px;height:160px;width:133px;">
               <div id="coversmall">
@@ -163,5 +163,21 @@
     	<script src="/jquery.montage.js"></script>
         <script src="/bootstrap-tooltip.js"></script>
         <script src="/popup.js"></script>
+        <script src="/jquery-infoAndFavorites/jquery-infoAndFavorites2.js" ></script>
+        <script>
+        $('#indexshow .imginfo').favor({
+border:false,
+width:120,
+height:80
+            });
+        $('#re-right .imginfo').favor(
+            {
+title:false,
+border:false,
+width:161,
+height:161,
+
+            }); 
+        </script>
         </body>
 </html>

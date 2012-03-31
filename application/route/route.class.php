@@ -109,6 +109,7 @@ class Route
         $acl->allow("user","friend");
         $acl->allow("user","active");
         $acl->allow("user","message");
+        $acl->allow("user","favourite");
         $acl->allow("guest","user","loginpage");
         $acl->allow("guest","user","login");
         $acl->allow("guest","user","logout");

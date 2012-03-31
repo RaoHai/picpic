@@ -14,13 +14,13 @@
         
 			$img = new image();
 			$imgs = $img->model->Get("all",0,0,"ImageId desc");
-			
 			foreach($imgs as $img)
 			{
 				$url = rawurlencode($img->imgurl);
 				$desc = $img->Description;
-				$images.="<div style='display:inline;width:120px;height:80px;overflow:hidden;'><a href='/files/".$url."' title='".$url ."'><img src='/medium/".$url."' title='".$desc."' ></img></a></div>\n";
+				$images.="<img class='imginfo' src='/medium/".$url."' title='".$desc."' data-author='".$img->user->NickName."' data-url='/files/".$url."'></img>\n";
 			}
+            $images.="<a href='/cover'><div style='display:inline;background-image: url(/img/zoom.png);background-color: #09C;background-position: 20%;width:240px;height:80px;background-repeat: no-repeat;'><center><h3 style='line-height:80px;color:white;'>找你喜欢的</h3></center></div></a>";
             $users = new user();
             $users->model->Get(array('NickName'));
             $usr = $users->model->getresult();

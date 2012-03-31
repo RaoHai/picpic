@@ -96,12 +96,15 @@
 					$id = $param;
 					$img->model->Get_imgurl_Description_By_GroupID($id);
 					$re2 =$img ->model->getresult();
+                    $favor = new favourite();
 					foreach($re2 as $r2)
 					{
 						//echo $r2['imgurl'];
 						$url = rawurlencode($r2->imgurl);
 						$desc = $r2->Description;
-						$images.="<a href='/files/".$url."' rel='gallery' title='".$url ."'><img src='/medium/".$url."' title='".$desc."'></img></a>\n";
+                        $like= $favor->islikeimg($_SESSION['USERID'],$r2->ImageId);
+						//$images.="<a href='/files/".$url."' rel='gallery'  title='".$url ."'><img class='imginfo' src='/medium/".$url."' title='".$desc."'></img></a>\n";
+                        $images.="<img class='imginfo' src='/medium/".$url."' data-url='/files/".$url."' data-id='".$r2->ImageId."' title='".$desc."' data-like='".$like."'>";
 					}
 					$edit =($_SESSION['USERID']==$groupauthor);
 					

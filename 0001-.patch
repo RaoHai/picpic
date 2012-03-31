@@ -1,0 +1,956 @@
+From ba3a92f80fb30bce471df79e165c8340d035ae2b Mon Sep 17 00:00:00 2001
+From: heishu chenlinxin <573633611@qq.com>
+Date: Sat, 31 Mar 2012 12:41:15 +0800
+Subject: [PATCH] =?UTF-8?q?=E5=B0=8F=E7=BB=84=E7=9A=84=E4=B8=9C=E8=A5=BF=20S?=
+ =?UTF-8?q?igned-off-by:=20heishu=20chenlinxin=20<573633611@qq.com>?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../controllers/controller.activity.class.php      |    9 +-
+ application/controllers/controller.group.class.php |   32 ++++-
+ .../controller.teaminformation.class.php           |   16 ++-
+ application/view/group/activity.php                |  111 +++++++++++++
+ application/view/group/activity.rhtml              |  111 +++++++++++++
+ application/view/group/groupid.php                 |  166 ++++++++++++++++++++
+ application/view/group/groupid.rhtml               |  166 ++++++++++++++++++++
+ application/view/group/index.php                   |    6 +
+ application/view/group/index.rhtml                 |    6 +
+ application/view/information/index.php             |   99 ++++++++++++
+ application/view/user/index.php                    |    3 +-
+ htdocs/application.js                              |   26 +++
+ 12 files changed, 734 insertions(+), 17 deletions(-)
+ create mode 100644 application/view/group/activity.php
+ create mode 100644 application/view/group/activity.rhtml
+ create mode 100644 application/view/information/index.php
+
+diff --git a/application/controllers/controller.activity.class.php b/application/controllers/controller.activity.class.php
+index b530245..587ae34 100644
+--- a/application/controllers/controller.activity.class.php
++++ b/application/controllers/controller.activity.class.php
+@@ -14,9 +14,9 @@
+ 		}
+ 		
+ 		//添加消息
+-		public function _add($takeid,$title,$text,$permissions)
++		public function _add($takeid,$title,$text,$permissions,$teamid)
+ 		{
+-			$this->model->New(array($takeid,$title,$text,$permissions));
++			$this->model->New(array($takeid,$title,$text,$permissions,$teamid));
+ 		}
+ 		
+ 		//浏览消息
+@@ -32,12 +32,7 @@
+ 		{
+ 			$this->model->Set(array("title"=>$title,"time"=>date("Y-m-d")),array("Activity"=>$id));
+ 		}
+-		public function _updatetitle($id,$text)
+-		{
+-			$this->model->Set(array("text"=>$text,"time"=>date("Y-m-d")),array("Activity"=>$id));
+-		}
+ 		
+-		//
+ 		
+ 	}
+ ?>
+\ No newline at end of file
+diff --git a/application/controllers/controller.group.class.php b/application/controllers/controller.group.class.php
+index 61f7bb6..579f34b 100644
+--- a/application/controllers/controller.group.class.php
++++ b/application/controllers/controller.group.class.php
+@@ -16,7 +16,11 @@
+ 			$re=$Teaminformation->_showallteam(); 
+ 			foreach($re as $r)
+ 				{
+-				$allteam .="<div id='group_show'><img class='group_picture' src='/1.jpg' ><div id='group_information'><a href='/group/".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
++				if(file_exists("upload/avatar_big/group_".$r->TeaminformationId."_big.jpg"))				
++				$file="/upload/avatar_big/group_".$r->TeaminformationId."_big.jpg";	
++				else
++				$file="/upload/avatar_big/_big.jpg";			
++				$allteam .="<div id='group_show'><img class='group_picture' src='".$file."' ><div id='group_information'><a href='/group/".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
+ 					$i++;
+ 				}
+ 			$this->values = array("user"=>$_SESSION["USER"],
+@@ -34,14 +38,18 @@
+ 			$Teamuser = new teamuser();
+ 			foreach($re as $r)
+ 			{
+-			$information ="<img class='group_picture' src='/1.jpg'>".$r->teamremarks;
++			$information ="<a data-controls-modal='modal-from-avatar' data-backdrop='true' style='width:120px;overflow:hidden;'><img style='width:120px;max-height:140px;' src='/upload/avatar_big/group_".$id."_big.jpg' title='点击以更改头像'/></a>".$r->teamremarks;
++			$groupname=$r->teamname;
++			$groupdescription=$r->teamremarks;
+ 			}
+ 			$Permissions=$Teamuser->_permissions();
+ 			$this->values = array("user"=>$_SESSION["USER"],
+ 													"title"=>"我的Pic-ACGPIC",
+ 													"nickname"=>$_SESSION['NICK'],
+ 													"information"=>$information,
+-													"permissions"=>$Permissions
++													"permissions"=>$Permissions,
++													"groupname"=>$groupname,
++													"groupdescription"=>$groupdescription,
+ 													);
+ 			$this->RenderTemplate("groupid");
+ 		}
+@@ -109,6 +117,24 @@
+ 			$Imagegroup= new imagegroup();
+ 		    $Imagegroup->_add($_POST['groupname'],$_POST['groupdescription'],$_POST['groupcatalog']);
+ 		}
++		
++		public function _group_picture_change()
++		{
++			echo "123";
++		}
++		
++		public function _informationupdate()
++		{
++			$Teaminformation= new teaminformation();
++			$Teaminformation->_updateteamname($_SESSION["TEAMID"],$_POST["groupname"],$_SESSION['USERID']);
++			$Teaminformation->_updateteamremarks($_SESSION["TEAMID"],$_POST["groupdescription"],$_SESSION['USERID']);
++		}
++		
++		public function _activityadd()
++		{	
++			$Activity = new activity();
++			$Activity->_add($_SESSION["USERID"],$_POST['groupname'],$_POST['groupdescription'],0,$_SESSION["TEAMID"]);
++		}
+ 	
+ 		
+ 	}
+diff --git a/application/controllers/controller.teaminformation.class.php b/application/controllers/controller.teaminformation.class.php
+index edebba0..69efe90 100644
+--- a/application/controllers/controller.teaminformation.class.php
++++ b/application/controllers/controller.teaminformation.class.php
+@@ -38,30 +38,34 @@
+ 		public function _updateteamname($teamID,$newname,$userid)
+ 		{
+ 		$Teamuser=new teamuser();
+-			if($Teamuser->_permissions()=='2')
++		//	if($Teamuser->_permissions()=='2')
+ 			{
+ 			if($newname!=null)
+ 				$this->model->Set_teamname_By_teaminformationId($teamID,$newname);
+-				return "true";
++		//		return "true";
+ 			}
++			/*
+ 			else
+ 			{
+ 			 return "false";
+-			}			
++			}
++*/			
+ 		}
+ 		public function _updateteamremarks($teamID,$teamremarks,$userid)
+ 		{
+ 		$Teamuser=new teamuser();
+-			if($Teamuser->_permissions()=='2')
++		//	if($Teamuser->_permissions()=='2')
+ 			{
+ 			if($teamremarks!=null)
+ 				$this->model->Set_teamremarks_By_teaminformationId($teamID,$teamremarks);
+-				return "true";
++		//		return "true";
+ 			}
++			/*
+ 			else
+ 			{
+ 			 return "false";
+-			}			
++			}	
++*/			
+ 		}
+ 		public function _updateteamtake($teamID,$teamtake,$userid)
+ 		{
+diff --git a/application/view/group/activity.php b/application/view/group/activity.php
+new file mode 100644
+index 0000000..7cf36b4
+--- /dev/null
++++ b/application/view/group/activity.php
+@@ -0,0 +1,111 @@
++<!DOCTYPE HTML>
++<!--
++/*
++ * jQuery File Upload Plugin Demo 6.0.4
++ * https://github.com/blueimp/jQuery-File-Upload
++ *
++ * Copyright 2010, Sebastian Tschan
++ * https://blueimp.net
++ *
++ * Licensed under the MIT license:
++ * http://www.opensource.org/licenses/MIT
++ */
++-->
++
++<html xmlns="http://www.w3.org/1999/xhtml">
++<head>
++<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
++<title><?php echo $this->values["title"]; ?></title>
++<!--
++    The Bootstrap CSS is not required, but included for the demo.
++    However, the FileUpload user interface waits for CSS transition events in several callbacks,
++    if a "fade" class is present. These CSS transitions are defined by the Bootstrap CSS.
++    If it is not included, either remove the "fade" class from the upload/download templates,
++    or define your own "fade" class with CSS transitions.
++-->
++<link rel="stylesheet" href="/bootstrap.min.css">
++<link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
++<link rel="stylesheet" href="/indexstyle.css">
++<!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
++<link rel="stylesheet" href="/jquery.fileupload-ui.css">
++</head>
++<body>
++<div id="index">
++<div id="header">
++		<div id="hd-link">
++						<?php if($this->values["user"]) {  ?>
++							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a> <a href="/user/logout">[退出]</a>
++						<?php } else { ?>
++							<a href="/user/loginpage?/" >[登录]</a>
++							<a href="/user/register">[注册]</a>
++						<?php } ?>
++						
++
++		</div>
++
++		<a href="/"><div class="img"></div></a>
++		<div class="nav">
++			<ul id="logonav">
++				<li id="nv-hm">
++					<a href="/home"  >我的Pic</a>
++				</li>
++				<li id="nv-cv">
++					<a href="/cover">发现</a>
++				</li>
++				<li id="nv-group">
++					<a href="/group"  style="border-bottom: 4px solid #09f;color:#09f;">小组</a>
++				</li>	
++				<li id="nv-recom">
++					<a href="/recommend">推荐</a>
++				</li>
++				<li id="nv-search">
++				<a>
++					<form action="index.php" class="clearfix" id="search_box" method="get">
++					  <label> 
++						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
++						  <button class="topsearch-sub" type="submit">找一找</button>
++					  </label>
++					</form> 
++				</a>
++				</li>
++			</ul>
++		</div>
++	</div>
++	</br>
++	
++	<div>
++	<form action="/group/add">
++		<input id=>
++		<input id=>
++	</form>
++	</div>
++
++	
++</div>	
++
++<script src="/jquery.min.js"></script>
++<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
++<script src="/vendor/jquery.ui.widget.js"></script>
++<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
++<script src="/tmpl.min.js"></script>
++<script src="/load-image.min.js"></script>
++<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
++<script src="/bootstrap-modal.min.js"></script>
++<script src="/bootstrap-image-gallery.min.js"></script>
++<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
++<script src="/jquery.iframe-transport.js"></script>
++<script src="/jquery.fileupload.js"></script>
++<script src="/jquery.fileupload-ui.js"></script>
++<script src="/application.js"></script>
++  <script src="./jquery-ajaxtip.js" ></script>
++  <script>
++    $('img').ajaxtip({
++html:$('#showup'),
++datasource:'/group/welcome'
++        });
++  </script>
++  
++<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
++<!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
++</body> 
++</html>
+\ No newline at end of file
+diff --git a/application/view/group/activity.rhtml b/application/view/group/activity.rhtml
+new file mode 100644
+index 0000000..52a5338
+--- /dev/null
++++ b/application/view/group/activity.rhtml
+@@ -0,0 +1,111 @@
++<!DOCTYPE HTML>
++<!--
++/*
++ * jQuery File Upload Plugin Demo 6.0.4
++ * https://github.com/blueimp/jQuery-File-Upload
++ *
++ * Copyright 2010, Sebastian Tschan
++ * https://blueimp.net
++ *
++ * Licensed under the MIT license:
++ * http://www.opensource.org/licenses/MIT
++ */
++-->
++
++<html xmlns="http://www.w3.org/1999/xhtml">
++<head>
++<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
++<title>{$title}</title>
++<!--
++    The Bootstrap CSS is not required, but included for the demo.
++    However, the FileUpload user interface waits for CSS transition events in several callbacks,
++    if a "fade" class is present. These CSS transitions are defined by the Bootstrap CSS.
++    If it is not included, either remove the "fade" class from the upload/download templates,
++    or define your own "fade" class with CSS transitions.
++-->
++<link rel="stylesheet" href="/bootstrap.min.css">
++<link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
++<link rel="stylesheet" href="/indexstyle.css">
++<!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
++<link rel="stylesheet" href="/jquery.fileupload-ui.css">
++</head>
++<body>
++<div id="index">
++<div id="header">
++		<div id="hd-link">
++						{$if:user}
++							欢迎回来，<a href="/home" >{$nickname}</a> <a href="/user/logout">[退出]</a>
++						{$else}
++							<a href="/user/loginpage?/" >[登录]</a>
++							<a href="/user/register">[注册]</a>
++						{$end}
++						
++
++		</div>
++
++		<a href="/"><div class="img"></div></a>
++		<div class="nav">
++			<ul id="logonav">
++				<li id="nv-hm">
++					<a href="/home"  >我的Pic</a>
++				</li>
++				<li id="nv-cv">
++					<a href="/cover">发现</a>
++				</li>
++				<li id="nv-group">
++					<a href="/group"  style="border-bottom: 4px solid #09f;color:#09f;">小组</a>
++				</li>	
++				<li id="nv-recom">
++					<a href="/recommend">推荐</a>
++				</li>
++				<li id="nv-search">
++				<a>
++					<form action="index.php" class="clearfix" id="search_box" method="get">
++					  <label> 
++						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
++						  <button class="topsearch-sub" type="submit">找一找</button>
++					  </label>
++					</form> 
++				</a>
++				</li>
++			</ul>
++		</div>
++	</div>
++	</br>
++	
++	<div>
++	<form action="/group/add">
++		<input id=>
++		<input id=>
++	</form>
++	</div>
++
++	
++</div>	
++
++<script src="/jquery.min.js"></script>
++<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
++<script src="/vendor/jquery.ui.widget.js"></script>
++<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
++<script src="/tmpl.min.js"></script>
++<script src="/load-image.min.js"></script>
++<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
++<script src="/bootstrap-modal.min.js"></script>
++<script src="/bootstrap-image-gallery.min.js"></script>
++<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
++<script src="/jquery.iframe-transport.js"></script>
++<script src="/jquery.fileupload.js"></script>
++<script src="/jquery.fileupload-ui.js"></script>
++<script src="/application.js"></script>
++  <script src="./jquery-ajaxtip.js" ></script>
++  <script>
++    $('img').ajaxtip({
++html:$('#showup'),
++datasource:'/group/welcome'
++        });
++  </script>
++  
++<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
++<!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
++</body> 
++</html>
+\ No newline at end of file
+diff --git a/application/view/group/groupid.php b/application/view/group/groupid.php
+index 0057ce4..f49416e 100644
+--- a/application/view/group/groupid.php
++++ b/application/view/group/groupid.php
+@@ -88,10 +88,176 @@
+ 	<a href='/group/imagegroup'>创建画集
+ 	<?php } ?>
+ 	</div>
++	<button data-controls-modal="modal-from-dom-update" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">修改信息</button>
++	<button data-controls-modal="modal-from-dom-activity" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">添加活动</button>
+ </div>
+ 	
+ </div>	
+ 
++<div id="modal-from-dom-update" class="modal hide fade" style="width:650px;margin-top:-300px;">
++			<div class="modal-header" style="background-color:#339BB9;">
++              <a href="#" class="close">&times;</a>
++              <h3 style="color:white;">修改信息</h3>
++            </div>
++			<div id="groupnotice1" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功</h4></div>
++			<div class="modal-body">
++				 <form id="imggroupnew" name="imggroupnew" action="/group/imagegroupadd" method="POST" enctype="multipart/form-data">
++				<p>名称：<input name="groupname" id="groupname" value="<?php echo $this->values["groupname"]; ?>"/></p></br>
++				<p>描述：<textarea name="groupdescription" id="groupdescription" value="<?php echo $this->values["groupdescription"]; ?>"><?php echo $this->values["groupdescription"]; ?></textarea></p></br>
++			  </form>
++            </div>
++			<div class="modal-footer">
++              <a href="#" class="btn primary" id="group_information_submit" >修改</a>
++              
++            </div>
++			
++</div>
++
++<div id="modal-from-dom-activity" class="modal hide fade" style="width:650px;margin-top:-300px;">
++			<div class="modal-header" style="background-color:#339BB9;">
++              <a href="#" class="close">&times;</a>
++              <h3 style="color:white;">添加活动</h3>
++            </div>
++			<div id="groupnotice2" style="text-align:center;display:none;">    <h4 style="color:red;">添加成功</h4></div>
++			<div class="modal-body">
++				 <form id="imggroupnew" name="imggroupnew" action="/group/activityadd" method="POST" enctype="multipart/form-data">
++				<p>名称：<input name="groupname" id="groupname" /></p></br>
++				<p>描述：<textarea name="groupdescription" id="groupdescription"></textarea></p></br>
++			  </form>
++            </div>
++			<div class="modal-footer">
++              <a href="#" class="btn primary" id="group_activity_submit" >添加</a>
++              
++            </div>
++			
++</div>
++
++<div id="modal-from-avatar" class="modal hide fade" style="width:650px;margin-top:-300px;">
++            <div class="modal-header" style="background-color:#339BB9;">
++              <a href="#" class="close">&times;</a>
++              <h3 style="color:white;">更改头像</h3>
++            </div>
++			<div id="groupnotice" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功！</h4></div>
++            <div class="modal-body" style="float:left;">
++
++		<div style="padding:10px 0;color:#666;">
++		上传一张图片，或者  <a style="color:#cc3300;" href="javascript:void(0);" onclick="useCamera()">使用摄像头</a>
++		</div>
++		<form enctype="multipart/form-data" method="post" name="upform" target="upload_target" action="/upload/upload.php">
++		<input type="file" name="Filedata" id="Filedata"/>
++		<input style="margin-right:20px;" type="submit" name="" value="上传形象照" onclick="return checkFile();" /><span style="visibility:hidden;" id="loading_gif"><img src="/upload/loading.gif" align="absmiddle" />上传中，请稍侯......</span>
++		</form>
++		<iframe src="about:blank" name="upload_target" style="display:none;"></iframe>
++		<div id="avatar_editor"></div>
++		
++		
++		
++		
++		
++		<script type="text/javascript">
++		//允许上传的图片类型
++		var extensions = 'jpg,jpeg,gif,png';
++		//保存缩略图的地址.
++		var saveUrl = '/upload/save_avatar.php';
++		//保存摄象头白摄图片的地址.
++		var cameraPostUrl = '/upload/camera.php';
++		//头像编辑器flash的地址.
++		var editorFlaPath = '/upload/AvatarEditor.swf';
++
++		function useCamera()
++		{
++			var content = '<embed height="464" width="514" ';
++			content +='flashvars="type=camera';
++			content +='&postUrl='+cameraPostUrl+'?&radom=2';
++			content += '&saveUrl='+saveUrl+'?radom=2" ';
++			content +='pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" ';
++			content +='allowscriptaccess="always" quality="high" ';
++			content +='src="'+editorFlaPath+'"/>';
++			document.getElementById('avatar_editor').innerHTML = content;
++		}
++		function buildAvatarEditor(pic_id,pic_path,post_type)
++		{
++			var content = '<embed height="464" width="514"'; 
++			content+='flashvars="type='+post_type;
++			content+='&group=1';
++			content+='&photoUrl='+pic_path;
++			content+='&photoId='+pic_id;
++			content+='&postUrl='+cameraPostUrl+'?&radom=2';
++			content+='&saveUrl='+saveUrl+'?radom=2"';
++			content+=' pluginspage="http://www.macromedia.com/go/getflashplayer"';
++			content+=' type="application/x-shockwave-flash"';
++			content+=' allowscriptaccess="always" quality="high" src="'+editorFlaPath+'"/>';
++			document.getElementById('avatar_editor').innerHTML = content;
++		}
++		
++			/**
++			  * 提供给FLASH的接口 ： 没有摄像头时的回调方法
++			  */
++			 function noCamera(){
++				 alert("未找到摄像头");
++			 }
++					
++			/**
++			 * 提供给FLASH的接口：编辑头像保存成功后的回调方法
++			 */
++			function avatarSaved(){
++				alert('保存成功.');
++				$('#avatarshow').html();
++				$('#avatarshow').html("<img src='/upload/avatar_small/<?php echo $this->values["users"]; ?>_small.jpg' />");
++				$('#dialogclose').click();
++				//window.location.href = '/profile.do';
++			}
++			
++			 /**
++			  * 提供给FLASH的接口：编辑头像保存失败的回调方法, msg 是失败信息，可以不返回给用户, 仅作调试使用.
++			  */
++			 function avatarError(msg){
++				 alert("上传失败了呀，哈哈");
++			 }
++
++			 function checkFile()
++			 {
++				 var path = document.getElementById('Filedata').value;
++				 var ext = getExt(path);
++				 
++				 var re = new RegExp("(^|\\s|,)" + ext + "($|\\s|,)", "ig");
++				  if(extensions != '' && (re.exec(extensions) == null || ext == '')) {
++				 alert('对不起，只能上传jpg, gif, png类型的图片');
++				 return false;
++				 }
++
++				 showLoading();
++				 return true;
++			 }
++
++			 function getExt(path) {
++				return path.lastIndexOf('.') == -1 ? '' : path.substr(path.lastIndexOf('.') + 1, path.length).toLowerCase();
++			}
++              function	showLoading()
++			  {
++				  document.getElementById('loading_gif').style.visibility = 'visible';
++			  }
++			  function hideLoading()
++			  {
++				document.getElementById('loading_gif').style.visibility = 'hidden';
++			  }
++</script>
++
++	</div>
++
++				
++
++			
++
++            <div class="modal-footer">
++              <a href="#" class="btn primary close" id="dialogclose" style="display:none;">完成</a>
++
++
++</div>	  
++</div>
++
++
++
+ <script src="/jquery.min.js"></script>
+ <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+ <script src="/vendor/jquery.ui.widget.js"></script>
+diff --git a/application/view/group/groupid.rhtml b/application/view/group/groupid.rhtml
+index 3ef14ec..447997a 100644
+--- a/application/view/group/groupid.rhtml
++++ b/application/view/group/groupid.rhtml
+@@ -88,10 +88,176 @@
+ 	<a href='/group/imagegroup'>创建画集
+ 	{$end}
+ 	</div>
++	<button data-controls-modal="modal-from-dom-update" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">修改信息</button>
++	<button data-controls-modal="modal-from-dom-activity" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">添加活动</button>
+ </div>
+ 	
+ </div>	
+ 
++<div id="modal-from-dom-update" class="modal hide fade" style="width:650px;margin-top:-300px;">
++			<div class="modal-header" style="background-color:#339BB9;">
++              <a href="#" class="close">&times;</a>
++              <h3 style="color:white;">修改信息</h3>
++            </div>
++			<div id="groupnotice1" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功</h4></div>
++			<div class="modal-body">
++				 <form id="imggroupnew" name="imggroupnew" action="/group/imagegroupadd" method="POST" enctype="multipart/form-data">
++				<p>名称：<input name="groupname" id="groupname" value="{$groupname}"/></p></br>
++				<p>描述：<textarea name="groupdescription" id="groupdescription" value="{$groupdescription}">{$groupdescription}</textarea></p></br>
++			  </form>
++            </div>
++			<div class="modal-footer">
++              <a href="#" class="btn primary" id="group_information_submit" >修改</a>
++              
++            </div>
++			
++</div>
++
++<div id="modal-from-dom-activity" class="modal hide fade" style="width:650px;margin-top:-300px;">
++			<div class="modal-header" style="background-color:#339BB9;">
++              <a href="#" class="close">&times;</a>
++              <h3 style="color:white;">添加活动</h3>
++            </div>
++			<div id="groupnotice2" style="text-align:center;display:none;">    <h4 style="color:red;">添加成功</h4></div>
++			<div class="modal-body">
++				 <form id="imggroupnew" name="imggroupnew" action="/group/activityadd" method="POST" enctype="multipart/form-data">
++				<p>名称：<input name="groupname" id="groupname" /></p></br>
++				<p>描述：<textarea name="groupdescription" id="groupdescription"></textarea></p></br>
++			  </form>
++            </div>
++			<div class="modal-footer">
++              <a href="#" class="btn primary" id="group_activity_submit" >添加</a>
++              
++            </div>
++			
++</div>
++
++<div id="modal-from-avatar" class="modal hide fade" style="width:650px;margin-top:-300px;">
++            <div class="modal-header" style="background-color:#339BB9;">
++              <a href="#" class="close">&times;</a>
++              <h3 style="color:white;">更改头像</h3>
++            </div>
++			<div id="groupnotice" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功！</h4></div>
++            <div class="modal-body" style="float:left;">
++
++		<div style="padding:10px 0;color:#666;">
++		上传一张图片，或者  <a style="color:#cc3300;" href="javascript:void(0);" onclick="useCamera()">使用摄像头</a>
++		</div>
++		<form enctype="multipart/form-data" method="post" name="upform" target="upload_target" action="/upload/upload.php">
++		<input type="file" name="Filedata" id="Filedata"/>
++		<input style="margin-right:20px;" type="submit" name="" value="上传形象照" onclick="return checkFile();" /><span style="visibility:hidden;" id="loading_gif"><img src="/upload/loading.gif" align="absmiddle" />上传中，请稍侯......</span>
++		</form>
++		<iframe src="about:blank" name="upload_target" style="display:none;"></iframe>
++		<div id="avatar_editor"></div>
++		
++		
++		
++		
++		
++		<script type="text/javascript">
++		//允许上传的图片类型
++		var extensions = 'jpg,jpeg,gif,png';
++		//保存缩略图的地址.
++		var saveUrl = '/upload/save_avatar.php';
++		//保存摄象头白摄图片的地址.
++		var cameraPostUrl = '/upload/camera.php';
++		//头像编辑器flash的地址.
++		var editorFlaPath = '/upload/AvatarEditor.swf';
++
++		function useCamera()
++		{
++			var content = '<embed height="464" width="514" ';
++			content +='flashvars="type=camera';
++			content +='&postUrl='+cameraPostUrl+'?&radom=2';
++			content += '&saveUrl='+saveUrl+'?radom=2" ';
++			content +='pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" ';
++			content +='allowscriptaccess="always" quality="high" ';
++			content +='src="'+editorFlaPath+'"/>';
++			document.getElementById('avatar_editor').innerHTML = content;
++		}
++		function buildAvatarEditor(pic_id,pic_path,post_type)
++		{
++			var content = '<embed height="464" width="514"'; 
++			content+='flashvars="type='+post_type;
++			content+='&group=1';
++			content+='&photoUrl='+pic_path;
++			content+='&photoId='+pic_id;
++			content+='&postUrl='+cameraPostUrl+'?&radom=2';
++			content+='&saveUrl='+saveUrl+'?radom=2"';
++			content+=' pluginspage="http://www.macromedia.com/go/getflashplayer"';
++			content+=' type="application/x-shockwave-flash"';
++			content+=' allowscriptaccess="always" quality="high" src="'+editorFlaPath+'"/>';
++			document.getElementById('avatar_editor').innerHTML = content;
++		}
++		
++			/**
++			  * 提供给FLASH的接口 ： 没有摄像头时的回调方法
++			  */
++			 function noCamera(){
++				 alert("未找到摄像头");
++			 }
++					
++			/**
++			 * 提供给FLASH的接口：编辑头像保存成功后的回调方法
++			 */
++			function avatarSaved(){
++				alert('保存成功.');
++				$('#avatarshow').html();
++				$('#avatarshow').html("<img src='/upload/avatar_small/<?php echo $this->values["users"]; ?>_small.jpg' />");
++				$('#dialogclose').click();
++				//window.location.href = '/profile.do';
++			}
++			
++			 /**
++			  * 提供给FLASH的接口：编辑头像保存失败的回调方法, msg 是失败信息，可以不返回给用户, 仅作调试使用.
++			  */
++			 function avatarError(msg){
++				 alert("上传失败了呀，哈哈");
++			 }
++
++			 function checkFile()
++			 {
++				 var path = document.getElementById('Filedata').value;
++				 var ext = getExt(path);
++				 
++				 var re = new RegExp("(^|\\s|,)" + ext + "($|\\s|,)", "ig");
++				  if(extensions != '' && (re.exec(extensions) == null || ext == '')) {
++				 alert('对不起，只能上传jpg, gif, png类型的图片');
++				 return false;
++				 }
++
++				 showLoading();
++				 return true;
++			 }
++
++			 function getExt(path) {
++				return path.lastIndexOf('.') == -1 ? '' : path.substr(path.lastIndexOf('.') + 1, path.length).toLowerCase();
++			}
++              function	showLoading()
++			  {
++				  document.getElementById('loading_gif').style.visibility = 'visible';
++			  }
++			  function hideLoading()
++			  {
++				document.getElementById('loading_gif').style.visibility = 'hidden';
++			  }
++</script>
++
++	</div>
++
++				
++
++			
++
++            <div class="modal-footer">
++              <a href="#" class="btn primary close" id="dialogclose" style="display:none;">完成</a>
++
++
++</div>	  
++</div>
++
++
++
+ <script src="/jquery.min.js"></script>
+ <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+ <script src="/vendor/jquery.ui.widget.js"></script>
+diff --git a/application/view/group/index.php b/application/view/group/index.php
+index bd1daed..18f6d4a 100644
+--- a/application/view/group/index.php
++++ b/application/view/group/index.php
+@@ -90,6 +90,12 @@
+ 	</div>
+ </div>	
+ 
++
++
++
++ 
++
++
+ <script src="/jquery.min.js"></script>
+ <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+ <script src="/vendor/jquery.ui.widget.js"></script>
+diff --git a/application/view/group/index.rhtml b/application/view/group/index.rhtml
+index c314423..8197b84 100644
+--- a/application/view/group/index.rhtml
++++ b/application/view/group/index.rhtml
+@@ -90,6 +90,12 @@
+ 	</div>
+ </div>	
+ 
++
++
++
++ 
++
++
+ <script src="/jquery.min.js"></script>
+ <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+ <script src="/vendor/jquery.ui.widget.js"></script>
+diff --git a/application/view/information/index.php b/application/view/information/index.php
+new file mode 100644
+index 0000000..5271ad9
+--- /dev/null
++++ b/application/view/information/index.php
+@@ -0,0 +1,99 @@
++<!DOCTYPE HTML>
++<!--
++/*
++ * jQuery File Upload Plugin Demo 6.0.4
++ * https://github.com/blueimp/jQuery-File-Upload
++ *
++ * Copyright 2010, Sebastian Tschan
++ * https://blueimp.net
++ *
++ * Licensed under the MIT license:
++ * http://www.opensource.org/licenses/MIT
++ */
++-->
++
++<html xmlns="http://www.w3.org/1999/xhtml">
++<head>
++<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
++<title><?php echo $this->values["title"]; ?></title>
++<!--
++    The Bootstrap CSS is not required, but included for the demo.
++    However, the FileUpload user interface waits for CSS transition events in several callbacks,
++    if a "fade" class is present. These CSS transitions are defined by the Bootstrap CSS.
++    If it is not included, either remove the "fade" class from the upload/download templates,
++    or define your own "fade" class with CSS transitions.
++-->
++<link rel="stylesheet" href="/bootstrap.min.css">
++<link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
++<link rel="stylesheet" href="/indexstyle.css">
++<!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
++<link rel="stylesheet" href="/jquery.fileupload-ui.css">
++
++</head>
++<body>
++<div id="index">
++<div id="header">
++		<div id="hd-link">
++						<?php if($this->values["user"]) {  ?>
++							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a> <a href="/user/logout">[退出]</a>
++						<?php } else { ?>
++							<a href="/user/loginpage?/" >[登录]</a>
++							<a href="/user/register">[注册]</a>
++						<?php } ?>
++						
++
++		</div>
++
++		<a href="/"><div class="img"></div></a>
++		<div class="nav">
++			<ul id="logonav">
++				<li id="nv-hm">
++					<a href="/home"  >我的Pic</a>
++				</li>
++				<li id="nv-cv">
++					<a href="/cover">发现</a>
++				</li>
++				<li id="nv-group">
++					<a href="/group"  style="border-bottom: 4px solid #09f;color:#09f;">小组</a>
++				</li>	
++				<li id="nv-recom">
++					<a href="/recommend">推荐</a>
++				</li>
++				<li id="nv-search">
++				<a>
++					<form action="index.php" class="clearfix" id="search_box" method="get">
++					  <label> 
++						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
++						  <button class="topsearch-sub" type="submit">找一找</button>
++					  </label> 
++					</form> 
++				</a>
++				</li>
++			</ul>
++		</div>
++	</div>
++	<div id="group_offer">
++		<?php echo $this->values["allteam"]; ?>
++	</div>
++</div>	
++
++
++<script src="/jquery.min.js"></script>
++<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
++<script src="/vendor/jquery.ui.widget.js"></script>
++<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
++<script src="/tmpl.min.js"></script>
++<script src="/load-image.min.js"></script>
++<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
++<script src="/bootstrap-modal.min.js"></script>
++<script src="/bootstrap-image-gallery.min.js"></script>
++<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
++<script src="/jquery.iframe-transport.js"></script>
++<script src="/jquery.fileupload.js"></script>
++<script src="/jquery.fileupload-ui.js"></script>
++<script src="/application.js"></script>
++
++<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
++<!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
++</body> 
++</html>
+\ No newline at end of file
+diff --git a/application/view/user/index.php b/application/view/user/index.php
+index b6f6fc8..37ca7dc 100644
+--- a/application/view/user/index.php
++++ b/application/view/user/index.php
+@@ -76,7 +76,8 @@
+ 	</div>
+ 	<div id="content1">
+ 		<div id="welcome" >
+-			<div id="myphoto" > <a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/<?php echo $this->values["userid"]; ?>_big.jpg" title="点击以更改头像"/></a>
++			<div id="myphoto" > 
++			<a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/<?php echo $this->values["userid"]; ?>_big.jpg" title="点击以更改头像"/></a>
+ 			<div style="float:right;width:160px;">
+ 			<p><b><?php echo $this->values["nickname"]; ?></b></p>
+ 			<p> <a href="/information" >[修改个人信息]</a></p>
+diff --git a/htdocs/application.js b/htdocs/application.js
+index bc6ffbd..bbb6a3c 100644
+--- a/htdocs/application.js
++++ b/htdocs/application.js
+@@ -348,5 +348,31 @@ success: function(msg){
+     });
+ });
+ 
++$("#group_information_submit").click(function()
++	{
++			$.ajax({                                                
++			type: "POST",                                 
++			url: "/group/informationupdate",                                    
++			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val(),   
++			success: function(msg){                 
++				 $("#upselect").html(msg);    
++				 $("#upselect").change();
++				 $("#groupnotice1").show("fast");
++			}    
++			});  
++	});
+ 
++$("#group_activity_submit").click(function()
++	{
++			$.ajax({                                                
++			type: "POST",                                 
++			url: "/group/activityadd",                                    
++			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val(),   
++			success: function(msg){                 
++				 $("#upselect").html(msg);    
++				 $("#upselect").change();
++				 $("#groupnotice2").show("fast");
++			}    
++			});  
++	});
+ 
+-- 
+1.7.9.msysgit.0
+

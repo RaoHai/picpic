@@ -38,8 +38,8 @@
 		}	
         public function userindex($uid)
         {
-            //if($uid==$_SESSION['USERID'])
-            //    header("Location:"."/home");
+            if($uid==$_SESSION['USERID'])
+                header("Location:"."/home");
 
             $username = $this->getuserbyid($uid);
             $friendlist = new friend();

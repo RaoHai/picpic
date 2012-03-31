@@ -8,7 +8,7 @@
 
 <title><?php echo $this->values["title"]; ?></title>
 </head>
-<body>
+<body style="background-color: #565656;">
 	<div class="header" style="background-color:black;">
 				<a href="/"><img src="/logo.png" title="主页" style="width:120px;margin-left:10px;"/></a>
 				<span class="right_ab">
@@ -20,21 +20,22 @@
 						<?php } ?>
 				</span>
 	</div>
-			<div >
-			<div style="text-align: right;display: block;position: absolute;float: left;left:50px;top:50px;">
-			<input id="currentgroupid" style="display:none;" value='<?php echo $this->values["groupid"]; ?>'></input>
+			<div style="width:80%;margin: auto;">
+			<div style="width:100%;float:left;">
+            <input id="currentgroupid" style="display:none;" value='<?php echo $this->values["groupid"]; ?>'></input>
 			<h1><?php echo $this->values["groupname"]; ?></h1>
-			<div style="width:220px;"><?php echo $this->values["groupdesc"]; ?></div>
-			<p>图集作者:<a href='/user/<?php echo $this->values["authorid"]; ?>'>| <?php echo $this->values["authorname"]; ?> |</a></p>
+			<div style="width:220px;color:white"><?php echo $this->values["groupdesc"]; ?></div>
+			<p style="color:white;">图集作者:<a href='/user/<?php echo $this->values["authorid"]; ?>'>| <?php echo $this->values["authorname"]; ?> |</a></p>
 			</div>
 			
-			<div style="width:60%;min-width:800px; margin:10px auto;">
-				<div class="am-container" id="am-container">
+			<div style="width:100%;min-width:800px; margin:10px auto;float:left;">
+				<div class="am-container" id="am-container" style="float:left;">
 				<?php echo $this->values["images"]; ?>
 				</div>
 			</div>
-				<div  style="width:60%;min-width:800px;margin:10px auto;">
-				评论：<?php if($this->values["user"]) {  ?>
+				<div  style="width:100%;min-width:800px;margin:10px auto;">
+				<div style="border-radius:4px;background-color:white;float:left;width:100%;">评论：<?php if($this->values["user"]) {  ?>
+                <div style="margin-left:30px;">
 				<ul id="comments_text"></ul>
 				<!--<link rel="stylesheet" type="text/css" href="/markitup/markitup/skins/markitup/style.css" /> <!--  -->
 				<!--<link rel="stylesheet" type="text/css" href="/markitup/markitup/sets/bbcode/style.css" /><!-- -->
@@ -44,9 +45,10 @@
 			
 				<button id="comments_bt1" type="button" class="btn primary start" >提交评论</button>
 			</form>
-			
+			  </div>
 				</div>
                 <?php } ?>
+                </div>
 				</div>
 
 		<div id="gallery-loader"></div>
@@ -71,9 +73,12 @@
 		<script src="/load-image.min.js"></script>
 		<script src="/bootstrap-modal.min.js"></script>
 		<script src="/bootstrap-image-gallery.min.js"></script>
-		<script charset="utf-8" src="/editor/kindeditor-min.js"></script>
+         <script src="/jquery-infoAndFavorites/jquery-infoAndFavorites2.js" ></script>
+
+        <script charset="utf-8" src="/editor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="/editor/lang/zh_CN.js"></script>
 			<script>
+
 					var editor;
 					KindEditor.ready(function(K) {
 						editor = K.create('#cmeditor', {
@@ -87,7 +92,6 @@
 								'insertunorderedlist', '|', 'emoticons', 'image', 'link']
 						});
 					});
-					
 $(document).ready(function(){
     	$('#comments_bt1').click(
 				function(){
@@ -164,10 +168,14 @@ replyto = function(obj,id)
   //alert(id);
 };
 $.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(result) {
+    if(result && result.length >0)
+    {
     $.each(result, function(i, field){
       refresh(field);
       });
+    }
     });
+
 });
 </script>
 <script type="text/javascript">
@@ -176,32 +184,17 @@ $.getJSON("/imagegroup/showcomments/"+$("#currentgroupid").val(), function(resul
 $(function() {
 
 
-    var $container 	= $('#am-container'),
-    $imgs		= $container.find('img').hide(),
-    totalImgs	= $imgs.length,
-    cnt			= 0;
-
-    $imgs.each(function(i) {
-      var $img	= $(this);
-      $('<img/>').load(function() {
-        ++cnt;
-        if( cnt === totalImgs ) {
-        $imgs.show();
-        $container.montage({
-liquid 	: false,
-fillLastRow : true
-});
-
-        /* 
-         * just for this demo:
-         */
-        $('#overlay').fadeIn(500);
-        }
-        }).attr('src',$img.attr('src'));
-      });
-
-// Initialize the Bootstrap Image Gallery plugin:
+  // Initialize the Bootstrap Image Gallery plugin:
 $('#am-container').imagegallery();			
+$('#am-container .imginfo').favor(
+            {
+              title:false,
+              linkto:false,
+              width:240,
+              height:160,
+              margin:8,
+              link:"<a rel='gallery'></a>"
+            }); 
 
 
 

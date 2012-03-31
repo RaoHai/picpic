@@ -22,6 +22,7 @@
 							"profile"=>array("UserId","avatar","Birthday","FavoriteHash","FriendId","Shared","Blood","Sex","Desc"),
 							"friend"=>array("User","OtherUserId"),
 							"active"=>array("UserId","ActionType","content"),
-					    	"message"=>array("senderId","reciverId","messageText","readMark","senderDel","Title","reciverDel","Time"),	
+					    	"message"=>array("senderId","reciverId","messageText","readMark","senderDel","Title","reciverDel","Time"),
+                            "favourite"=>array("UserId","ImageId","ImageGroupId"),
 							);
 ?>
