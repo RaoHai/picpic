@@ -182,3 +182,7 @@
 {"data":{"urls":["\/upload\/avatar_big\/4_big.jpg"]},"status":1,"statusText":"\u4e0a\u4f20\u6210\u529f!"}：执行日期：20120207130145
 图片大小: 6119：执行日期：20120207130145
 {"data":{"urls":["\/upload\/avatar_small\/4_small.jpg"]},"status":1,"statusText":"\u4e0a\u4f20\u6210\u529f!"}：执行日期：20120207130145
+图片大小: 52000：执行日期：20120326060653
+{"data":{"urls":["\/upload\/avatar_big\/4_big.jpg"]},"status":1,"statusText":"\u4e0a\u4f20\u6210\u529f!"}：执行日期：20120326060653
+图片大小: 5704：执行日期：20120326060654
+{"data":{"urls":["\/upload\/avatar_small\/4_small.jpg"]},"status":1,"statusText":"\u4e0a\u4f20\u6210\u529f!"}：执行日期：20120326060654

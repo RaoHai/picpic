@@ -1,0 +1,9 @@
+#showup
+{
+position: relative;
+border: 1px solid gray;
+border-image: initial;
+font-size: 13px;
+display: inherit;
+width:50px; 
+}

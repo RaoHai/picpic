@@ -1,0 +1,9 @@
+.infoAndFavor {
+display: block;
+position: absolute;
+background-color: #09C;
+background-image: url(/img/zoom.png);
+background-repeat: no-repeat;
+background-position: center;
+}
+

@@ -3,7 +3,7 @@
 
 a {
   color: #222;
-  text-decoration : none;
+  text-decoration : none; !important
 }
 a:active {
 	outline : none;
@@ -11,6 +11,7 @@ a:active {
 a:hover
 {
 	color:#09f;
+    text-decoration:none; !important
 }
 div
 {
@@ -767,5 +768,43 @@ border: 0px;
 	min-height:300px;
 	background-color:#fb3c64;
 	
+}
+.imginfo
+{
+display:inline;
+overflow:hidden;
+}
+.infoAndFavor
+{
+float:left;
+display:block;
+position:absolute;
+background-color:#09c;
+background-image: url(/img/zoom.png);
+background-repeat: no-repeat;
+background-position: center;
+
+}
+.unlike
+{
+cursor:pointer;
+width:20px;
+height:30px;
+float:left;
+background-image:url(/logo.png);
+background-repeat:no-repeat;
+background-size:100px;
+background-position:-17px 0px;
+}
+.like
+{
+cursor:pointer;
+width:20px;
+height:30px;
+float:left;
+background-image:url(/logo.png);
+background-repeat:no-repeat;
+background-size:119px;
+background-position:-98px -5px;  
 }
 

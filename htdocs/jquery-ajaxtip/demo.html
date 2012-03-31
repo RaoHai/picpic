@@ -1,0 +1,24 @@
+﻿<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="./default.css" rel="stylesheet" type="text/css">
+  <title>ajaxTip-Demo</title>
+  </head>
+  <body>
+  <img src="./demo.jpg"  data-id="5" />
+  <img src="./demo.jpg" data-id="6" />
+  <div id="showup">
+  showup
+  </div>
+  </body>
+  <script src="./jquery-1.7.1.min.js" ></script>
+  <script src="./jquery-ajaxtip.js" ></script>
+  <script>
+    $('img').ajaxtip({
+html:$('#showup'),
+datasource:'./data.php'
+        });
+   
+  </script>
+</html>
