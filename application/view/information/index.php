@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="/indexstyle.css">
 <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
 <link rel="stylesheet" href="/jquery.fileupload-ui.css">
+
 </head>
 <body>
 <div id="index">
@@ -64,36 +65,17 @@
 					  <label> 
 						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
 						  <button class="topsearch-sub" type="submit">找一找</button>
-					  </label>
+					  </label> 
 					</form> 
 				</a>
 				</li>
 			</ul>
 		</div>
 	</div>
-	</br>
-	<div id="group_back">
-		<div id="group_offer">
+	<div id="group_offer">
 		<?php echo $this->values["allteam"]; ?>
-		</div>
-		<div id="group_find">
-			<div id='group_text'>
-			<a href="/group/Addgroup">申请小组</a>
-			</div>
-			<div id='group_text'>
-			<a href="/group/add">我的小组</a>
-			</div>
-		</div>		
-	</div>
-	<div id="group_welcomepicture">
-		showup
 	</div>
 </div>	
-
-
-
-
- 
 
 
 <script src="/jquery.min.js"></script>
@@ -111,34 +93,6 @@
 <script src="/jquery.fileupload-ui.js"></script>
 <script src="/application.js"></script>
 
-  <script src="./jquery-ajaxtip.js" ></script>
-  <script>
-    $('img').ajaxtip({
-html:$('#group_welcomepicture'),
-datasource:'/group/welcome'
-        });
-	$('img').bind('mouseout',function()
-		{
-		$('#group_welcomepicture').css(
-            {
-              display:"none",
-            })
-		$('#group_welcomepicture').bind('mouseover',function()
-			{
-          $('#group_welcomepicture').css(
-            {
-              display:"block",
-            })
-        });
-	});
-	$('#group_welcomepicture').bind('mouseleave',function()
-			{
-          $('#group_welcomepicture').css(
-            {
-              display:"none",
-            })
-        });
-  </script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
 </body> 

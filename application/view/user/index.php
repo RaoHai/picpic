@@ -76,7 +76,8 @@
 	</div>
 	<div id="content1">
 		<div id="welcome" >
-			<div id="myphoto" > <a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/<?php echo $this->values["userid"]; ?>_big.jpg" title="点击以更改头像"/></a>
+			<div id="myphoto" > 
+			<a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/<?php echo $this->values["userid"]; ?>_big.jpg" title="点击以更改头像"/></a>
 			<div style="float:right;width:160px;">
 			<p><b><?php echo $this->values["nickname"]; ?></b></p>
 			<p> <a href="/information" >[修改个人信息]</a></p>

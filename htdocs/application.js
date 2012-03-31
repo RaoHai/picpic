@@ -348,5 +348,31 @@ success: function(msg){
     });
 });
 
+$("#group_information_submit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/group/informationupdate",                                    
+			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice1").show("fast");
+			}    
+			});  
+	});
 
+$("#group_activity_submit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/group/activityadd",                                    
+			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice2").show("fast");
+			}    
+			});  
+	});
 

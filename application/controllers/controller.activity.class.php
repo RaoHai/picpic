@@ -14,9 +14,9 @@
 		}
 		
 		//添加消息
-		public function _add($takeid,$title,$text,$permissions)
+		public function _add($takeid,$title,$text,$permissions,$teamid)
 		{
-			$this->model->New(array($takeid,$title,$text,$permissions));
+			$this->model->New(array($takeid,$title,$text,$permissions,$teamid));
 		}
 		
 		//浏览消息
@@ -32,12 +32,7 @@
 		{
 			$this->model->Set(array("title"=>$title,"time"=>date("Y-m-d")),array("Activity"=>$id));
 		}
-		public function _updatetitle($id,$text)
-		{
-			$this->model->Set(array("text"=>$text,"time"=>date("Y-m-d")),array("Activity"=>$id));
-		}
 		
-		//
 		
 	}
 ?>

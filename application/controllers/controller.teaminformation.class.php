@@ -38,30 +38,34 @@
 		public function _updateteamname($teamID,$newname,$userid)
 		{
 		$Teamuser=new teamuser();
-			if($Teamuser->_permissions()=='2')
+		//	if($Teamuser->_permissions()=='2')
 			{
 			if($newname!=null)
 				$this->model->Set_teamname_By_teaminformationId($teamID,$newname);
-				return "true";
+		//		return "true";
 			}
+			/*
 			else
 			{
 			 return "false";
-			}			
+			}
+*/			
 		}
 		public function _updateteamremarks($teamID,$teamremarks,$userid)
 		{
 		$Teamuser=new teamuser();
-			if($Teamuser->_permissions()=='2')
+		//	if($Teamuser->_permissions()=='2')
 			{
 			if($teamremarks!=null)
 				$this->model->Set_teamremarks_By_teaminformationId($teamID,$teamremarks);
-				return "true";
+		//		return "true";
 			}
+			/*
 			else
 			{
 			 return "false";
-			}			
+			}	
+*/			
 		}
 		public function _updateteamtake($teamID,$teamtake,$userid)
 		{

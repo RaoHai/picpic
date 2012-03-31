@@ -15,7 +15,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo $this->values["title"]; ?></title>
+<title>{$title}</title>
 <!--
     The Bootstrap CSS is not required, but included for the demo.
     However, the FileUpload user interface waits for CSS transition events in several callbacks,
@@ -33,12 +33,12 @@
 <div id="index">
 <div id="header">
 		<div id="hd-link">
-						<?php if($this->values["user"]) {  ?>
-							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a> <a href="/user/logout">[退出]</a>
-						<?php } else { ?>
+						{$if:user}
+							欢迎回来，<a href="/home" >{$nickname}</a> <a href="/user/logout">[退出]</a>
+						{$else}
 							<a href="/user/loginpage?/" >[登录]</a>
 							<a href="/user/register">[注册]</a>
-						<?php } ?>
+						{$end}
 						
 
 		</div>
@@ -72,29 +72,16 @@
 		</div>
 	</div>
 	</br>
-	<div id="group_back">
-		<div id="group_offer">
-		<?php echo $this->values["allteam"]; ?>
-		</div>
-		<div id="group_find">
-			<div id='group_text'>
-			<a href="/group/Addgroup">申请小组</a>
-			</div>
-			<div id='group_text'>
-			<a href="/group/add">我的小组</a>
-			</div>
-		</div>		
+	
+	<div>
+	<form action="/group/add">
+		<input id=>
+		<input id=>
+	</form>
 	</div>
-	<div id="group_welcomepicture">
-		showup
-	</div>
+
+	
 </div>	
-
-
-
-
- 
-
 
 <script src="/jquery.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
@@ -110,35 +97,14 @@
 <script src="/jquery.fileupload.js"></script>
 <script src="/jquery.fileupload-ui.js"></script>
 <script src="/application.js"></script>
-
   <script src="./jquery-ajaxtip.js" ></script>
   <script>
     $('img').ajaxtip({
-html:$('#group_welcomepicture'),
+html:$('#showup'),
 datasource:'/group/welcome'
         });
-	$('img').bind('mouseout',function()
-		{
-		$('#group_welcomepicture').css(
-            {
-              display:"none",
-            })
-		$('#group_welcomepicture').bind('mouseover',function()
-			{
-          $('#group_welcomepicture').css(
-            {
-              display:"block",
-            })
-        });
-	});
-	$('#group_welcomepicture').bind('mouseleave',function()
-			{
-          $('#group_welcomepicture').css(
-            {
-              display:"none",
-            })
-        });
   </script>
+  
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
 </body> 

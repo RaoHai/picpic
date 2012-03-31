@@ -16,7 +16,11 @@
 			$re=$Teaminformation->_showallteam(); 
 			foreach($re as $r)
 				{
-				$allteam .="<div id='group_show'><img class='group_picture' src='/1.jpg' ><div id='group_information'><a href='/group/".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
+				if(file_exists("upload/avatar_big/group_".$r->TeaminformationId."_big.jpg"))				
+				$file="/upload/avatar_big/group_".$r->TeaminformationId."_big.jpg";	
+				else
+				$file="/upload/avatar_big/_big.jpg";			
+				$allteam .="<div id='group_show'><img class='group_picture' src='".$file."' ><div id='group_information'><a href='/group/".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
 					$i++;
 				}
 			$this->values = array("user"=>$_SESSION["USER"],
@@ -34,14 +38,18 @@
 			$Teamuser = new teamuser();
 			foreach($re as $r)
 			{
-			$information ="<img class='group_picture' src='/1.jpg'>".$r->teamremarks;
+			$information ="<a data-controls-modal='modal-from-avatar' data-backdrop='true' style='width:120px;overflow:hidden;'><img style='width:120px;max-height:140px;' src='/upload/avatar_big/group_".$id."_big.jpg' title='点击以更改头像'/></a>".$r->teamremarks;
+			$groupname=$r->teamname;
+			$groupdescription=$r->teamremarks;
 			}
 			$Permissions=$Teamuser->_permissions();
 			$this->values = array("user"=>$_SESSION["USER"],
 													"title"=>"我的Pic-ACGPIC",
 													"nickname"=>$_SESSION['NICK'],
 													"information"=>$information,
-													"permissions"=>$Permissions
+													"permissions"=>$Permissions,
+													"groupname"=>$groupname,
+													"groupdescription"=>$groupdescription,
 													);
 			$this->RenderTemplate("groupid");
 		}
@@ -108,6 +116,24 @@
 		{
 			$Imagegroup= new imagegroup();
 		    $Imagegroup->_add($_POST['groupname'],$_POST['groupdescription'],$_POST['groupcatalog']);
+		}
+		
+		public function _group_picture_change()
+		{
+			echo "123";
+		}
+		
+		public function _informationupdate()
+		{
+			$Teaminformation= new teaminformation();
+			$Teaminformation->_updateteamname($_SESSION["TEAMID"],$_POST["groupname"],$_SESSION['USERID']);
+			$Teaminformation->_updateteamremarks($_SESSION["TEAMID"],$_POST["groupdescription"],$_SESSION['USERID']);
+		}
+		
+		public function _activityadd()
+		{	
+			$Activity = new activity();
+			$Activity->_add($_SESSION["USERID"],$_POST['groupname'],$_POST['groupdescription'],0,$_SESSION["TEAMID"]);
 		}
 	
 		
