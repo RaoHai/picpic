@@ -22,11 +22,14 @@
 				$file="/upload/avatar_big/_big.jpg";			
 				$allteam .="<div id='group_show'><img class='group_picture' src='".$file."' ><div id='group_information'><a href='/group/".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
 					$i++;
+				$TeamID=$r->TeaminformationId;
 				}
+			
 			$this->values = array("user"=>$_SESSION["USER"],
 													"title"=>"我的Pic-ACGPIC",
 													"nickname"=>$_SESSION['NICK'],
 													"allteam"=>$allteam,
+													"teamID"=>$TeamID,
 													);
 			$this->RenderTemplate("index");		
 		}
@@ -43,6 +46,14 @@
 			$groupdescription=$r->teamremarks;
 			}
 			$Permissions=$Teamuser->_permissions();
+			
+			$Activity=new activity();
+			$re1=$Activity->_showall($id);
+			foreach($re1 as $r1)
+			{
+				$activityinformation .="<p><a href='/group/activity/".$r1->ActivityId."'>".$r1->title." ".$r1->text."</a></p>";
+			}
+			
 			$this->values = array("user"=>$_SESSION["USER"],
 													"title"=>"我的Pic-ACGPIC",
 													"nickname"=>$_SESSION['NICK'],
@@ -50,6 +61,7 @@
 													"permissions"=>$Permissions,
 													"groupname"=>$groupname,
 													"groupdescription"=>$groupdescription,
+													"activity"=>$activityinformation,
 													);
 			$this->RenderTemplate("groupid");
 		}
@@ -126,16 +138,80 @@
 		public function _informationupdate()
 		{
 			$Teaminformation= new teaminformation();
-			$Teaminformation->_updateteamname($_SESSION["TEAMID"],$_POST["groupname"],$_SESSION['USERID']);
-			$Teaminformation->_updateteamremarks($_SESSION["TEAMID"],$_POST["groupdescription"],$_SESSION['USERID']);
+			$Teaminformation->_updateteamname($_SESSION["TEAMID"],$_POST["groupnewname"],$_SESSION['USERID']);
+			$Teaminformation->_updateteamremarks($_SESSION["TEAMID"],$_POST["groupnewdescription"],$_SESSION['USERID']);
 		}
 		
 		public function _activityadd()
 		{	
 			$Activity = new activity();
-			$Activity->_add($_SESSION["USERID"],$_POST['groupname'],$_POST['groupdescription'],0,$_SESSION["TEAMID"]);
+			$Activity->_add($_SESSION["USERID"],$_POST['activityname'],$_POST['activitydescription'],0,$_SESSION["TEAMID"]);
 		}
-	
+		
+		public function _group_allshow()
+		{
+			$Teaminformation = new teaminformation();
+			$re=$Teaminformation->_showallteam($_POST['group_all_show']); 
+			foreach($re as $r)
+				{
+				if(file_exists("upload/avatar_big/group_".$r->TeaminformationId."_big.jpg"))				
+				$file="/upload/avatar_big/group_".$r->TeaminformationId."_big.jpg";	
+				else
+				$file="/upload/avatar_big/_big.jpg";			
+				$allteam .="<div id='group_show'><img class='group_picture' src='".$file."' ><div id='group_information'><a href='/group/".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
+					$i++;
+				$TeamID=$r->TeaminformationId;
+				}
+			echo $allteam;
+			if($Teaminformation->_showallteam($TeamID)==null)
+			{
+			echo ("<script>$('#group_all_show').css({
+          display:'none'
+        })</script>");
+			}
+		}
+		
+		public function _activity($id)
+		{
+		$_SESSION["ACTIVITYID"]=$id;
+		$Comments=new comments();
+		$re=$Comments->show($_SESSION["ACTIVITYID"],1);
+		foreach($re as $r)
+		{
+			$commentshow .="<div>".$r->CommentText."</div>";
+			$groupactivity=$r->CommentsId;
+		}
+			$this->values = array("user"=>$_SESSION["USER"],
+													"title"=>"我的Pic-ACGPIC",
+													"nickname"=>$_SESSION['NICK'],
+													"groupselect"=>$groupselect,
+													"commentshow"=>$commentshow,
+													"groupactivity"=>$groupactivity,
+													);
+			$this->RenderTemplate("activity");	
+		}
+		
+		public function _activityshow()
+		{
+			$Comments=new comments();
+			$Comments->add($_SESSION["USERID"],$_POST['activityrecive'],$_SESSION["ACTIVITYID"]);
+			$re=$Comments->show($_SESSION["ACTIVITYID"],$_POST['groupactivity']);
+			foreach($re as $r)
+			{
+				$commentshow .="<div>".$r->CommentText."</div>";
+				$groupactivity=$r->CommentsId;
+			}
+			$commentshow .="<script>$('#groupactivity').val(".$groupactivity.");</script>";
+			echo $commentshow;		
+		}
+		
+		public function _group_add()
+		{
+			$Teamuser=new teamuser();
+			$Teamuser->_add($_SESSION["USERID"],$_SESSION["TEAMID"],0);
+			echo json_encode("成功加入");
+		}
+
 		
 	}
 ?>

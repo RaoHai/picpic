@@ -17,15 +17,8 @@
 		//增加群员
 		public function _add($userID,$teamID,$permissions)
 		{
-			if(!$this->_checkid($userID,$teamID))
-			{
 			$this->model->New(array($userID,$permissions,"",$teamID,date("Y-m-d")));
-			return "成功";
-			}
-			else
-			{
-			return "已存在";
-			}
+			
 		}
 		
 		//重复性验证

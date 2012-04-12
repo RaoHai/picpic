@@ -107,18 +107,14 @@
 		}
 		
 		//输出所有群（以后增加群分类后也调用这个）
-		public function _showallteam()
+		public function _showallteam($teamID=0)
 		{
 		$User=new user;
-			$this->model->Get('all');
+		
+			$this->model->Get('all',0,array($teamID,4),'TeaminformationId');
 			$re=$this->model->getresult();
 			return $re;
-			/*
-			foreach($re as $r)
-			{
-				echo "<a href='/information/team?teamid=".$r->TeaminformationId."'>".$r->teamname."</a> ".$r->teamremarks." ".$User->_getusername($r->teammader)." ".$r->teammadetime."</br>";
-			}
-			*/
+			
 		}
 		
 		

@@ -33,6 +33,13 @@
 			$this->model->Set(array("title"=>$title,"time"=>date("Y-m-d")),array("Activity"=>$id));
 		}
 		
+		public function _showall($teamid)
+		{
+			$this->model->Get_By_teamID($teamid);
+			$re=$this->model->getresult();
+			return $re;
+		}
+		
 		
 	}
 ?>

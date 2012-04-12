@@ -76,22 +76,56 @@
 <div id="group_back">
 	<div id="group_offer">
 	<?php echo $this->values["information"]; ?>	
-	<?php if($this->values["permissions"]) {  ?>
+	<?php if(permissions>-1) {  ?>
 	<?php } else { ?>
-	<div id="group_add">
+	<button id="group_add">
 	加入
-	</div>
+	</button>
+	<div id="addpass" style="text-align:center;display:none;">    <h4 style="color:red;">成功加入</h4></div>
 	<?php } ?>
 	</div>
 	<div>
-	<?php if($this->values["permissions"]) {  ?>
-	<a href='/group/imagegroup'>创建画集
-	<?php } ?>
-	</div>
+	<?php if(permissions>-1) {  ?>
+	<a href='/group/imagegroup'>创建画集</a>
 	<button data-controls-modal="modal-from-dom-update" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">修改信息</button>
 	<button data-controls-modal="modal-from-dom-activity" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">添加活动</button>
+	<?php } ?>
+	</div>
 </div>
-	
+
+<div id="re-right">
+        <div style="width:100%;">
+        <h4 style="color:#09f;">热门画集>></h4>
+        </div>
+		 <?php foreach($this->values["cover"] as $f) {  ?> 
+        <div style="margin:25px 5px 5px 10px;width:310px;display:block;float:left;">
+        <div style="width:100%;"><a href="/imagegroup/<?php echo $f->GroupId; ?>" title="<?php echo $f->Desc; ?>"><h3><?php echo $f->GroupName; ?></h3></a></div>
+         <a href="/imagegroup/<?php echo $f->GroupId; ?>" title="<?php echo $f->Desc; ?>" >        <div style="float:left;width:161px;overflow:hidden;">
+            <img src="/medium/<?php echo $f->img[0]; ?>"  style="height:161px;"/>
+          </div>
+          <div style="margin-left:5px;height:160px;width:133px;">
+              <div id="coversmall">
+                 <img src="/medium/<?php echo $f->img[1]; ?>"  style="width:133px;"/>
+              </div></br>
+               <div id="coversmall" style="margin-top:5px;">
+              <img src="/medium/<?php echo $f->img[2]; ?>"  style="width:133px;"/>
+              </div></br>
+               <div id="coversmall" style="margin-top:5px;">
+              <img src="/medium/<?php echo $f->img[3]; ?>"  style="width:133px;"/>
+              </div>
+          </div>
+        </div></a>
+	    <?php } ?>
+
+</div>
+
+<div id="">
+	<div id="">
+	<?php echo $this->values["activity"]; ?>
+	</div>
+</div>
+
+
 </div>	
 
 <div id="modal-from-dom-update" class="modal hide fade" style="width:650px;margin-top:-300px;">
@@ -102,8 +136,8 @@
 			<div id="groupnotice1" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功</h4></div>
 			<div class="modal-body">
 				 <form id="imggroupnew" name="imggroupnew" action="/group/imagegroupadd" method="POST" enctype="multipart/form-data">
-				<p>名称：<input name="groupname" id="groupname" value="<?php echo $this->values["groupname"]; ?>"/></p></br>
-				<p>描述：<textarea name="groupdescription" id="groupdescription" value="<?php echo $this->values["groupdescription"]; ?>"><?php echo $this->values["groupdescription"]; ?></textarea></p></br>
+				<p>名称：<input name="groupnewname" id="groupnewname" value="<?php echo $this->values["groupname"]; ?>"/></p></br>
+				<p>描述：<textarea name="groupnewdescription" id="groupnewdescription" value="<?php echo $this->values["groupdescription"]; ?>"><?php echo $this->values["groupdescription"]; ?></textarea></p></br>
 			  </form>
             </div>
 			<div class="modal-footer">
@@ -121,8 +155,8 @@
 			<div id="groupnotice2" style="text-align:center;display:none;">    <h4 style="color:red;">添加成功</h4></div>
 			<div class="modal-body">
 				 <form id="imggroupnew" name="imggroupnew" action="/group/activityadd" method="POST" enctype="multipart/form-data">
-				<p>名称：<input name="groupname" id="groupname" /></p></br>
-				<p>描述：<textarea name="groupdescription" id="groupdescription"></textarea></p></br>
+				<p>名称：<input name="activityname" id="activityname" /></p></br>
+				<p>描述：<textarea name="activitydescription" id="activitydescription"></textarea></p></br>
 			  </form>
             </div>
 			<div class="modal-footer">
@@ -271,13 +305,24 @@
 <script src="/jquery.iframe-transport.js"></script>
 <script src="/jquery.fileupload.js"></script>
 <script src="/jquery.fileupload-ui.js"></script>
-<script src="/application.js"></script>
-  <script src="./jquery-ajaxtip.js" ></script>
+<script src="/application1.js"></script>
+  
   <script>
-    $('img').ajaxtip({
-html:$('#showup'),
-datasource:'/group/welcome'
-        });
+  $(document).ready(function(){
+  $("#group_add").click(function(){
+  $.ajax({
+	  type: 'POST',
+	  url: '/group/group_add',
+	  success: function(msg){ 
+	  $('#group_add').css({
+              display:"none",
+            });
+		$("#addpass").show("fast");
+				}
+		});
+  });
+  });
+  
   </script>
   
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->

@@ -12,7 +12,10 @@ $pic_id = trim($_GET['photoId']);
 //$from = $_GET['from']; //原始图片地址，备用.
 
 //生成图片存放路径
+if($_GET['radom']!=2)
 $new_avatar_path = 'avatar_'.$type.'/'.$_SESSION["USERID"].'_'.$type.'.jpg';
+else
+$new_avatar_path = 'avatar_'.$type.'/group_'.$_SESSION["TEAMID"].'_'.$type.'.jpg';
 
 //将POST过来的二进制数据直接写入图片文件.
 $len = file_put_contents(SD_ROOT.'./'.$new_avatar_path,file_get_contents("php://input"));

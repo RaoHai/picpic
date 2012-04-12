@@ -186,45 +186,8 @@ EOD;
 			
 		}
 		
-		public function _team1()
-		{
-		$Teaminformation = new teaminformation();
-		$re=$Teaminformation->_showallteam(); 
-		foreach($re as $r)
-			{
-			$marks=s
-				$allteam .="<div id='group_show'><img class='group_picture' src='../1.jpg'><div id='group_information'><a href='".$r->TeaminformationId."'>".$r->teamname."</a></div><div id='group_information'>".$r->teamremarks."</div></div>";
-				$i++;
-			}
-		$this->values = array("user"=>$_SESSION["USER"],
-												"title"=>"我的Pic-ACGPIC",
-												"nickname"=>$_SESSION['NICK'],
-												"allteam"=>$allteam,
-												);
-		$this->RenderTemplate("index");
-		}
 		
-		public function _team2()
-		{
-		$Teamuser = new teamuser();
-		$Teaminformation = new teaminformation();
-		$re=$Teamuser->_showoffergroup();
 		
-		foreach($re as $r)
-		{
-		$re1=$Teaminformation->_show($r->offerteamID);
-		foreach($re1 as $r1)
-			{
-				$allteam .="<div><a href='".$r1->TeaminformationId."'>".$r1->teamname."</a></div>";
-			}
-			
-		}
-		$this->values = array("user"=>$_SESSION["USER"],
-												"title"=>"我的Pic-ACGPIC",
-												"nickname"=>$_SESSION['NICK'],
-												"allteam"=>$allteam,
-												);
-		$this->RenderTemplate("index");
-		}
+	
 	}
 ?>

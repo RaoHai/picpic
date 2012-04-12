@@ -353,7 +353,7 @@ $("#group_information_submit").click(function()
 			$.ajax({                                                
 			type: "POST",                                 
 			url: "/group/informationupdate",                                    
-			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val(),   
+			data: "groupnewname="+$("#groupnewname").val()+"&groupnewdescription="+$("#groupnewdescription").val(),   
 			success: function(msg){                 
 				 $("#upselect").html(msg);    
 				 $("#upselect").change();
@@ -367,7 +367,7 @@ $("#group_activity_submit").click(function()
 			$.ajax({                                                
 			type: "POST",                                 
 			url: "/group/activityadd",                                    
-			data: "groupname="+$("#groupname").val()+"&groupdescription="+$("#groupdescription").val(),   
+			data: "activityname="+$("#activityname").val()+"&activitydescription="+$("#activitydescription").val(),   
 			success: function(msg){                 
 				 $("#upselect").html(msg);    
 				 $("#upselect").change();
@@ -375,4 +375,3 @@ $("#group_activity_submit").click(function()
 			}    
 			});  
 	});
-

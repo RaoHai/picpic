@@ -76,6 +76,7 @@
 		<div id="group_offer">
 		{$allteam}
 		</div>
+		<button id='group_all_show' value={$teamID}>更多小组</button>
 		<div id="group_find">
 			<div id='group_text'>
 			<a href="/group/Addgroup">申请小组</a>
@@ -86,7 +87,6 @@
 		</div>		
 	</div>
 	<div id="group_welcomepicture">
-		showup
 	</div>
 </div>	
 
@@ -97,21 +97,23 @@
 
 
 <script src="/jquery.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="/vendor/jquery.ui.widget.js"></script>
-<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
-<script src="/tmpl.min.js"></script>
-<script src="/load-image.min.js"></script>
-<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
-<script src="/bootstrap-modal.min.js"></script>
-<script src="/bootstrap-image-gallery.min.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="/jquery.iframe-transport.js"></script>
-<script src="/jquery.fileupload.js"></script>
-<script src="/jquery.fileupload-ui.js"></script>
-<script src="/application.js"></script>
-
-  <script src="./jquery-ajaxtip.js" ></script>
+<script src="/application1.js"></script>
+  <script>
+  $(document).ready(function(){
+  $("#group_all_show").click(function(){
+	  $.ajax({
+	  type: 'POST',
+	  url: '/group/group_allshow',
+	  data:"group_all_show="+$("#group_all_show").val(),
+	  success: function(msg){ 
+			$("#group_offer").append(msg); 
+			$("#group_all_show").val(parseInt($("#group_all_show").val())+4);
+				}
+	  });
+  });
+  });
+  </script>
+  
   <script>
     $('img').ajaxtip({
 html:$('#group_welcomepicture'),
