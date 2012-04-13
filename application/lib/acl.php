@@ -25,7 +25,23 @@
 					self::$_instance = new self();
 				}
 				return self::$_instance;
-			}	 
+			}
+            static public function SaveToCached()
+            {
+                  $mem =  Cache::getInstance();
+                  $mem->set("allow",self::$allow);
+                  $mem->set("parents",self::$parents);
+                  $mem->set("role",self::$Rolelist);
+            }
+            static public function GetFromCached()
+            {
+                $mem =  Cache::getInstance();
+                if(!$mem->get("allow")) return false;
+                self::$allow = $mem->get("allow");
+                self::$parents = $mem->get("parents");
+                self::$Rolelist = $mem->get("role");
+ 
+            }
 			static public function serializeit()
 			{
 				

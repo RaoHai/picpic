@@ -94,24 +94,22 @@
 						$authorname= $rn->NickName;
 					$img = new image();
 					$id = $param;
-					$img->model->Get_imgurl_Description_By_GroupID($id);
+					$img->model->Get_imgurl_Description_Original_feature_By_GroupID($id);
 					$re2 =$img ->model->getresult();
                     $favor = new favourite();
 					foreach($re2 as $r2)
 					{
-						//echo $r2['imgurl'];
+                        //echo $r2['imgurl'];
 						$url = rawurlencode($r2->imgurl);
 						$desc = $r2->Description;
                         $like= $favor->islikeimg($_SESSION['USERID'],$r2->ImageId);
 						//$images.="<a href='/files/".$url."' rel='gallery'  title='".$url ."'><img class='imginfo' src='/medium/".$url."' title='".$desc."'></img></a>\n";
-                        $images.="<img class='imginfo' src='/medium/".$url."' data-url='/files/".$url."' data-id='".$r2->ImageId."' title='".$desc."' data-like='".$like."'>";
+                        $images.="<img class='imginfo' src='/medium/".$url."' data-url='/files/".$url."' data-id='".$r2->ImageId."' title='".$desc."' data-desc='".$desc."' data-like='".$like."' data-like-num='".$r2->Original."' data-tags='".$r2->feature."'data-author='".$r2->user->NickName."' >";
 					}
 					$edit =($_SESSION['USERID']==$groupauthor);
 					
 					
-					$this->values = array("user"=>$_SESSION["USER"],
-													"title"=>"画集-".$groupname,
-													"nickname"=>$_SESSION['NICK'],
+					$this->values = array(	"title"=>"画集-".$groupname,
 													"images"=>$images,
 													"groupname"=>$groupname,
 													"groupdesc"=>$groupdesc,

@@ -44,7 +44,6 @@
                 $savedata[]=isset($this->$data)?$this->$data:0;
             }
             $this->model->New($savedata);
-           // var_dump($savedata);
             //var_dump($_Struct[$this->instance]);
         }
 	
@@ -56,7 +55,13 @@
 		*/
 		protected function RenderTemplate($action)
 		{
-			$this->TemplateFile = $this->TemplateFolder."".$action.".rhtml";
+		    $this->values["nickname"] = $_SESSION['NICK'];
+            $this->values['userid'] = $_SESSION['USERID'];
+            $this->values['user']=$_SESSION['USER'];
+            //    	"nickname"=>$_SESSION['NICK'],
+            //                                        "userid"=>$_SESSION['USERID'],
+
+            $this->TemplateFile = $this->TemplateFolder."".$action.".rhtml";
 			$compiledFile =  $this->TemplateFolder."".$action.".php";
 			if(file_exists($this->TemplateFile)&& filemtime($compiledFile) >= filemtime($this->TemplateFile))
 			{

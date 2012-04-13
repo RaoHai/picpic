@@ -22,8 +22,7 @@
 		}
         public function presave()
         {
-            $mem = new Memcache;
-            $mem->connect("127.0.0.1",11211);
+            $mem =  Cache::getInstance();
             $this->save();
             $commentid=mysql_insert_id();
             $saveToMemcache = new stdClass();
@@ -36,8 +35,7 @@
         }
        public function savetoReply()
         {
-            $mem = new Memcache;
-            $mem->connect("127.0.0.1",11211);
+            $mem =  Cache::getInstance();
             $this->save();
             $commentid = mysql_insert_id();
             $saveToMemcache = new stdClass();

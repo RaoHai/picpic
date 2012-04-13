@@ -3,6 +3,7 @@
 	require_once("model.base.class.php");
 	class image_model extends ModelBase
 	{
+        public $verify;
 		public function  __construct($instance)
 		{
 			$this->IsDbObj = true;

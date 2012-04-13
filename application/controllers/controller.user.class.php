@@ -35,11 +35,23 @@
 												);
 				$this->RenderTemplate("index");
 				
-		}	
+		}
+        public function _name($name)
+        {
+            $this->model->Get_UserId_By_NickName($name);
+            $userid = ($this->model->getresult());
+            foreach($userid as $id)
+            {
+                $str = "/user/".$id->UserId;
+                header("Location:".$str);
+                break;
+
+            }
+        }
         public function userindex($uid)
         {
-            if($uid==$_SESSION['USERID'])
-                header("Location:"."/home");
+            //if($uid==$_SESSION['USERID'])
+            //    header("Location:"."/home");
 
             $username = $this->getuserbyid($uid);
             $friendlist = new friend();
@@ -195,7 +207,7 @@
                         fclose($fp);
                         $groupID = $_POST["upselect"];
                         $imgmd = new image();
-                        $data = array($name,"",$_SESSION["USERID"], date("Y-m-d"),$url,$groupID);
+                        $data = array($name,"",$_SESSION["USERID"], date("Y-m-d"),$url,$groupID,'','');
                         $imgmd->model->New($data);
 
                         $act = new active();
@@ -257,7 +269,6 @@
             }
 
         }
-
         public function _message($page)
         {
           

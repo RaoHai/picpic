@@ -28,7 +28,9 @@
 		protected $verify;
 		private $instance;
 		protected $obj=array();
-		
+	
+        private $QueryLine;
+        private $isMultiQuery;
 		//NFA
 		private $Status;									//状态标记
 		private $QueryType;							//查询类型
@@ -38,7 +40,7 @@
 		private $QueryConstraint; 					//查询约束
 		private $QueryConstraintOperators;  //约束运算符
 		private $QueryConstraintValue;			//约束值
-		private $StatusArr = array("Get"=>"select","Set"=>"update","New"=>"insert","Del"=>"DELETE");
+       	private $StatusArr = array("Get"=>"select","Set"=>"update","New"=>"insert","Del"=>"DELETE");
 		//表间关系
 		protected $one_to_one = array();
 		protected $one_to_many = array();
@@ -49,6 +51,7 @@
 		{
 			$this->dao=database::getInstance();
 			$this->instance = $instance;
+            $this->isMultiQuery = 0;
 			if($this->IsDbObj)
 			{
 				global $_Struct;
@@ -63,6 +66,25 @@
 			//if(empty($this->obj)) echo "空";
 			return $this->obj;
 		}
+        public function lockMutiQuery()
+        {
+            $this->isMultiQuery = 1;
+        }
+        public function unlockMutiQuery()
+        {
+            $this->isMultiQuery = 0;
+        }
+        public function MultiQuery()
+        {
+            $this->DAL($this->QueryLine);
+        }
+        public function preparesql($sql)
+        {
+            if(empty($this->QueryLine))
+                $this->QueryLine = $sql;
+            else
+                $this->QueryLine .=" union ".$sql;
+        }
 		/**
 		*	函数 Get(array QueryColums, array Constraints,array limit);
 		*  QueryColums： 参数数组
@@ -126,9 +148,14 @@
 		//	echo $sql;
 
 			//echo $sql;
-			$this->DAL($sql);
-			return $this->getresult();
-		}
+            if($this->isMultiQuery==0)
+            {
+		    	$this->DAL($sql);
+                 return $this->getresult();
+            }
+            else
+                $this->preparesql($sql);
+        }
 			/**
 		*	函数Set(array QueryColums, array Constraints);
 		*  QueryColums： 参数数组，必须表示为键值对
@@ -167,8 +194,13 @@
 			}
 			$sql .= $Con;
 		//	echo $sql;
-			$this->DAL($sql);
-			
+		 if($this->isMultiQuery==0)
+            {
+		    	$this->DAL($sql);
+            }
+            else
+                $this->preparesql($sql);
+	
 		}
          public function Del($Constraints)
 		{
@@ -191,7 +223,13 @@
 					$Con.=" and `{$instance}`.`{$Key}'";
 			}
 			$sql .= $Con;
-			$this->DAL($sql);
+             if($this->isMultiQuery==0)
+            {
+		    	$this->DAL($sql);
+            }
+            else
+                $this->preparesql($sql);
+
 		}
 		/**
 		*
@@ -201,7 +239,6 @@
 		**/
 		public function __call($FuncName,$arg)
 		{
-			
 				if($this->IsDbObj)
 				{
 					
@@ -253,11 +290,16 @@
 								break;
 							case "DELETE":
 								$sql = $this->QueryType." from `{$instance }` where  `{$instance}`.`{$this->QueryConstraint}` ='".$arg[0]."'";
-								echo $sql ;
+								//echo $sql ;
 								break;
 							}
-							$this->DAL($sql);
-						
+					 if($this->isMultiQuery==0)
+                     {
+                         $this->DAL($sql);
+                     }
+                     else
+                         $this->preparesql($sql);
+	
 						
 					}
 					else
@@ -267,7 +309,7 @@
 				}
 				else
 				{
-					echo __CLASS__.":访问错误的函数";
+					echo __CLASS__.":访问错误的函数:".$FuncName."</br>该对象不是数据库相关对象";
 				}
 				
 		}

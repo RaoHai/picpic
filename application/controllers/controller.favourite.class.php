@@ -20,6 +20,25 @@
               $like = $mem->get("f_".$_SESSION['USERID']);
               $like[$id]=time();
               $mem->set("f_".$_SESSION['USERID'],$like,0,0);
+              echo json_encode("true");
+              $this->UserId = $_SESSION['USERID'];
+              $this->ImageId=$id;
+              $this->save();
+              $img = new image();
+              $img->addtofavor($id);
+                
+        }
+        public function _unlikeImg($id)
+        {
+             $mem = new Memcache;
+             $mem->connect("127.0.0.1", 11211);
+             $like = $mem->get("f_".$_SESSION['USERID']);
+             $like[$id]=NULL;
+             $mem->set("f_".$_SESSION['USERID'],$like,0,0);
+             echo json_encode("true");
+             $this->model->Del_By_ImageId($id);
+             $img = new image();
+             $img->removefromfavor($id);
 
         }
         public function islikeImg($uid,$imgid)

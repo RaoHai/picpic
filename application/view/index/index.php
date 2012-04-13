@@ -172,8 +172,10 @@ height:80
             });
         $('#re-right .imginfo').favor(
             {
+linkto:false,
 title:false,
 border:false,
+link:"",
 width:161,
 height:161,
 

@@ -21,6 +21,7 @@ include_once 'config.ini.php';
 include_once 'lib/acl.php';
 include_once 'lib/uploader.php';
 include_once 'lib/cache.php';
+include_once 'lib/recommend.php';
 include_once 'route/route.class.php';
 include_once 'global.func.php';
 

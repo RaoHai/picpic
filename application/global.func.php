@@ -17,12 +17,14 @@
 	}
 	static $_Struct=array("user" => array("UserName","NickName","email","password","salt","permission"),
 							"imagegroup"=>array("GroupName","Description","GroupCatalog","author","updates","likes","coverid"),
-							"image"=>array("ImageName","Description","author","Date","imgurl","GroupID"),
+							"image"=>array("ImageName","Description","author","Date","imgurl","GroupID","Original","feature"),
 							"comments"=>array("UserId","ImgId","SharedId","ImgGroupId","CommentText","QuoteID","ReplyID","Time"),
 							"profile"=>array("UserId","avatar","Birthday","FavoriteHash","FriendId","Shared","Blood","Sex","Desc"),
 							"friend"=>array("User","OtherUserId"),
 							"active"=>array("UserId","ActionType","content"),
 					    	"message"=>array("senderId","reciverId","messageText","readMark","senderDel","Title","reciverDel","Time"),
                             "favourite"=>array("UserId","ImageId","ImageGroupId"),
+                            "tags"=>array("ImageId","UserId","TagName"),
+                            "tagdefine"=>array("TagName","TagCount"),
 							);
 ?>

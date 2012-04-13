@@ -83,7 +83,7 @@
 			</div>
 			</div>
 			<a id="showup"style="text-align:center;">上传</a>
-			<a id="showgroup" href="/imagegroup/all">查看画集</a>
+			<a id="showgroup" href="/user/<?php echo $this->values["userid"]; ?>">查看画集</a>
 			<span id="showfriend" ><?php echo $this->values["friends"]; ?></span>
 		</div>
 <p></p>`

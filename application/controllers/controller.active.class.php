@@ -83,15 +83,13 @@ class active extends ControllerBase
             $this->model->New(array($userid,$type,addslashes(json_encode($targetmessage))));
             $targetmessage->id = mysql_insert_id();
         }
-        $mem = new Memcache;
-        $mem->connect("127.0.0.1", 11211);
+        $mem =  Cache::getInstance();
         $time = time();
         //$mem->flush();
         //$arr = array("type"=>$type,"msg"=>$targetmessage,"time"=>$time);
         //$mem->set($userid, $arr, 0, 0);
-        //echo "<pre>";
         $val = $mem->get($userid);
-        //var_dump($val);
+            
         if(!empty($val))
         {
             if(!empty($val[$type]))
@@ -122,21 +120,19 @@ class active extends ControllerBase
 
         }
         //	echo "</pre>";
-        $mem->close();
     }
     public function _test()
     {
-      $mem = new Memcache;
-      $mem->connect("127.0.0.1",11211);
-      $arr = $mem->get('_4');
+     $mem =  Cache::getInstance();
+      $arr = $mem->get('4');
        echo '<pre>';
        var_dump($arr);
        echo '</pre>';
     }
     public function _del($userid,$targetmessage)
     {
-        $mem = new Memcache;
-        $mem->connect("127.0.0.1",11211);
+     $mem =  Cache::getInstance();
+
         $arr = $mem->get($userid);
         
         echo "<pre>";
@@ -160,9 +156,9 @@ class active extends ControllerBase
     }
     public function _delbyid($id)
     {
-        $mem = new Memcache;
-        $mem->connect("127.0.0.1",11211);
-       // $mem->flush();
+       $mem =  Cache::getInstance();
+
+        // $mem->flush();
        // $mem->set('4', array(), 0, 0);
         $arr = $mem->get($_SESSION['USERID']);
         echo "<pre>";
@@ -225,7 +221,10 @@ class active extends ControllerBase
         {
             $obj = json_decode($re->content);
             $obj->id = $re->ActiveId;
-            echo $obj->id."</br>";
+           // echo $obj->id."</br>";
+           // echo "<pre>";
+           // var_dump($obj);
+           // echo "</pre>";
             $this->_new($re->UserId,$re->ActionType,$obj,1);
         } 
     }
@@ -263,7 +262,7 @@ class active extends ControllerBase
         $this->_new($_SESSION['USERID'],6,$weibo);
         $weibo->id=mysql_insert_id();
         // $this->_show();
-        echo json_encode(array(array('id'=>$weiboid,'time'=>date('Y-m-d h:i:s',time()),'type'=>6,'username'=>$_SESSION['NICK'],'userid'=>$_SESSION['USERID'],'gid'=>"",'data'=>array(array('d'=>$weibo->d,'id'=>$weibo->id)))));
+        echo json_encode(array(array('id'=>$weibo->id,'time'=>date('Y-m-d h:i:s',time()),'type'=>6,'username'=>$_SESSION['NICK'],'userid'=>$_SESSION['USERID'],'gid'=>"",'data'=>array(array('d'=>$weibo->d,'id'=>$weibo->id)))));
     }
 
     /**
@@ -290,8 +289,9 @@ class active extends ControllerBase
         $end = ($page+1) *10;
         $curpage = 0;
         $count = 0;
-        $mem = new Memcache;
-        $mem->connect("127.0.0.1", 11211);
+        //$mem = new Memcache;
+        //$mem->connect("127.0.0.1", 11211);
+        $mem =  Cache::getInstance();
         $friends = new friend();
         $id=$_SESSION['USERID'];
         $friends->model->Get("all",array("User={$id}"),array(0,10));
