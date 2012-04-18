@@ -8,10 +8,11 @@
 			parent::__construct();
 		}
 		
-		public function _index()//自定义你的action方法
+		public function _index($page=0)//自定义你的action方法
 		{
             $img = new image();
-		   	$imgs = $img->model->Get("all",0,array(0,11),"Original desc");
+            $limits = array($page*19,19);
+		   	$imgs = $img->model->Get("all",0,$limits,"Original desc");
             //获取最受欢迎的图片
             $favor = new favourite();
             foreach($imgs as $r2)
@@ -33,7 +34,8 @@
             }
             $this->values = array("title"=>"发现-".$authorname,
 								  "images"=>$images,
-                                  "tags"=>$tagoutput);
+                                  "tags"=>$tagoutput,
+                                  "page"=>$page);
 
             $this->RenderTemplate('index');	
 		}

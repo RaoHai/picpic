@@ -26,6 +26,7 @@
 			<h1><?php echo $this->values["groupname"]; ?></h1>
 			<div style="width:220px;color:white"><?php echo $this->values["groupdesc"]; ?></div>
 			<p style="color:white;">图集作者:<a href='/user/<?php echo $this->values["authorid"]; ?>'>| <?php echo $this->values["authorname"]; ?> |</a></p>
+            <a class="btn btn-primary" href="/imagegroup/download/<?php echo $this->values["groupid"]; ?>"><i class="icon-download icon-white"></i>下载整个画集</a>
 			</div>
 			
 			<div style="width:100%;min-width:1080px; margin:10px auto;float:left;">

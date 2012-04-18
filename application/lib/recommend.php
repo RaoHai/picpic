@@ -24,11 +24,12 @@ class recommender
         }
         return self::$_instance;
     }
-    static public function set_rating()
+    static public function set_rating($userid,$target,$rating)
     {
-       $target = $_GET['gid']; 
-       $rating = $_GET['rating'];
-       $userid = $_SESSION['USERID'];
+//       $target = $_GET['gid']; 
+//       $rating = $_GET['rating'];
+//       $userid = $_SESSION['USERID'];
+       global $vogoo;
        $vogoo->set_rating($userid,$target,$rating,1);
     }
     static public function get_user_similar($userid)
@@ -56,8 +57,10 @@ class recommender
         {
             $recommendations;
             global $vogoo_users;
+            global $vogoo;
             $sim = self::get_user_similar($userid);
-            $vogoo_users->member_k_recommendations($userid,5,&$sim, &$recommendations,1,false);
+            //require_once("/vogoo/cronlinks.php");
+            $vogoo_users->member_k_recommendations($userid,10,&$sim, &$recommendations,1,false);
             $arr = array('time'=>time(),'rec'=>$recommendations);
             $mem->set('_re'.$userid,$arr,0,0);
         }
@@ -65,9 +68,17 @@ class recommender
             $recommendations = $rec['rec'];
         return $recommendations;
     }
-    static public function get_user_recommend($userid)
+    static public function auto_test()
     {
-
+        for($i=23;$i<28;$i++)
+        {
+            for($j=0;$j<20;$j++)
+            {
+                $image=rand(89,213);
+                echo $i ." like ".$image."\n";
+                self::set_rating($i,$image,0.5);
+            }
+        }
     }
 
 }

@@ -94,6 +94,7 @@
             /*保存到image表*/
             $img = new image();
             $img->model->Set_feature_By_ImageId($imgid,$tags);
+             $tagdef = new tagdefine();
             $tagdef->model->Set_TagCount_By_TagName($tagname,"'+`Tagdefine`.`TagCount`-1+'");
 
         }
@@ -104,5 +105,21 @@
             $tags = $mem->get($name);
             var_dump($tags);
         }
+         public function _recoverFromdb()
+        {
+            $this->model->Get("all");
+            $tags = $this->model->getresult();
+            $mem =  Cache::getInstance();
+            foreach($tags as $tag)
+            {
+                $tagname = $tag->TagName;
+                $imgid   = $tag->ImageId;
+                $postings = $mem->get($tagname);
+                if($postings==null) $postings = array();
+                $postings[$imgid] = 1;
+                $mem->set($tagname,$postings,0,0);
+            }
+        }
+
 	}
 ?>

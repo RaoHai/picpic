@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="/indexstyle.css">
 <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
 <link rel="stylesheet" href="/jquery.fileupload-ui.css">
-
+<link href="/jquery-atcomplete/default.css" rel="stylesheet" type="text/css">
 </head>
 <body  onbeforeunload="SaveText()">
 <div id="index">
@@ -125,7 +125,7 @@
 <div style="width:640px;height:110px;">
 <h4 style="float:right;margin-left:40px;" id="weibolength">请文明发言</h4>
 <textarea id="weibo"></textarea></br>
-<input type="button" id="weibosend" disabled='disabled' class='btn primary disabled' style='float:right;margin-top:2px;'value="发布" />
+<input type="button" id="weibosend" disabled='disabled' class='btn btn-primary disabled' style='float:right;margin-top:2px;'value="发布" />
 </div>
 <div style='margin-left:40px;'>
 <p>  好友动态：</p>
@@ -410,6 +410,13 @@ var myid=<?php echo $this->values["userid"]; ?>;
 <script src="/application.js"></script>
 <script src="/bootstrap-tooltip.js"></script>
 <script src="/popup.js"></script>
+<script src="/jquery-atcomplete/jquery-atcomplete.js" ></script>
+<script>
+$('#weibo').atcomplete({
+    datasource : '/friend/getfriendjson',
+    });
+</script>
+
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
 	<div id="footer">

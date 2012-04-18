@@ -16,7 +16,7 @@
  *
  ***************************************************************************/
 
-include ("./vogoo.php");
+//include ("./vogoo.php");
 
 if ($vogoo->connected == false)
 {
@@ -79,13 +79,12 @@ EOF;
 		{
 			die('DB error');
 		}
-
 		$items = array();
 		while ($row2 = $vogoo->db->sql_fetchrow($res2))
 		{
 			$item_id = $row2['product_id'];
 			$rating = $row2['rating'];
-			if ($rating >= VG_THRESHOLD_RATING)
+			if ($rating >= 0.5)
 			{
 				foreach ($items as $id)
 				{

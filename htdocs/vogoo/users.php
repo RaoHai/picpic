@@ -91,17 +91,15 @@ EOF;
 	function member_k_similarities($member_id,$k,&$similarities,$cat = 1)
 	{
 		global $vogoo;
-
 		if (!isset($member_id) || !is_numeric($member_id) || !isset($k) || !is_numeric($k))
 		{
 			return false;
 		}
 
 		$similarities = array();
-
 		$nr_ratings = $vogoo->member_num_ratings($member_id,true,false,$cat);
 		$sql = <<<EOF
-SELECT r2.member_id,COUNT(r2.product_id) c2,SUM((r2.rating-r1.rating)*(r2.rating-r1.rating)) s
+SELECT r2.member_id,COUNT(r2.product_id) c2,SUM((r2.rating-r1.rating)*(r2.rating-r1.rating)) 
 FROM vogoo_ratings r1,vogoo_ratings r2
 WHERE r1.member_id = {$member_id}
 AND r2.product_id=r1.product_id
@@ -112,8 +110,7 @@ AND r2.rating >= 0.0
 AND r2.member_id <> r1.member_id
 GROUP BY r2.member_id
 EOF;
-
-		if ( !($result = $vogoo->db->sql_query($sql)) )
+        if ( !($result = $vogoo->db->sql_query($sql)) )
 		{
 			return false;
 		}

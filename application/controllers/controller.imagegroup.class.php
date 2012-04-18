@@ -276,6 +276,31 @@
             $comment->saveToReply();
             echo json_encode(array("success"));
         }
+        public function _download($id)
+        {
+            $file="/zips/acgpic-imagegroup-".$id.".zip";
+           // if(file_exists($file)&& filemtime($file) >= lateFile))
+            $filename=INDEX_PATH."/zips/acgpic-imagegroup-".$id.".zip";
+            if(!(file_exists($filename) && time() - filemtime($filename)>86400))
+            {
+            $zip = new ZipArchive();
+            if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+                 exit("cannot open <$filename>\n");
+            }
+           	$img = new image();
+            $img->model->Get_imgurl_Description_Original_feature_By_GroupID($id);
+			$re2 =$img ->model->getresult();
+            foreach($re2 as $re)
+            {
+                $zip->addFile(INDEX_PATH."/files/".$re->imgurl,$re->imgurl);
+            }
+            $zip->close();
+            }
+            Header("Location: ".$file);
+ 
+
+            
+        }
 		//---------------------------------------------------------
 		//以下为群组画集函数
 		//---------------------------------------------------------

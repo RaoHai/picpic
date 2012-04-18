@@ -807,4 +807,29 @@ background-repeat:no-repeat;
 background-size:119px;
 background-position:-98px -5px;  
 }
+#uili
+{
+ margin-top:20px;
+  border-bottom:1px dotted #09f;
 
+}
+.page-switcher {
+-webkit-transition: width 150ms, right 150ms, background-color 150ms;
+background-color: transparent;
+border: none;
+bottom: 0;
+font-size: 40px;
+padding: 0;
+position: fixed;
+margin: 0;
+max-width: 150px;
+min-width: 90px;
+outline: none;
+top: 0;
+z-index: 5;
+}
+.page-switcher:hover
+{
+background: -webkit-linear-gradient(top, transparent 0, rgba(0, 0, 0, .01) 60px, rgba(0, 0, 0, .06) 183px);
+}
+  

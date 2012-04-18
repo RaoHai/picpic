@@ -27,7 +27,10 @@ class Route
         global $moduleArr,$routeArr;
         $this->moudle_arr  = $moduleArr;
         $this->route_arr   = $routeArr;
+     //if apache
         $uri == NULL && $uri = $_SERVER['REDIRECT_URL'];
+	// if nginx:
+	//$uri == NULL && $uri = $_SERVER['REQUEST_URI'];
         $this->_uri   = $uri;
         $this->init();
 

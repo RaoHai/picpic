@@ -55,7 +55,7 @@ function setpage(values)
     $('<div class="pagination"></div>').html('<ul>'+leftpart+pageselect+rightpart+'</ul>')
     .appendTo($('#pageselect'));
 }
-function addtoactive(values)
+function addtoactive(values,prepend)
 {
   if(values=="short"){
     alert('微薄太短了混蛋。。');
@@ -76,7 +76,7 @@ function addtoactive(values)
       {
         str +='<img style="max-width:100px;margin:5px;"src="/medium/'+data.data[j].d+'"/>';
       }
-      $('<li></li>').html('<div style="float:left;width:100%;"><div style="float:left">'+
+      $('<li></li>').html('<div id="uili" style="float:left;width:100%;"><div style="float:left">'+
           '<img src="/upload/avatar_small/'+data.userid+'_small.jpg" />'+
           '</div><div style="float:left">	<p><a href="/user/'+data.userid+'" style="margin:5px;color:#995F28;"><b>'+data.username+'</b></a> '+data.time+'上传到'+data.gid+'</p><p  style="margin:5px;">'
           +'<a href="/imagegroup/'+data.gid+'" title="查看" >'+str+'</a></p></div></div>')
@@ -86,6 +86,7 @@ function addtoactive(values)
     }
     else if(data.type==6)
     {
+      console.log('hello');
       if(data.userid>0 && data.userid==myid)
         var del="<a name='del' style='cursor:pointer;' delid="+data.data[0].id+">删除</a>";
       else
@@ -95,15 +96,20 @@ function addtoactive(values)
       {
         repo = '<div id="repos"><div id="arrow2"><em class="W_arrline">◆</em></div>'+data.data[0].repo+'</div>';
       }
-      $('<li></li>').html('<div style="float:left;width:550px;"><div style="float:left">'+
+      var Liadd = $('<li></li>').html('<div id="uili" style="float:left;width:550px;"><div style="float:left">'+
           '<img src="/upload/avatar_small/'+data.userid+'_small.jpg" .>'+
           '</div><div style="float:left" id="weibocontent">	<p><a href="/user/'+data.userid+'" style="margin:5px;color:#995F28;"><b>'+data.username+'</b></a>:'+
           data.data[0].d+'</p>'+
           repo+'<p style="float:left;">'+data.time+'</p>'+
           '<p style="float:right;"><a name="repo" style="margin-right:20px;cursor:pointer;" repoid='+data.data[0].id+'>转发</a>'+del+'</p>'+
-          '</div></div>')
-        .appendTo($('#showactives'));
-      $('a[name=del]').unbind().click(function(){
+          '</div></div>');
+       if(prepend==1)
+          Liadd.prependTo($('#showactives'));
+       else
+         Liadd.appendTo($('#showactives'));
+
+
+              $('a[name=del]').unbind().click(function(){
           $(this).parents('li').remove();
           var delid = $(this).attr('delid');
             $.getJSON('/active/delweibo/'+delid,0,function(values){
@@ -196,9 +202,9 @@ url: "/active/weibo/",
 data: "text="+val,  
  dataType: "json",
 success: function(msg){         
-  //alert(msg.toString()); 
-addtoactive(msg);
- $('#weibo').val();
+console.log(msg);
+addtoactive(msg,1);
+ $('#weibo').val('');
 }});
      });
 $('#reposubmit').click(function(){
@@ -240,6 +246,8 @@ $('#fileupload .files').imagegallery();
 
 });
 $(document).ready(function(){
+    
+       
       $("#showup").click(function(){
       $("#fcontainer").show("fast");
 
@@ -250,10 +258,7 @@ $(document).ready(function(){
 
       return false;
       });
-    $("#upselect").change(function(){
-      $('#fileupload .files').empty();
-      questandset();
-      });
+
     $("#groupsubmit").click(function()
       {
       $.ajax({                                                

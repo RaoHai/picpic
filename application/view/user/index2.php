@@ -15,7 +15,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{$title}</title>
+<title><?php echo $this->values["title"]; ?></title>
 <!--
     The Bootstrap CSS is not required, but included for the demo.
     However, the FileUpload user interface waits for CSS transition events in several callbacks,
@@ -28,20 +28,20 @@
 <link rel="stylesheet" href="/indexstyle.css">
 <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
 <link rel="stylesheet" href="/jquery.fileupload-ui.css">
-<link href="/jquery-atcomplete/default.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/jquery-atcomplete/default.css" >
 </head>
 <body  onbeforeunload="SaveText()">
 <div id="index">
 <div id="header">
 		<div id="hd-link">
-						{$if:user}
-							欢迎回来，<a href="/home" >{$nickname}</a>
+						<?php if($this->values["user"]) {  ?>
+							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a>
                               <a href="/user/message"> <i class="icon-envelope" id="newmessage"></i></a>
                               <a href="/user/logout">[退出]</a>
-						{$else}
+						<?php } else { ?>
 							<a href="/user/loginpage?/" >[登录]</a>
 							<a href="/user/register">[注册]</a>
-						{$end}
+						<?php } ?>
 						
 
 		</div>
@@ -76,15 +76,15 @@
 	</div>
 	<div id="content1">
 		<div id="welcome" >
-			<div id="myphoto" > <a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/{$userid}_big.jpg" title="点击以更改头像"/></a>
+			<div id="myphoto" > <a data-controls-modal="modal-from-avatar" data-backdrop="true" style="width:120px;overflow:hidden;"><img style="width:120px;max-height:140px;" src="/upload/avatar_big/<?php echo $this->values["userid"]; ?>_big.jpg" title="点击以更改头像"/></a>
 			<div style="float:right;width:160px;">
-			<p><b>{$nickname}</b></p>
+			<p><b><?php echo $this->values["nickname"]; ?></b></p>
 			<p> <a href="/information" >[修改个人信息]</a></p>
 			</div>
 			</div>
 			<a id="showup"style="text-align:center;">上传</a>
-			<a id="showgroup" href="/user/{$userid}">查看画集</a>
-			<span id="showfriend" >{$friends}</span>
+			<a id="showgroup" href="/user/<?php echo $this->values["userid"]; ?>">查看画集</a>
+			<span id="showfriend" ><?php echo $this->values["friends"]; ?></span>
 		</div>
 <p></p>`
 </br>
@@ -104,7 +104,7 @@
 				   <p>
 				   <div style="float:left;margin-top:10px;">请选择要上传到的画集：</div>
 				   	<select id="upselect" name="upselect" style="float:left;margin-top:5px;">
-						{$groupselect}
+						<?php echo $this->values["groupselect"]; ?>
 					</select>
 					 				 
 					<button data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true" class="btn btn-primary"style="margin-top: 4px;margin-left:20px;">新建画集</button>
@@ -278,7 +278,7 @@
 			function avatarSaved(){
 				alert('保存成功.');
 				$('#avatarshow').html();
-				$('#avatarshow').html("<img src='/upload/avatar_small/{$users}_small.jpg' />");
+				$('#avatarshow').html("<img src='/upload/avatar_small/<?php echo $this->values["users"]; ?>_small.jpg' />");
 				$('#dialogclose').click();
 				//window.location.href = '/profile.do';
 			}
@@ -339,7 +339,7 @@ var fileUploadErrors = {
     uploadedBytes: '上传的字节超过文件的大小',
     emptyResult: '空文件'
 };
-var myid={$userid};
+var myid=<?php echo $this->values["userid"]; ?>;
       
 </script>
 <script id="template-upload" type="text/html">
@@ -393,7 +393,7 @@ var myid={$userid};
     </div>
 {% } %}
 </script>
-<script src="/jquery.min.js"></script>
+<script src="/jquery-1.6.1.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="/vendor/jquery.ui.widget.js"></script>
 <!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
@@ -409,13 +409,10 @@ var myid={$userid};
 <script src="/jquery.fileupload-ui.js"></script>
 <script src="/application.js"></script>
 <script src="/bootstrap-tooltip.js"></script>
+<script src="/jquery-atcomplete/jquery-atcomplete.js" ></script> 
 <script src="/popup.js"></script>
-<script src="/jquery-atcomplete/jquery-atcomplete.js" ></script>
-<script>
-$('#weibo').atcomplete({
-    datasource : '/friend/getfriendjson',
-    });
-</script>
+
+
 
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->

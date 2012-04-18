@@ -115,6 +115,7 @@ EOF;
 		$i = 0;
 		while ($i < $k && $row = $vogoo->db->sql_fetchrow($result))
 		{
+            //echo '~~~'.$row['item_id2'];
 			if (!in_array($row['item_id2'],$products) && (!$filter || $filter[$row['item_id2']]))
 			{
 				$ret[] = $row['item_id2'];

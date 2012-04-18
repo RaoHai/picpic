@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{$title}</title>
+<title><?php echo $this->values["title"]; ?></title>
 <link rel="stylesheet" href="/bootstrap.new.css">
 <link rel="stylesheet" href="/bootstrap-image-gallery.min.css">
 <link rel="stylesheet" href="/indexstyle.css">
@@ -14,14 +14,14 @@
 <div id="index">
 	<div id="header">
 		<div id="hd-link">
-						{$if:user}
-							欢迎回来，<a href="/home" >{$nickname}</a>
+						<?php if($this->values["user"]) {  ?>
+							欢迎回来，<a href="/home" ><?php echo $this->values["nickname"]; ?></a>
                               <a href="/user/message"> <i class="icon-envelope" rel="tooltip" id="newmessage"></i></a>
                               <a href="/user/logout">[退出]</a>
-						{$else}
+						<?php } else { ?>
 							<a href="/user/loginpage?/" >[登录]</a>
 							<a href="/user/register">[注册]</a>
-						{$end}
+						<?php } ?>
 						
 
 		</div>
@@ -33,13 +33,13 @@
 					<a href="/home"  >我的Pic</a>
 				</li>
 				<li id="nv-cv">
-					<a href="/cover" style="border-bottom: 4px solid #09f;color:#09f;">发现</a>
+					<a href="/cover" >发现</a>
 				</li>
 				<li id="nv-group">
 					<a href="/group">小组</a>
 				</li>	
 				<li id="nv-recom">
-					<a href="/recommend">推荐</a>
+					<a href="/recommend" style="border-bottom: 4px solid #09f;color:#09f;">推荐</a>
 				</li>
 				<li id="nv-search">
 				<a>
@@ -55,10 +55,20 @@
 		</div>
 	</div>
 	<div id="content">
-    <div style="width:100%"><h3>最多收藏：</h3>
+    <div style="width:100%"><h3>推荐用户：</h3>
+     你可能对这些用户感兴趣：
     <hr width=100%;size=2;></div>
-    <div class="tagsinput" style="width:235px;">热门标签：<hr> {$tags}</div>
-    {$images}
+  <div style="width:100%;">    
+<?php echo $this->values["recommenduser"]; ?>
+</div>
+</br>
+    <div id="content" style="margin-top:50px;">
+
+    猜你会喜欢这些图片：
+    <hr width=100%;size=2;>
+
+    <?php echo $this->values["recommendimg"]; ?>
+    </div>
 	</div>
 	<div id="footer">
 		<p>©Copyright by surgesoft, 2011,all rights reserved</p>
@@ -93,13 +103,6 @@
     <div id="favored">
     </div></div>
 </div>
-{$if:page}
-<button id="page-switcher-start" title="上一页" class="page-switcher custom-appearance" tabindex="2" style="width: 73px; left: 0px; top: 0px; padding-bottom: 0px; ">‹
-</button>
-{$end}
-<button id="page-switcher-end" title="下一页" class="page-switcher custom-appearance" tabindex="2" style="width: 121.875px; right: 13px; top: 0px; padding-bottom: 0px; ">›
-</button>
-
 
     <script src="/jquery.min.js"></script>
 		<script src="/jquery.montage.js"></script>
@@ -124,15 +127,7 @@
               margin:8,
               link:"<a rel='gallery'></a>"
             }); 
-       $('#page-switcher-end').click(function()
-           {
-             window.location.href="http://localhost/cover/"+({$page}+1);
-           }); 
-        $('#page-switcher-start').click(function()
-           {
-             window.location.href="http://localhost/cover/"+({$page}-1);
-           }); 
-
+        
         </script>
 
         </body>

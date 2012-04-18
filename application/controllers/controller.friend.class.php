@@ -25,6 +25,16 @@
 			return $out;
 		
 		}
+        public function _getfriendjson()
+        {
+            $this->model->Get("all",array("User={$_SESSION['USERID']}"));
+            $friends = $this->model->getresult();
+            foreach($friends as $friend)
+            {
+                $arr[]=$friend->user->NickName;
+            }
+            echo (json_encode($arr));
+        }
         public function IsFriends($FriendID)
         {
             $this->model->Get("all",array("User={$_SESSION['USERID']}","OtherUserId={$FriendID}"));

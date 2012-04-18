@@ -93,6 +93,13 @@
     <div id="favored">
     </div></div>
 </div>
+<?php if($this->values["page"]) {  ?>
+<button id="page-switcher-start" title="上一页" class="page-switcher custom-appearance" tabindex="2" style="width: 73px; left: 0px; top: 0px; padding-bottom: 0px; ">‹
+</button>
+<?php } ?>
+<button id="page-switcher-end" title="下一页" class="page-switcher custom-appearance" tabindex="2" style="width: 121.875px; right: 13px; top: 0px; padding-bottom: 0px; ">›
+</button>
+
 
     <script src="/jquery.min.js"></script>
 		<script src="/jquery.montage.js"></script>
@@ -117,7 +124,15 @@
               margin:8,
               link:"<a rel='gallery'></a>"
             }); 
-        
+       $('#page-switcher-end').click(function()
+           {
+             window.location.href="http://localhost/cover/"+(<?php echo $this->values["page"]; ?>+1);
+           }); 
+        $('#page-switcher-start').click(function()
+           {
+             window.location.href="http://localhost/cover/"+(<?php echo $this->values["page"]; ?>-1);
+           }); 
+
         </script>
 
         </body>

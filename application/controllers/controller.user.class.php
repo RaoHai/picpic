@@ -33,7 +33,7 @@
 												"nickname"=>$_SESSION['NICK'],
 												"groupselect"=>$groupselect,
 												);
-				$this->RenderTemplate("index");
+				$this->RenderTemplate("index2");
 				
 		}
         public function _name($name)

@@ -19,7 +19,11 @@
               $mem->connect("127.0.0.1", 11211);
               $like = $mem->get("f_".$_SESSION['USERID']);
               $like[$id]=time();
-              $mem->set("f_".$_SESSION['USERID'],$like,0,0);
+              $mem->set("f_".$_SESSION['USERID'],$like,0,0); 
+
+              $recommender = recommender::getInstance();
+              $recommender->set_rating($_SESSION['USERID'],$id,0.5);
+
               echo json_encode("true");
               $this->UserId = $_SESSION['USERID'];
               $this->ImageId=$id;
@@ -35,6 +39,10 @@
              $like = $mem->get("f_".$_SESSION['USERID']);
              $like[$id]=NULL;
              $mem->set("f_".$_SESSION['USERID'],$like,0,0);
+
+             $recommender = recommender::getInstance();
+             $recommender->set_rating($_SESSION['USERID'],$id,0);
+
              echo json_encode("true");
              $this->model->Del_By_ImageId($id);
              $img = new image();
@@ -52,5 +60,5 @@
             if (isset($like[$imgid])) return true;
             else return false;
         }
-	}
+       	}
 ?>

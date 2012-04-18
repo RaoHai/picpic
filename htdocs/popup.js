@@ -24,6 +24,8 @@ function showUpload()
 	$("#fade").css({"display":"block"});
 	$("#fileuploadmain").css({"overflow-y":"scroll"});
 }
+var t0 = new Date().getTime();
+
 function hideUpload()
 {
 	$("#signin_upload").css({"display":"none"});
@@ -67,6 +69,51 @@ var checkname = false;
 	
 
 	$(document).ready(function(){
+
+      //控制台
+       var now = new Date().getTime();
+       var latency = now - t0;
+      
+       $(document).keydown(function(e) {
+         if(e.keyCode=="113")
+        {
+        if(!this._w)
+        {
+        	this._w = $('<div></div>').css({
+              display:'none',
+              width:500,
+              height:250,
+              position: 'absolute',
+              background: 'black',
+              border: '2px solid #AAA',
+              'border-radius':'8px',
+              'box-shadow': 'rgb(68, 68, 68) 9px 9px 9px',
+              left: 5,
+              top: 5,
+            }).html('<textarea id="console_out" style="background-color:black;border-color: black;color:white;width:490px;height:200px;cursor:default;"readonly="readonly">'+
+              '控制台已加载:\n页面加载时间：'+latency+
+              'ms</textarea><input id="console_input" type="text" style="border-color:#09f;width:450px;background-color:black;color:white;">'+
+              '<button type="button" id="console_send" class="btn btn-primary" style="margin-top:-10px;">&lt;</button>').appendTo($(document.body));	
+               $('#console_send').click(function()
+                 {
+                    eval($('#console_input').val());
+                 });
+        }
+        if(this._w.css('display')=='block')
+            this._w.css({
+                'display':'none'});
+        else
+            this._w.css({
+                'display':'block'});
+
+        
+        }
+      });
+$('#weibo').atcomplete({
+    datasource : '/friend/getfriendjson',
+    });
+
+
 		$('#regbt').click(function()
 		{
 			/*
