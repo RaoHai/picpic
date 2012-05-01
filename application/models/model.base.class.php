@@ -112,6 +112,7 @@
             else if($QueryColums == "count")
             {
                 $q = "COUNT(*)";
+                $limit =null;
                 $this->QueryColums ="COUNT(*)";
             }
           	else
@@ -135,6 +136,7 @@
 				$Key=str_replace("=","`='",$Key);
 				$Key=str_replace("<","`<'",$Key);
 				$Key=str_replace(">","`>'",$Key);
+
 				if(empty($Con))
 					$Con .="`{$instance}`.`{$Key}'";
 				else
@@ -144,7 +146,8 @@
 				$sql .= " where {$Con}";
 			if(isset($order))
 				$sql.=" ORDER BY {$order}";
-			$sql.=" limit {$limit[0]},{$limit[1]}";
+            if(isset($limit))
+		    	$sql.=" limit {$limit[0]},{$limit[1]}";
 		//	echo $sql;
 
 			//echo $sql;

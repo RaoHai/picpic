@@ -10,18 +10,7 @@
 		
 		public function _index($id)
 		{
-		//	$this->model->Get('count',0,array(0,10000));
-            //var_dump($this->model->t());
-            //$this->model->save();
-            //$mem = new Memcache;
-            //$mem->connect("127.0.0.1",11211);
-            ///$mem->flush();
-            $recommender = recommender::getInstance();
-            //$recommender->set_rating();
-            //var_dump($recommender->get_user_similar($id));
-            var_dump($recommender->get_item_recommend($id));
-            //  var_dump($this->model->getresult());
-			//$this->model->Set(array("Description"=>"123456","feature"=>"aaaaa"),array("ImageId=90","GroupID=11"));
+            var_dump($id);
 		}
         public function _wholike($id)
         {

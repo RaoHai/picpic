@@ -21,7 +21,7 @@
           }
           $image->model->MultiQuery();
           $imgs = $image->model->getresult();
-           $favor = new favourite();
+          $favor = new favourite();
 
           foreach($imgs as $r2)
           {
