@@ -75,22 +75,208 @@
 	
 <div id="group_back">
 	<div id="group_offer">
-	<?php echo $this->values["information"]; ?>	
-	<?php if($this->values["permissions"]) {  ?>
-	<?php } else { ?>
-	<div id="group_add">
-	加入
+	<?php echo $this->values["picture"]; ?>
+	<div id="group_information">
+	<?php echo $this->values["groupname"]; ?>
 	</div>
+	<div id="group_information">
+	<?php echo $this->values["groupdescription"]; ?>
+	</div>
+	<?php if($this->values["permissions"]<0 || $this->values["permissions"]==null) {  ?>
+	<button class="btn" id="group_add">
+	加入
+	</button>
+	<div id="addpass" style="text-align:center;display:none;">    <h4 style="color:red;">成功加入</h4></div>
 	<?php } ?>
 	</div>
 	<div>
-	<?php if($this->values["permissions"]) {  ?>
-	<a href='/group/imagegroup'>创建画集
+	<?php if($this->values["permissions"]>=0 && $this->values["permissions"]!=null) {  ?>
+	<a href='/group/imagegroup'>群画集</a>
+	<button data-controls-modal="modal-from-dom-update" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">修改信息</button>
+	<button data-controls-modal="modal-from-dom-activity" data-backdrop="true" data-keyboard="true" class="btn"style="margin-top: 4px;margin-left:20px;">添加活动</button>
+	<button class="btn" id="group_out">
+	退出
+	</button>
+	<div id="outpass" style="text-align:center;display:none;">    <h4 style="color:red;">成功退出</h4></div>
 	<?php } ?>
 	</div>
 </div>
-	
+
+
+
+<div id="">
+	<div id="">
+	<?php echo $this->values["activity"]; ?>
+	</div>
+</div>
+
+
 </div>	
+
+<div id="modal-from-dom-update" class="modal hide fade" style="width:650px;margin-top:-300px;">
+			<div class="modal-header" style="background-color:#339BB9;">
+              <a href="#" class="close">&times;</a>
+              <h3 style="color:white;">修改信息</h3>
+            </div>
+			<div id="groupnotice1" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功</h4></div>
+			<div class="modal-body">
+				 <form id="imggroupnew" name="imggroupnew" action="/group/imagegroupadd" method="POST" enctype="multipart/form-data">
+				<p>名称：<input name="groupnewname" id="groupnewname" value="<?php echo $this->values["groupname"]; ?>"/></p></br>
+				<p>描述：<textarea name="groupnewdescription" id="groupnewdescription" value="<?php echo $this->values["groupdescription"]; ?>"><?php echo $this->values["groupdescription"]; ?></textarea></p></br>
+			  </form>
+            </div>
+			<div class="modal-footer">
+              <a href="#" class="btn primary" id="group_information_submit" >修改</a>
+              
+            </div>
+			
+</div>
+
+<div id="modal-from-dom-activity" class="modal hide fade" style="width:650px;margin-top:-300px;">
+			<div class="modal-header" style="background-color:#339BB9;">
+              <a href="#" class="close">&times;</a>
+              <h3 style="color:white;">添加活动</h3>
+            </div>
+			<div id="groupnotice2" style="text-align:center;display:none;">    <h4 style="color:red;">添加成功</h4></div>
+			<div class="modal-body">
+				 <form id="imggroupnew" name="imggroupnew" action="/group/activityadd" method="POST" enctype="multipart/form-data">
+				<p>名称：<input name="activityname" id="activityname" /></p></br>
+				<p>描述：<textarea name="activitydescription" id="activitydescription"></textarea></p></br>
+			  </form>
+            </div>
+			<div class="modal-footer">
+              <a href="#" class="btn primary" id="group_activity_submit" >添加</a>
+              
+            </div>
+			
+</div>
+
+<div id="modal-from-avatar" class="modal hide fade" style="width:650px;margin-top:-300px;">
+            <div class="modal-header" style="background-color:#339BB9;">
+              <a href="#" class="close">&times;</a>
+              <h3 style="color:white;">更改头像</h3>
+            </div>
+			<div id="groupnotice" style="text-align:center;display:none;">    <h4 style="color:red;">修改成功！</h4></div>
+            <div class="modal-body" style="float:left;">
+
+		<div style="padding:10px 0;color:#666;">
+		上传一张图片，或者  <a style="color:#cc3300;" href="javascript:void(0);" onclick="useCamera()">使用摄像头</a>
+		</div>
+		<form enctype="multipart/form-data" method="post" name="upform" target="upload_target" action="/upload/upload.php">
+		<input type="file" name="Filedata" id="Filedata"/>
+		<input style="margin-right:20px;" type="submit" name="" value="上传形象照" onclick="return checkFile();" /><span style="visibility:hidden;" id="loading_gif"><img src="/upload/loading.gif" align="absmiddle" />上传中，请稍侯......</span>
+		</form>
+		<iframe src="about:blank" name="upload_target" style="display:none;"></iframe>
+		<div id="avatar_editor"></div>
+		
+		
+		
+		
+		
+		<script type="text/javascript">
+		//允许上传的图片类型
+		var extensions = 'jpg,jpeg,gif,png';
+		//保存缩略图的地址.
+		var saveUrl = '/upload/save_avatar.php';
+		//保存摄象头白摄图片的地址.
+		var cameraPostUrl = '/upload/camera.php';
+		//头像编辑器flash的地址.
+		var editorFlaPath = '/upload/AvatarEditor.swf';
+
+		function useCamera()
+		{
+			var content = '<embed height="464" width="514" ';
+			content +='flashvars="type=camera';
+			content +='&postUrl='+cameraPostUrl+'?&radom=2';
+			content += '&saveUrl='+saveUrl+'?radom=2" ';
+			content +='pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" ';
+			content +='allowscriptaccess="always" quality="high" ';
+			content +='src="'+editorFlaPath+'"/>';
+			document.getElementById('avatar_editor').innerHTML = content;
+		}
+		function buildAvatarEditor(pic_id,pic_path,post_type)
+		{
+			var content = '<embed height="464" width="514"'; 
+			content+='flashvars="type='+post_type;
+			content+='&group=1';
+			content+='&photoUrl='+pic_path;
+			content+='&photoId='+pic_id;
+			content+='&postUrl='+cameraPostUrl+'?&radom=2';
+			content+='&saveUrl='+saveUrl+'?radom=2"';
+			content+=' pluginspage="http://www.macromedia.com/go/getflashplayer"';
+			content+=' type="application/x-shockwave-flash"';
+			content+=' allowscriptaccess="always" quality="high" src="'+editorFlaPath+'"/>';
+			document.getElementById('avatar_editor').innerHTML = content;
+		}
+		
+			/**
+			  * 提供给FLASH的接口 ： 没有摄像头时的回调方法
+			  */
+			 function noCamera(){
+				 alert("未找到摄像头");
+			 }
+					
+			/**
+			 * 提供给FLASH的接口：编辑头像保存成功后的回调方法
+			 */
+			function avatarSaved(){
+				alert('保存成功.');
+				$('#avatarshow').html();
+				$('#avatarshow').html("<img src='/upload/avatar_small/<?php echo $this->values["users"]; ?>_small.jpg' />");
+				$('#dialogclose').click();
+				window.location.reload();
+				//window.location.href = '/profile.do';
+			}
+			
+			 /**
+			  * 提供给FLASH的接口：编辑头像保存失败的回调方法, msg 是失败信息，可以不返回给用户, 仅作调试使用.
+			  */
+			 function avatarError(msg){
+				 alert("上传失败了呀，哈哈");
+			 }
+
+			 function checkFile()
+			 {
+				 var path = document.getElementById('Filedata').value;
+				 var ext = getExt(path);
+				 
+				 var re = new RegExp("(^|\\s|,)" + ext + "($|\\s|,)", "ig");
+				  if(extensions != '' && (re.exec(extensions) == null || ext == '')) {
+				 alert('对不起，只能上传jpg, gif, png类型的图片');
+				 return false;
+				 }
+
+				 showLoading();
+				 return true;
+			 }
+
+			 function getExt(path) {
+				return path.lastIndexOf('.') == -1 ? '' : path.substr(path.lastIndexOf('.') + 1, path.length).toLowerCase();
+			}
+              function	showLoading()
+			  {
+				  document.getElementById('loading_gif').style.visibility = 'visible';
+			  }
+			  function hideLoading()
+			  {
+				document.getElementById('loading_gif').style.visibility = 'hidden';
+			  }
+</script>
+
+	</div>
+
+				
+
+			
+
+            <div class="modal-footer">
+              <a href="#" class="btn primary close" id="dialogclose" style="display:none;">完成</a>
+
+
+</div>	  
+</div>
+
+
 
 <script src="/jquery.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
@@ -105,13 +291,44 @@
 <script src="/jquery.iframe-transport.js"></script>
 <script src="/jquery.fileupload.js"></script>
 <script src="/jquery.fileupload-ui.js"></script>
-<script src="/application.js"></script>
-  <script src="./jquery-ajaxtip.js" ></script>
+<script src="/application1.js"></script>
+  
   <script>
-    $('img').ajaxtip({
-html:$('#showup'),
-datasource:'/group/welcome'
-        });
+  $(document).ready(function(){
+  $("#group_add").click(function(){
+  $.ajax({
+	  type: 'POST',
+	  url: '/group/group_add',
+	  success: function(msg){ 
+	  $('#group_add').css({
+              display:"none",
+            });
+		$("#addpass").show("fast");
+		setTimeout(function(){window.location.reload();},1000);
+				}
+		});
+  });
+  });
+  </script>
+  <script>
+  
+    $(document).ready(function(){
+  $("#group_out").click(function(){
+  $.ajax({
+	  type: 'POST',
+	  url: '/group/group_out',
+	  data: "groupuserid="+<?php echo $this->values["groupuserid"]; ?>,
+	  success: function(msg){ 
+	  $('#group_out').css({
+              display:"none",
+            });
+		$("#outpass").show("fast");
+		setTimeout(function(){window.location.reload();},1000);
+				}
+		});
+  });
+  });
+  
   </script>
   
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->

@@ -714,9 +714,9 @@ border: 0px;
 {
 	width:295px;
 	height:120px;
-	margin:20px 0px 0px 20px;	
+	margin:20px 0px 20px 20px;	
 	float:left;
-	background-color:#51f2f8;
+	background-color:#ffffff;
 }
 #group_information
 {
@@ -725,21 +725,22 @@ border: 0px;
 	min-height:20px;
 	max-height:60px;
 	float:left;
-	background-color:#70f851;
-	margin:6px 0px 0px 10px;
+	background-color:#ffffff;
+	margin:0px 0px 10px 10px;
 }
 .group_picture
 {
-	height:80px;
-	width:70px;
+	height:120px;
+	width:110px;
 	float:left;
+	margin:2px 0px 0px 0px;
 }
 #group_offer
 {
 	float:left;
 	width:650px;
 	min-height:300px;
-	background-color:#fb3c64;
+	background-color:#ffffff;
 }
 #group_find
 {
@@ -751,7 +752,7 @@ border: 0px;
 	float:left;
 	background-color:#d4d4d4;
 	width:980px;
-	margin:0px 0px 20px 10px;
+	margin:0px 0px 20px 0px;
 }
 #group_text
 {
@@ -783,7 +784,6 @@ background-color:#09c;
 background-image: url(/img/zoom.png);
 background-repeat: no-repeat;
 background-position: center;
-
 }
 .unlike
 {
@@ -833,3 +833,81 @@ z-index: 5;
 background: -webkit-linear-gradient(top, transparent 0, rgba(0, 0, 0, .01) 60px, rgba(0, 0, 0, .06) 183px);
 }
   
+#group_picture
+{
+	width:120px;
+	max-height:140px;
+	float:left;
+	margin:0px 0px 20px 20px;
+}
+
+#comment_recive
+{
+	border-bottom-color: #EBEBEB;
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-top-color: white;
+border-top-style: solid;
+border-top-width: 1px;
+color: #666;
+display: block;
+float: none;
+font-family: tahoma, arial, sans-serif;
+font-size: 12px;
+height: 55px;
+line-height: 18px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 16px;
+padding-left: 80px;
+padding-right: 0px;
+padding-top: 16px;
+width: 548px;
+word-break: break-all;
+word-wrap: break-word;
+zoom: 1;
+}
+
+#user_picture
+{
+	color: #666;
+display: block;
+float: left;
+font-family: tahoma, arial, sans-serif;
+font-size: 12px;
+height: 55px;
+line-height: 18px;
+margin-bottom: 0px;
+margin-left: -80px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 0px;
+padding-left: 16px;
+padding-right: 0px;
+padding-top: 0px;
+width: 64px;
+zoom: 1;
+}
+
+#comment_text
+{
+color: #666;
+display: block;
+float: none;
+font-family: tahoma, arial, sans-serif;
+font-size: 12px;
+height: 18px;
+line-height: 18px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 8px;
+padding-left: 0px;
+padding-right: 16px;
+padding-top: 0px;
+width: 532px;
+zoom: 1;
+}

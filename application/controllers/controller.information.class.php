@@ -45,6 +45,5 @@ EOD;
             Header("Location: /information");
  
         }
-	
 	}
 ?>

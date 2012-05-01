@@ -72,32 +72,36 @@
 		</div>
 	</div>
 	</br>
-
 	
+	<form action="index.php" method="post">
+		<p>群名<input id="groupname" name="groupname"size="40" type="text" /> </p>
+		
+		<p>备注<textarea name="groupremarks" id="groupremarks" ></textarea></p>
+	</form>	
+		<p><button id="groupadd">确定</button></p>
+	 
+	
+	<div id="addpass" style="text-align:center;display:none;">    <h4 style="color:red;">成功加入</h4></div>
 </div>	
 
 <script src="/jquery.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="/vendor/jquery.ui.widget.js"></script>
-<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
-<script src="/tmpl.min.js"></script>
-<script src="/load-image.min.js"></script>
-<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
-<script src="/bootstrap-modal.min.js"></script>
-<script src="/bootstrap-image-gallery.min.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="/jquery.iframe-transport.js"></script>
-<script src="/jquery.fileupload.js"></script>
-<script src="/jquery.fileupload-ui.js"></script>
-<script src="/application.js"></script>
-  <script src="./jquery-ajaxtip.js" ></script>
-  <script>
-    $('img').ajaxtip({
-html:$('#showup'),
-datasource:'/group/welcome'
-        });
-  </script>
+<script src="/application1.js"></script>
+
+<script>
+  $(document).ready(function(){
+  $("#groupadd").click(function(){
+  $.ajax({
+	  type: 'POST',
+	  url: '/group/Add_groups',
+	  data: "groupname="+$("#groupname").val()+"&groupremarks="+$("#groupremarks").val(), 
+	  success: function(msg){
+		$("#addpass").show("fast");
+				}
+		});
+  });
+  });
   
+</script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
 </body> 

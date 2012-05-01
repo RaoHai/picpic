@@ -42,7 +42,6 @@
 						
 
 		</div>
-
 		<a href="/"><div class="img"></div></a>
 		<div class="nav">
 			<ul id="logonav">
@@ -75,37 +74,52 @@
 	<div id="group_back">
 		<div id="group_offer">
 		<?php echo $this->values["allteam"]; ?>
-		</div>
+		<div id="take_take"></div>
+		</div>		
 		<div id="group_find">
 			<div id='group_text'>
 			<a href="/group/Addgroup">申请小组</a>
 			</div>
-			<div id='group_text'>
-			<a href="/group/add">我的小组</a>
-			</div>
-		</div>		
+		</div>
 	</div>
+	<button id='group_all_show' class='btn' style='width:620px;float:left;position: relative;left: 16px;' value=<?php echo $this->values["teamID"]; ?>>更多小组</button>
+	
 	<div id="group_welcomepicture">
-		showup
 	</div>
-</div>	
+</div>
+
+
+
+ 
+
 
 <script src="/jquery.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="/vendor/jquery.ui.widget.js"></script>
-<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
-<script src="/tmpl.min.js"></script>
-<script src="/load-image.min.js"></script>
-<!-- Bootstrap Modal and Image Gallery are not required, but included for the demo -->
-<script src="/bootstrap-modal.min.js"></script>
-<script src="/bootstrap-image-gallery.min.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="/jquery.iframe-transport.js"></script>
-<script src="/jquery.fileupload.js"></script>
-<script src="/jquery.fileupload-ui.js"></script>
-<script src="/application.js"></script>
-
-  <script src="./jquery-ajaxtip.js" ></script>
+<script src="/application1.js"></script>
+<script src="/jquery.scrollTo.js"></script> 
+  <script>
+  $(document).ready(function(){
+  $("#group_all_show").click(function(){
+	  $.ajax({
+	  type: 'POST',
+	  url: '/group/comment-index',
+	  data:"group_all_show="+$("#group_all_show").val(),
+	  success: function(msg){ 
+			//$("<div></div>").html(msg).animate({height:"320px"},"slow").prependTo($("#group_offer"));
+			//$(msg).prependTo($("#group_offer")).animate({height:"160px"},"slow");
+			$("#group_offer").append(msg)
+			$("#group_all_show").val(parseInt($("#group_all_show").val())+4);
+			// $.scrollTo('#take_take',1000);
+				}
+	  });
+	  
+  });
+  
+  $("#123").click(function(){
+ 
+  })
+  });
+  </script>
+  
   <script>
     $('img').ajaxtip({
 html:$('#group_welcomepicture'),

@@ -36,11 +36,6 @@
      $.fn.ajaxtip.defaults={
        x : 0,
        y  : 0,
-       datasource : './data.php',
-       html:{
-dropdown: "<div id='dropdown' style='position: absolute;border:1px solid grey;font-size:13px; display:none;'></div>",
-        suggestions: "<li><a>想用@提到谁</a></li><ul id='suggestions'></ul>"
-       }
    };
 
 

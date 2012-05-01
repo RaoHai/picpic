@@ -90,6 +90,7 @@ class Route
             }
             $this->_param = $params;
         }
+
         //echo $this->_module."|".$this->_controller."|".$this->_action.":".$this-> _param;
 
     }

@@ -29,7 +29,7 @@
 <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
 <link rel="stylesheet" href="/jquery.fileupload-ui.css">
 </head>
-<body>
+<body > 
 <div id="index">
 <div id="header">
 		<div id="hd-link">
@@ -42,6 +42,7 @@
 						
 
 		</div>
+
 		<a href="/"><div class="img"></div></a>
 		<div class="nav">
 			<ul id="logonav">
@@ -59,7 +60,7 @@
 				</li>
 				<li id="nv-search">
 				<a>
-					<form action="/search" class="clearfix" id="search_box" method="get">
+					<form action="index.php" class="clearfix" id="search_box" method="get">
 					  <label> 
 						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
 						  <button class="topsearch-sub" type="submit">找一找</button>
@@ -71,83 +72,92 @@
 		</div>
 	</div>
 	</br>
-	<div id="group_back">
-		<div id="group_offer">
-		{$allteam}
-		<div id="take_take"></div>
-		</div>		
-		<div id="group_find">
-			<div id='group_text'>
-			<a href="/group/Addgroup">申请小组</a>
-			</div>
-		</div>
-	</div>
-	<button id='group_all_show' class='btn' style='width:620px;float:left;position: relative;left: 16px;' value={$teamID}>更多小组</button>
 	
-	<div id="group_welcomepicture">
+<div id="groupoffer" value="{$commentindex}">
+{$commentshow}
+</div>
+<div id="comment-numbers">
+{$commentnumber}
+</div>	
+<?php if($this->values["permissions"]>=0 && $this->values["permissions"]!=null) {  ?>
+<div>
+	<div style="width:640px;height:110px;">
+	<div id="recive">
+	<div>
+	<textarea id="activityrecive"></textarea></br>
+	<button id="groupactivity" class='btn primary start' style='float:right;margin-top:2px;' value={$groupactivity} >发布</button>
+	</div>
+	<div style='margin-left:40px;'>
 	</div>
 </div>
-
-
-
- 
+{$end}
 
 
 <script src="/jquery.min.js"></script>
 <script src="/application1.js"></script>
-<script src="/jquery.scrollTo.js"></script> 
-  <script>
-  $(document).ready(function(){
-  $("#group_all_show").click(function(){
-	  $.ajax({
-	  type: 'POST',
-	  url: '/group/comment-index',
-	  data:"group_all_show="+$("#group_all_show").val(),
-	  success: function(msg){ 
-			//$("<div></div>").html(msg).animate({height:"320px"},"slow").prependTo($("#group_offer"));
-			//$(msg).prependTo($("#group_offer")).animate({height:"160px"},"slow");
-			$("#group_offer").append(msg)
-			$("#group_all_show").val(parseInt($("#group_all_show").val())+4);
-			// $.scrollTo('#take_take',1000);
-				}
-	  });
-	  
-  });
-  
-  $("#123").click(function(){
- 
-  })
-  });
-  </script>
-  
   <script>
     $('img').ajaxtip({
-html:$('#group_welcomepicture'),
+html:$('#showup'),
 datasource:'/group/welcome'
         });
-	$('img').bind('mouseout',function()
-		{
-		$('#group_welcomepicture').css(
-            {
-              display:"none",
-            })
-		$('#group_welcomepicture').bind('mouseover',function()
-			{
-          $('#group_welcomepicture').css(
-            {
-              display:"block",
-            })
-        });
-	});
-	$('#group_welcomepicture').bind('mouseleave',function()
-			{
-          $('#group_welcomepicture').css(
-            {
-              display:"none",
-            })
-        });
   </script>
+  
+  <script>
+  
+  $(document).ready(function(){  
+  $("#groupactivity").click(function(){
+  var date=new Date();
+	  $.ajax({
+	  type: 'POST',
+	  url: '/group/activityshow',
+	  data:"activityrecive="+$("#activityrecive").val()+"&groupactivity="+$("#groupactivity").val(),
+	  success: function(msg){ 
+			$("#groupoffer").append(msg); 
+			$("#activityrecive").val("");
+				}
+	  });
+  });
+  });
+  </script>
+
+<script>
+var _move;
+var mouse;
+  
+  $("#groupoffer").mousedown(function(e){
+  mouse=e.pageX;
+  _move=true;
+  }).mousemove(function(e){
+  if(_move)
+  {
+  if(e.pageX-mouse>10)
+  index=parseInt($("#groupoffer").attr("value"))-10;
+  if(e.pageX-mouse<-10)
+  index=parseInt($("#groupoffer").attr("value"))+10;
+  if(e.pageX-mouse<-10 || e.pageX-mouse>10)
+  $.ajax({
+	type: 'POST',
+	  url: '/group/commentindex',
+	  data:"comment_index="+index,
+	  success: function(msg){ 
+	  if(msg!='false')
+	  {
+		$("#groupoffer").empty();
+			$("#groupoffer").append(msg); 
+			$("#groupoffer").attr("value",index);
+			}
+			_move=false;
+				}
+	});  
+	 
+  
+  }
+    
+	}).mouseup(function(e){_move=false});
+	
+</script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
+
 </body> 
 </html>

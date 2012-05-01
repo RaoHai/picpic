@@ -241,7 +241,7 @@ $('#weibo').keyup(function()
     }
     });
 
-// Initialize the Bootstrap Image Gallery plugin:
+// Initialize the Bootstrap Image Gallery l:
 $('#fileupload .files').imagegallery();
 
 });
@@ -353,5 +353,30 @@ success: function(msg){
     });
 });
 
+$("#group_information_submit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/group/informationupdate",                                    
+			data: "groupnewname="+$("#groupnewname").val()+"&groupnewdescription="+$("#groupnewdescription").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice1").show("fast");
+			}    
+			});  
+	});
 
-
+$("#group_activity_submit").click(function()
+	{
+			$.ajax({                                                
+			type: "POST",                                 
+			url: "/group/activityadd",                                    
+			data: "activityname="+$("#activityname").val()+"&activitydescription="+$("#activitydescription").val(),   
+			success: function(msg){                 
+				 $("#upselect").html(msg);    
+				 $("#upselect").change();
+				 $("#groupnotice2").show("fast");
+			}    
+			});  
+	});

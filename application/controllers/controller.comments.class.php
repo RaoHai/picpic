@@ -51,5 +51,20 @@
             $mem->set('_C'.$commentid,$saveToMemcache,0,0);
             $mem->set('_C'.$saveToMemcache->replyid,$parentComment,0,0);
         }
+		
+		public function add($userid,$commenttext,$teamid)
+		{
+			$this->model->New(array($userid,0,0,0,$commenttext,0,0,date("Y-m-d"),$teamid));
+		}
+		
+		public function show($activityid,$groupactivity)
+		{
+		//	$this->model->Get('all');
+		$this->model->Get('all',array("activityID=".$activityid),array($groupactivity,10));
+
+		//	$this->model->Get('all','activityID='.$activityid,);
+			$re=$this->model->getresult();
+			return $re;
+		}
 	}
 ?>
