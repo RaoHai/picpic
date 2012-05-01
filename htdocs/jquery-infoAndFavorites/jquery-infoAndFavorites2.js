@@ -15,7 +15,7 @@
       {
       var curimg = $(this);
       var title="";  
-      if(opts.title==true)  title = '<a href="/user/'+$(this).attr('data-uid')+'"><b style="color:white;">上传者：'+$(this).attr('data-author')+'</b></a>'; 
+      if(opts.title==true)  title = '<a href="/user/name/'+$(this).attr('data-author')+'"><b style="color:white;">上传者：'+$(this).attr('data-author')+'</b></a>'; 
           $(this).css({
               margin:opts.border/2,
               float:'left',
@@ -54,10 +54,14 @@
             margin:opts.border/2
            });
        $(this).wrap(frameinner).parent().wrap(frame);
-       var linkurl = $(opts.link).attr({
-           'href':$(this).attr('data-url'),
-           'title':$(this).attr('title')
-           });
+          var linkurl = $(opts.link).attr({
+              'href':$(this).attr('data-url'),
+              'title':$(this).attr('title'),
+              'id':$(this).attr('data-id'),
+              'desc':$(this).attr('data-desc'),
+              'tags':$(this).attr('data-tags'),
+              'author':$(this).attr('data-author')
+              });
        var infodiv = $(opts.html).html(title).css({
             opacity:0,
             float:'left',
@@ -81,26 +85,36 @@
             if(curimg.attr('data-like')==1)
                 opts.banner="<div class='unlike' title='取消收藏'></div>";
             else
-              opts.banner="<div class='like' title='添加收藏'></div>";
+                opts.banner="<div class='like' title='添加收藏'></div>";
           $(opts.banner).css({
             height:opts.border*3,
             'margin-left':10,
             'margin-top':-8,
             float:"left"
               }).click(function(){
+                  var thisdiv = $(this);
                   if($(this).attr('like')==1){
-                    $(this).attr('like',0);
-                    $(this).removeClass('unlike');
-                    $(this).addClass('like');
-                  }
+                     $.getJSON('/favourite/unlikeimg/'+curimg.attr('data-id'),"",function(result)
+                     {
+                         thisdiv.attr('like',0);
+                         thisdiv.removeClass('unlike');
+                         thisdiv.addClass('like');
+                     });
+                   }
                   else
                   {
-                    $(this).attr('like',1);
-                    $(this).removeClass('like');
-                    $(this).addClass('unlike');
+                   $.getJSON('/favourite/likeimg/'+curimg.attr('data-id'),"",function(result)
+                     {
+                         thisdiv.attr('like',1);
+                         thisdiv.removeClass('like');
+                         thisdiv.addClass('unlike');
+                     });
 
+                  
                   }
                 }).appendTo($(this).parent().parent()).attr('like',curimg.attr('data-like'));
+                $("<div style='width:60px;height:18px;'></div>").html("<h4 style='margin:0 0 0 10px;'>"+curimg.attr('data-like-num')+"</h4>").appendTo($(this).parent().parent());
+                $("<div style='float:right;'><a style='color:black;' href='/user/name/"+curimg.attr('data-author')+"'>"+curimg.attr('data-author')+"</a></div>").appendTo($(this).parent().parent());
           };
           if(opts.linkto)
           {
