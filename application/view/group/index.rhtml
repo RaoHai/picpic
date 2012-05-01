@@ -42,7 +42,6 @@
 						
 
 		</div>
-
 		<a href="/"><div class="img"></div></a>
 		<div class="nav">
 			<ul id="logonav">
@@ -75,21 +74,19 @@
 	<div id="group_back">
 		<div id="group_offer">
 		{$allteam}
-		</div>
-		<button id='group_all_show' value={$teamID}>更多小组</button>
+		<div id="take_take"></div>
+		</div>		
 		<div id="group_find">
 			<div id='group_text'>
 			<a href="/group/Addgroup">申请小组</a>
 			</div>
-			<div id='group_text'>
-			<a href="/group/add">我的小组</a>
-			</div>
-		</div>		
+		</div>
 	</div>
+	<button id='group_all_show' class='btn' style='width:620px;float:left;position: relative;left: 16px;' value={$teamID}>更多小组</button>
+	
 	<div id="group_welcomepicture">
 	</div>
-</div>	
-
+</div>
 
 
 
@@ -98,19 +95,28 @@
 
 <script src="/jquery.min.js"></script>
 <script src="/application1.js"></script>
+<script src="/jquery.scrollTo.js"></script> 
   <script>
   $(document).ready(function(){
   $("#group_all_show").click(function(){
 	  $.ajax({
 	  type: 'POST',
-	  url: '/group/group_allshow',
+	  url: '/group/comment-index',
 	  data:"group_all_show="+$("#group_all_show").val(),
 	  success: function(msg){ 
-			$("#group_offer").append(msg); 
+			//$("<div></div>").html(msg).animate({height:"320px"},"slow").prependTo($("#group_offer"));
+			//$(msg).prependTo($("#group_offer")).animate({height:"160px"},"slow");
+			$("#group_offer").append(msg)
 			$("#group_all_show").val(parseInt($("#group_all_show").val())+4);
+			// $.scrollTo('#take_take',1000);
 				}
 	  });
+	  
   });
+  
+  $("#123").click(function(){
+ 
+  })
   });
   </script>
   

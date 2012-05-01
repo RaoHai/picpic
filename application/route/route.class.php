@@ -78,6 +78,16 @@ class Route
         $this->_controller=(isset( $this->uriArr[0]) ? $this->uriArr[0] : 'index');
         $this->_action =(isset( $this->uriArr[1]) ? $this->uriArr[1] : 'index');
         $this-> _param= (isset( $this->uriArr[2]) ? $this->uriArr[2] : '');
+        $count = count($this->uriArr);
+        if(count($this->uriArr)>3)
+        {
+            for($i=2;$i<$count;$i++)
+            {
+                $params[]=$this->uriArr[$i];
+            }
+            $this->_param = $params;
+        }
+
         //echo $this->_module."|".$this->_controller."|".$this->_action.":".$this-> _param;
 
     }

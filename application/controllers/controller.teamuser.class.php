@@ -44,7 +44,7 @@
 				$userid=$r->userID;
 			}
 			
-			if($this->_permissions()==2 || $this->_permissions()==1 || $_SESSION["USERID"]==$userid)
+			if($this->_all("permissions")==2 || $this->_all("permissions")==1 || $_SESSION["USERID"]==$userid)
 			{
 				$this->model->Set_userinformation_By_TeamuserId($userid,$information);
 				return true;
@@ -54,7 +54,7 @@
 		}
 		public function _updateusertake($userid,$usertake)
 		{
-			if($this->_permissions()==2)
+			if($this->_all("permissions")==2)
 			{
 			$this->model->Set_usertake_By_TeamuserId($userid,$usertake);
 			return true;
@@ -64,22 +64,28 @@
 		}
 		
 		//权限管理，返回权限值
-		public function _permissions()
+		public function _all($take='all')
 		{
-			$this->model->Get(array("usertake"),array("userID=".$_SESSION["USERID"],"offerteamID=".$_SESSION["TEAMID"]));
+			$this->model->Get("all",array("userID=".$_SESSION["USERID"],"offerteamID=".$_SESSION["TEAMID"]));
 
 			$re=$this->model->getresult();
 			foreach($re as $r)
 			{
 				$permissions=$r->usertake;
+				$TeamuserId=$r->TeamuserId;
 			}
+			if($take=="all")
+			return $re;
+			if($take=="permissions")
 			return $permissions;
+			if($take=="teamuserid")
+			return $TeamuserId;
 		}
 		
 		//群员删除，删除前要进行权限控制
 		public function _del($userid)
 		{
-			if($this->_permissions()==0)
+			if($this->_all("permissions")==0)
 			{
 			$this->model->Del_By_TeamuserId($userid);
 			return true;
@@ -116,6 +122,11 @@
 			//$this->model->Get_By_userID($_SESSION["USERID"]);
 			$re=$this->model->getresult();
 			return $re;			
+		}
+		
+		public function _out($userid)
+		{
+			$this->model->Del_By_TeamuserId($userid);
 		}
 	}
 ?>

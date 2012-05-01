@@ -18,7 +18,7 @@
 		//$mader群创建者，一般为$_SESSION["USERID"]的值
 		//$teamtake群类型，0为公开群，1为非开群......（建议选择的时候默认为0）
 		//返回值为错误信息
-		public function _add($teamname,$teammakers,$mader,$teamtake)
+		public function add($teamname,$teammakers,$mader,$teamtake)
 		{
 		$Teamuser=new teamuser();
 		
@@ -38,7 +38,7 @@
 		public function _updateteamname($teamID,$newname,$userid)
 		{
 		$Teamuser=new teamuser();
-		//	if($Teamuser->_permissions()=='2')
+		//	if($Teamuser->_all("permissions")=='2')
 			{
 			if($newname!=null)
 				$this->model->Set_teamname_By_teaminformationId($teamID,$newname);
@@ -54,7 +54,7 @@
 		public function _updateteamremarks($teamID,$teamremarks,$userid)
 		{
 		$Teamuser=new teamuser();
-		//	if($Teamuser->_permissions()=='2')
+		//	if($Teamuser->_all("permissions")=='2')
 			{
 			if($teamremarks!=null)
 				$this->model->Set_teamremarks_By_teaminformationId($teamID,$teamremarks);
@@ -70,7 +70,7 @@
 		public function _updateteamtake($teamID,$teamtake,$userid)
 		{
 		$Teamuser=new teamuser();
-			if($Teamuser->_permissions()=='2')
+			if($Teamuser->_all("permissions")=='2')
 			{
 			if($teamtake!=null)
 				$this->model->Set_teamtake_By_teaminformationId($teamID,$teamtake);
@@ -86,7 +86,7 @@
 		public function _del($teamID,$userid)
 		{
 		$Teamuser=new teamuser();
-			if($Teamuser->_permissions()=='2')
+			if($Teamuser->_all("permissions")=='2')
 			{
 				$this->model->Del_By_teaminformationId($teamID);
 				return true;
@@ -111,7 +111,7 @@
 		{
 		$User=new user;
 		
-			$this->model->Get('all',0,array($teamID,4),'TeaminformationId');
+			$this->model->Get('all',0,array($teamID,4));
 			$re=$this->model->getresult();
 			return $re;
 			

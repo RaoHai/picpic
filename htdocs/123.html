@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<!--
+/*
+ * jQuery File Upload Plugin Demo 6.0.4
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+
+<div id='12'>
+<a id="123"><img src="/2.jpg"></a>
+</div>
+
+
+<script src="/jquery.min.js"></script>  
+<script>
+$(document).ready(function(){
+  $("#12").mousedown(function(e){
+  var mouse=e.pageX;
+  $(document).mousemove(function(e){
+  if(e.pageX-mouse>100)
+  {
+  $("#123").remove();
+  $("#12").append('<a id="123"><img src="/1.jpg"></a>');
+  }
+  
+  });
+ });
+ });
+</script>
+
+</body> 
+</html>

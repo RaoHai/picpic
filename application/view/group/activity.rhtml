@@ -29,7 +29,7 @@
 <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-ie6.min.css"><![endif]-->
 <link rel="stylesheet" href="/jquery.fileupload-ui.css">
 </head>
-<body>
+<body > 
 <div id="index">
 <div id="header">
 		<div id="hd-link">
@@ -73,10 +73,13 @@
 	</div>
 	</br>
 	
-<div id="groupoffer">
+<div id="groupoffer" value="{$commentindex}">
 {$commentshow}
+</div>
+<div id="comment-numbers">
+{$commentnumber}
 </div>	
-	
+<?php if($this->values["permissions"]>=0 && $this->values["permissions"]!=null) {  ?>
 <div>
 	<div style="width:640px;height:110px;">
 	<div id="recive">
@@ -87,7 +90,7 @@
 	<div style='margin-left:40px;'>
 	</div>
 </div>
-
+{$end}
 
 
 <script src="/jquery.min.js"></script>
@@ -110,12 +113,51 @@ datasource:'/group/welcome'
 	  data:"activityrecive="+$("#activityrecive").val()+"&groupactivity="+$("#groupactivity").val(),
 	  success: function(msg){ 
 			$("#groupoffer").append(msg); 
+			$("#activityrecive").val("");
 				}
 	  });
   });
   });
   </script>
+
+<script>
+var _move;
+var mouse;
+  
+  $("#groupoffer").mousedown(function(e){
+  mouse=e.pageX;
+  _move=true;
+  }).mousemove(function(e){
+  if(_move)
+  {
+  if(e.pageX-mouse>10)
+  index=parseInt($("#groupoffer").attr("value"))-10;
+  if(e.pageX-mouse<-10)
+  index=parseInt($("#groupoffer").attr("value"))+10;
+  if(e.pageX-mouse<-10 || e.pageX-mouse>10)
+  $.ajax({
+	type: 'POST',
+	  url: '/group/commentindex',
+	  data:"comment_index="+index,
+	  success: function(msg){ 
+	  if(msg!='false')
+	  {
+		$("#groupoffer").empty();
+			$("#groupoffer").append(msg); 
+			$("#groupoffer").attr("value",index);
+			}
+			_move=false;
+				}
+	});  
+	 
+  
+  }
+    
+	}).mouseup(function(e){_move=false});
+	
+</script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
+
 </body> 
 </html>

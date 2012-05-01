@@ -72,17 +72,36 @@
 		</div>
 	</div>
 	</br>
-	<form action="index.php" method="get">
-		<input id="groupname" name="groupname"size="40" type="text" /> 
-		<textarea name="groupremarks" id="groupremarks" ></textarea>
-		<button id="groupadd" class="topsearch-sub" type="submit">找一找</button>
-	</form> 
 	
+	<form action="index.php" method="post">
+		<p>群名<input id="groupname" name="groupname"size="40" type="text" /> </p>
+		
+		<p>备注<textarea name="groupremarks" id="groupremarks" ></textarea></p>
+	</form>	
+		<p><button id="groupadd">确定</button></p>
+	 
+	
+	<div id="addpass" style="text-align:center;display:none;">    <h4 style="color:red;">成功加入</h4></div>
 </div>	
 
 <script src="/jquery.min.js"></script>
 <script src="/application1.js"></script>
+
+<script>
+  $(document).ready(function(){
+  $("#groupadd").click(function(){
+  $.ajax({
+	  type: 'POST',
+	  url: '/group/Add_groups',
+	  data: "groupname="+$("#groupname").val()+"&groupremarks="+$("#groupremarks").val(), 
+	  success: function(msg){
+		$("#addpass").show("fast");
+				}
+		});
+  });
+  });
   
+</script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="cors/jquery.xdr-transport.js"></script><![endif]-->
 </body> 

@@ -62,7 +62,9 @@
 		public function show($activityid,$groupactivity)
 		{
 		//	$this->model->Get('all');
-			$this->model->Get('all',0,array($groupactivity,30),'activityID='.$activityid);
+		$this->model->Get('all',array("activityID=".$activityid),array($groupactivity,10));
+
+		//	$this->model->Get('all','activityID='.$activityid,);
 			$re=$this->model->getresult();
 			return $re;
 		}

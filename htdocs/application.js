@@ -235,7 +235,7 @@ $('#weibo').keyup(function()
     }
     });
 
-// Initialize the Bootstrap Image Gallery plugin:
+// Initialize the Bootstrap Image Gallery l:
 $('#fileupload .files').imagegallery();
 
 });
