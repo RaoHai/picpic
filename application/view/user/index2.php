@@ -63,7 +63,7 @@
 				</li>
 				<li id="nv-search">
 				<a>
-					<form action="index.php" class="clearfix" id="search_box" method="get">
+					<form action="/search" class="clearfix" id="search_box" method="get">
 					  <label> 
 						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
 						  <button class="topsearch-sub" type="submit">找一找</button>

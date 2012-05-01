@@ -50,7 +50,7 @@
 				fwrite($f,$s);
 				fclose($f);
 			}
-			static public function addRole($rolename,$parent)
+			static public function addRole($rolename,$parent=NULL)
 			{
 				self::$Rolelist[$rolename] = 1;
 				self::$parents[$rolename] =array();

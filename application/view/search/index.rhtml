@@ -33,16 +33,16 @@
 					<a href="/home"  >我的Pic</a>
 				</li>
 				<li id="nv-cv">
-					<a href="/cover" style="border-bottom: 4px solid #09f;color:#09f;">发现</a>
+					<a href="/cover" >发现</a>
 				</li>
 				<li id="nv-group">
 					<a href="/group">小组</a>
 				</li>	
 				<li id="nv-recom">
-					<a href="/recommend">推荐</a>
+					<a href="/recommend" >推荐</a>
 				</li>
 				<li id="nv-search">
-				<a>
+				<a style="border-bottom: 4px solid #09f;color:#09f;">
 					<form action="/search" class="clearfix" id="search_box" method="get">
 					  <label> 
 						<input id="search_field" name="search_field" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" size="40" type="text" value="图片/作者/画集" /> 
@@ -55,11 +55,23 @@
 		</div>
 	</div>
 	<div id="content">
-    <div style="width:100%"><h3>最多收藏：</h3>
-    <hr width=100%;size=2;></div>
-    <div class="tagsinput" style="width:235px;">热门标签：<hr> {$tags}</div>
-    {$images}
-	</div>
+      <div style="width:100%;">
+       查找：{$searchtext}的结果：
+      <hr>
+      </div>
+      <div style="margin:10px;">
+        <div>与{$searchtext}相关的用户：</div></br>
+  	    {$searchuser}
+      </div>
+      <div style="width:100%;margin:10px;">
+          <div>与{$searchtext}相关的标签：</div></br>
+         {$searchtag}
+      </div>
+        <div style="width:100%;margin:10px;">
+          <div>与{$searchtext}相关的画集：</div></br>
+         {$searchgroup}
+      </div>
+      </div>
 	<div id="footer">
 		<p>©Copyright by surgesoft, 2011,all rights reserved</p>
 		<p>收集工具|关于我们|帮助</p>
@@ -93,13 +105,6 @@
     <div id="favored">
     </div></div>
 </div>
-{$if:page}
-<button id="page-switcher-start" title="上一页" class="page-switcher custom-appearance" tabindex="2" style="width: 73px; left: 0px; top: 0px; padding-bottom: 0px; ">‹
-</button>
-{$end}
-<button id="page-switcher-end" title="下一页" class="page-switcher custom-appearance" tabindex="2" style="width: 121.875px; right: 13px; top: 0px; padding-bottom: 0px; ">›
-</button>
-
 
     <script src="/jquery.min.js"></script>
 		<script src="/jquery.montage.js"></script>
@@ -124,15 +129,7 @@
               margin:8,
               link:"<a rel='gallery'></a>"
             }); 
-       $('#page-switcher-end').click(function()
-           {
-             window.location.href="http://localhost/cover/"+({$page}+1);
-           }); 
-        $('#page-switcher-start').click(function()
-           {
-             window.location.href="http://localhost/cover/"+({$page}-1);
-           }); 
-
+        
         </script>
 
         </body>

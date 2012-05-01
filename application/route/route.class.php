@@ -81,6 +81,15 @@ class Route
         $this->_controller=(isset( $this->uriArr[0]) ? $this->uriArr[0] : 'index');
         $this->_action =(isset( $this->uriArr[1]) ? $this->uriArr[1] : 'index');
         $this-> _param= (isset( $this->uriArr[2]) ? $this->uriArr[2] : '');
+        $count = count($this->uriArr);
+        if(count($this->uriArr)>3)
+        {
+            for($i=2;$i<$count;$i++)
+            {
+                $params[]=$this->uriArr[$i];
+            }
+            $this->_param = $params;
+        }
         //echo $this->_module."|".$this->_controller."|".$this->_action.":".$this-> _param;
 
     }
@@ -117,6 +126,7 @@ class Route
             $acl->allow("user","favourite");
             $acl->allow("user","cover");
             $acl->allow("user","tags");
+            $acl->allow("user","search");
             $acl->allow("guest","user","loginpage");
             $acl->allow("guest","user","login");
             $acl->allow("guest","user","logout");
@@ -126,6 +136,7 @@ class Route
             $acl->allow("guest","user","new");
             $acl->allow("guest","imagegroup","view");   
             $acl->allow("user","recommend");
+            $acl->allow("user","search");
             $acl->SaveToCached();
         }
         //}
